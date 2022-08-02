@@ -1,63 +1,43 @@
-<?php
-header("Pragma: no-cache");
-header("Cache-Control: no-cache");
-header("Expires: 0");
-
+<?php 
 
 if(!isset($_SESSION['CURRENT_USER_ID'])){
 	redirect(SITE_PATH);
 }
-
-if(isset($_POST['book'])){
+if(isset($_POST['submit'])){
 
 	$oid="IMPERIOUS".rand(10000,99999999)."_".$_SESSION['CURRENT_USER_ID'];
 
-	$check_in=$_POST['check-in-date'];
-    $check_out=$_POST['check-out-date'];
-    $adults=$_POST['adults'];
-    $children=$_POST['children'];
-    $total=$_POST['total'];
-    $package=$_POST['package'];
-    $adultPrice=$_POST['adultPrice'];
-    $childrenPrice=$_POST['childrenPrice'];
-    $days=$_POST['days'];
+	   $checkin=$_POST['checkin'];
+	   $checkout=$_POST['checkout'];
+       $adults=$_POST['noofadult'];
+       $children=$_POST['noofchild'];
+       $package=$_POST['package'];
+       $subtotal=$_POST['subtotal'];
 
-    $pck=mysqli_query($con,"select * from package where id='$package' ");
-    $packageRow=mysqli_fetch_assoc($pck);
+    $packagesRow=$packagesModel->getpackageById($package);
 
-    $dis=floatval(($packageRow['discount']));
-    $disType=$packageRow['disType'];
-    $payAmt=$_POST['total'];
-    if($dis >0){
-    	if($disType=="cash"){
-    		$payAmt=intval($payAmt)-$dis;
-    	}
-    	if($disType=="per"){
-    		$damt=$payAmt*(($dis)/100);
-    		$payAmt=$payAmt-$damt;
-
-    	}
-
-    }
-
-  
-
+    $dis=floatval(($packagesRow['discount']));
+    $disType=$packagesRow['disType'];
+    $payAmt=$_POST['finalAmt'];
+    $days=$packagesRow['packageDuration'];
 
 }
 else{
 	redirect(SITE_PATH);
 }
 
+
+
 ?>
-<section id="bookingProcess" style="padding-top: 10% !important;" class="container-fluid">
+<section id="bookingProcess">
 	
-	<div class="outer d-flex justify-content-evenly  flex-wrap" style="width: 100%;">
+	<div class="outer row">
 		<div class="innerLeft ">
-			<h5>Booking Submission</h5>
-			<hr>
+			<h5 class="checkout_title">Booking Submission</h5>
+			
 <!-- Address Details starts -->
-  <div class="">
-        <form method="post" id="checkOutForm" name="checkOutForm" action="<?php echo SITE_PATH; ?>templates/pgRedirect">
+  
+        <form method="post" id="checkOutForm" name="checkOutForm" action="<?php echo SITE_PATH; ?>pgRedirect.php" class="fs-16">
 
 		<input id="ORDER_ID" tabindex="1" maxlength="20" size="20"
 						name="ORDER_ID" autocomplete="off"
@@ -70,108 +50,88 @@ else{
 						type="text" name="TXN_AMOUNT" hidden
 						value="<?php echo $payAmt; ?>">
 		<input type="text" name="package" value="<?php echo $package; ?>" hidden>
-		<input type="text" name="packagePrice" value="<?php echo $packageRow['packagePrice']; ?>" hidden>
-		<input type="text" name="check_in" value="<?php echo $check_in; ?>" hidden>
-		<input type="text" name="check_out" value="<?php echo $check_out; ?>" hidden>
+		<input type="text" name="packagePrice" value="<?php echo $packagesRow['packagePrice']; ?>" hidden>
+		<input type="text" name="check_in" value="<?php echo $checkin; ?>" hidden>
+		<input type="text" name="check_out" value="<?php echo $checkout; ?>" hidden>
 		<input type="text" name="adults" value="<?php echo $adults; ?>" hidden>
 		<input type="text" name="children" value="<?php echo $children; ?>" hidden>
-		<input type="text" name="total" value="<?php echo $total; ?>" hidden>
+		<input type="text" name="total" value="<?php echo $subtotal; ?>" hidden>
 		<input type="text" name="dis" value="<?php echo $dis; ?>" hidden>
 		<input type="text" name="disType" value="<?php echo $disType; ?>" hidden>
 		<input type="text" id="couponSetValue" name="payAmt" value="<?php echo $payAmt; ?>" hidden>
 
-						<div class="row">
-							 <div class="col-sm-6 mb-3">
+							 <div class="mb-3">
 							    	<label for="name" class="form-label">Your Name<span class="redStar">*</span></label>
-							       <input type="text" class="form-control" rows="3" id="name" required name="name" value="<?php echo $currentUserDetails['name']; ?>">
+							       <input type="text" class="form-control" rows="3" id="name" required="required" name="name" value="<?php echo $currentUserDetails['name']; ?>">
 							 </div>
 
-							 <div class="col-sm-6 mb-3">
+							 <div class="mb-3">
 							    	<label for="email" class="form-label">Email<span class="redStar">*</span></label>
-							       <input type="email" class="form-control" rows="3" id="email" required name="email" value="<?php echo $currentUserDetails['email']; ?>">
+							       <input type="email" class="form-control" rows="3" id="email" required="required" name="email" value="<?php echo $currentUserDetails['email']; ?>">
 							 </div>
 
-						</div>
-						<div class="row">
-
-							 <div class="col-sm-6 mb-3">
+							 <div class="mb-3">
 							    	<label for="mobile" class="form-label">Phone<span class="redStar">*</span></label>
-							    	<span id="bookPhoneVerifyMsg" class="text-danger">(Not Verified)</span>
-							       <input type="text" class="form-control" rows="3" id="mobile" name="mobile" required name="mobile" value="<?php echo $currentUserDetails['mobile']; ?>">
-							       <div id="recaptcha-container"></div><br>
-                  					<button id="sendOTPWhileBooking" class="btn btn-primary btn-sm" >Send OTP</button>
+							       <input type="text" class="form-control" rows="3" id="mobile" name="mobile" required="required" name="mobile" value="<?php echo $currentUserDetails['mobile']; ?>">
+							      	
 							</div>
-                  					 <div class="col-sm-6 mb-3 mt-4" id="changePhUserOtp" style="display: none;">
-                                  		<input type="text" class="form-control" name="userOTP" id="userOTP" placeholder="Enter OTP"><br>
-                                  		<button id="verifyOTPWhileBookBtn" class="btn btn-primary btn-sm ">Verify</button>
-                                	</div>
-
-							 </div>
 							 
-						</div>
+	
 
-						<div class="row">
-							 
-								
-								<div class="col-sm-12 mb-3">
+								<div class="mb-3">
 										<label for="adrs" class="form-label">Address<span class="redStar">*</span></label>
-										<textarea class="form-control" rows="3"  id="adrs" name="adrs" required><?php echo trim($currentUserDetails['address']); ?></textarea>
+										<textarea class="form-control" rows="3"  id="adrs" name="adrs" required="required"><?php echo trim($currentUserDetails['address']); ?></textarea>
 									      	
 								</div>
-								
-							</div>
-							<div class="row">
-								<div class="col-sm-4 mb-3">
+						
+							<div class="d-flex space-between">
+								<div class="col-sm-4 mb-5">
 							    	<input type="text" class="form-control form-control-sm" rows="3" id="coupon" name="coupon" placeholder="Coupon Code">
 								</div>
-								<div class="col-sm-4 mb-3">
+								<div class="col-sm-4 mb-5">
 							    	<button class="btn btn-sm btn-primary" type="button" onclick="applyCoupon()">Apply Coupon</button>
 								</div>
 							</div>
-							<span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-bs-placement="top" title="Please Verify mobile and then continue to payment">
-           					 <button name="payNow" type="submit" id="paymentButton" class="btn  btn-success  mb-5" disabled >Proceed to Payment</button>
-        					</span>
+							
+           					 <button name="payNow" type="submit" id="paymentButton" class="btn  btn-sm btn-primary" >Proceed to Payment</button>
+        				
 
 
 			</form>
       </div>
 <!-- Address Details ends -->
 		<div class="innerRight">
-			<h5>Your Booking</h5>
-			<hr>
+			<h5 class="checkout_title">Your Booking</h5>
+			
 			<div class="card bookingInfo" >
 				<div class="text-center">
 					<div >
-						<h6><?php  echo $packageRow['packageName'];?></h6>
+						<h6><?php  echo $packagesRow['packageName'];?></h6>
 				    </div>
 
-					<div > <img src="<?php  echo SITE_PACKAGE_IMAGE.$packageRow['packagePhoto']; ?>"> </div>
+					<div > <img src="<?php  echo SITE_PACKAGE_IMAGE.$packagesRow['img1']; ?>" width="200" height="200" class="resp_img"> </div> 
 				</div>
 				<hr>
 				<div class="tbl">
-					<table class=" table-sm fs-6">
-						<tr><td>Departure Date</td><td><?php echo date("d/m/Y", strtotime($check_in)); ?></td></tr>
-						<tr><td>Duration</td><td><?php echo $days; ?> Days</td></tr>
-						<tr><td>Adults</td><td><?php echo $adults; ?></td></tr>
-						<tr><td>Children</td><td><?php echo $children; ?></td></tr>
+					<table class=" table-sm fs-16">
+						<tr><td>Departure Date </td><td><?php echo date("d/m/Y", strtotime($checkin)); ?></td></tr>
+						<tr><td>Check Out Date </td><td><?php echo date("d/m/Y", strtotime($checkout)); ?></td></tr>
+						<tr><td>Duration </td><td><?php echo $days; ?> Days</td></tr>
+						<tr><td>Adults </td><td><?php echo $adults; ?></td></tr>
+						<tr><td>Children </td><td><?php echo $children; ?></td></tr>
 					</table>
 					
 
 				</div>
 				<hr>
 				<div class="tbl">
-					<table class=" table-sm fs-6">
-						<tr><td>Adult Price</td><td><?php echo $adultPrice; ?></td></tr>
-						<tr><td>Children Price</td><td><?php echo $childrenPrice; ?></td></tr>
-						<tr><td>Subtotal</td><td><?php echo $total; ?></td></tr>
-						<tr><td>Discount</td><td><?php echo $packageRow['discount']; if($disType=='cash'){
-							echo "&#8377;";}if($disType=='per'){echo "%";} ?></td></tr>
+					<table class=" table-sm fs-16">
+			
+						<tr class="text-success"><td>Total </td><td><?php echo $payAmt; ?></td></tr>
 
-						<tr class="text-success"><td>Total</td><td><?php echo $payAmt; ?></td></tr>
+						<tr class="text-success couponMsg"><td>Coupon </td><td><span class="couponCode">-</span></td></tr>
 
-						<tr class="text-success couponMsg"><td>Coupon</td><td><span class="couponCode"></span></td></tr>
-
-						<tr class="text-success couponMsg"><td>Pay Amount</td><td><span class="finalPrice"></span></td></tr>
+						<tr class="text-success couponMsg"><td>Pay Amount </td><td><span class="finalPrice"><?php echo $payAmt; ?></span></td></tr>
 					</table>
 					
 
@@ -186,11 +146,14 @@ else{
 
 	</div>
 
-
 </section>
 
+<script src="<?php echo SITE_PATH; ?>view/static/asset/js/jquery.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script type="text/javascript">
+
+$(".header").css("background-color", "#223544");
 
 	function applyCoupon(){
 		coupon=$("#coupon").val();
@@ -199,7 +162,7 @@ else{
 		}
 		else{
 			jQuery.ajax({
-				url:'<?php echo SITE_PATH; ?>templates/applyCoupon',
+				url:'applyCoupon.php',
 				type:'post',
 				data:'coupon='+coupon+'&bookPrice='+<?php echo $payAmt; ?>,
 				success:function(result){

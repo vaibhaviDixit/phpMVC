@@ -1,86 +1,183 @@
-<?php
-include ('layout/include/database.inc.php');
-include ('layout/include/constants.inc.php');
-?>
-
 <!DOCTYPE html>
-<html lang="en" >
-<head>
-  <!-- google sign in -->
-  <meta name="google-signin-client_id" content="19666336114-r81ci252rgmv8ee73ikpjb6i4j8o7uf9.apps.googleusercontent.com">
-  
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
-
-  <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo SITE_NAME; ?></title>
-    <link rel="stylesheet" href="<?php echo SITE_PATH; ?>asset/css_user/login-signup-css.css"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="apple-touch-icon" sizes="76x76" href="<?php echo SITE_PATH; ?>asset/logo/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo SITE_PATH; ?>asset/logo/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo SITE_PATH; ?>asset/logo/favicon-16x16.png">
-    <link rel="manifest" href="<?php echo SITE_PATH; ?>asset/logo/site.webmanifest">
-    <link rel="mask-icon" href="<?php echo SITE_PATH; ?>asset/logo/safari-pinned-tab.svg" color="#5bbad5">
-<meta name="msapplication-TileColor" content="#da532c">
-<meta name="theme-color" content="#ffffff">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link href='https://fonts.googleapis.com/css?family=Galada' rel='stylesheet'>
-<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+<html lang="en">
 
 <head>
-<body>
-  <button onclick="go_home()" id="home-btn"  class="home-btn"><i class="material-icons">keyboard_arrow_left</i></button>
-    <script>
-      function go_home(){
-        window.location.href = "<?php echo SITE_PATH; ?>";
+  <!-- meta tags starts -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+	<meta name="author" content="AdminKit">
+	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<title>Imporous Tour  And  Travels</title>
+	<link href="view/static/asset/css/app.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<!-- meta tags Ends -->
+	 <!-- Favicons -->
+  <link rel="shortcut icon" href="view/static/asset/logo/apple-touch-icon.png" type="image/svg+xml">
+   <!-- favicon ends -->
+
+
+   <style type="text/css">
+     
+      /* Sign up form*/
+      .forminput{
+        position: relative;
       }
-     
-    </script>
-  <div class="video-container">
-    <video src="<?php echo SITE_PATH; ?>asset/img_user/vid-1.mp4" id="video-slider" loop autoplay muted></video>
-</div>
-<div class="container">
-  <form method="post" id="signUpForm">
-    <div class="box">
-      <!-- sign up using gmail or facebook -->
-       <div>
-         <div class="g-signin2" data-onsuccess="gmailLogIn"></div>
-       </div>
-       <div class="line-between"><span>OR</span></div>
-     
-        <h1>Sign Up</h1>
 
-       <span id="msg"></span>
-        <div id="mainSignUpForm" style="display: flex;flex-direction: column; align-items: center;">
-        <input type="text" name="signUpName" id="signUpName" placeholder="Name" required>
-        <input type="text" name="signUpMob" id="signUpMob" placeholder="Mobile" required>
-        <input type="email" name="signUpEmail" id="signUpEmail"  placeholder="Email" required>
-        <input type="text" name="signUpAdd" id="signUpAdd"  placeholder="Address" required>
-        <button type="submit"  id="signbtn" class="sign-up-btn" onclick="return signUpvalidation()" >Sign Up</button>
-       </div>
-       <div id="OTP" style="display: none;">
-        <div id="recaptcha-container"></div>
-        <input type="text" name="signUpOTP" id="signUpOTP" placeholder="OTP" >
-        <button type="submit"   id="verifybtn" class="sign-up-btn" >Verify</button>
+      .forminput .formlabel{
+        position: absolute;
+        top: -20px;
+        left: 10px;
+        z-index: 1000;
+        background-color: #fff;
+        padding: 0 6px;
+      }
+
+   </style>
+ 
+</head>
+
+
+<body>
+	<section class="vh-100" style="background-color: #eee;">
+        <div class="container h-100">
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-lg-12 col-xl-11">
+              <div class="card text-black" style="border-radius: 25px;">
+                <div class="card-body p-md-5">
+                  <div class="row justify-content-center">
+                    <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+      <!-- registrations section starts -->
+                      <p class="text-center h1 fw-bold mb-4 mx-1 mx-md-4">Sign up</p>
+                      
+                      <p class="text-danger error text-center"></p>
+      
+                      <form class="mx-1 mx-md-4" id="signupform">
+      
+                        <div class="d-flex flex-row align-items-center mb-4">
+                          <i class="fas fa-user fa-lg me-3 fa-fw"></i>
+                          <div class="form-outline flex-fill mb-0 forminput">
+                            <input type="text" id="name" name="name" class="form-control" />
+                            <label class="form-label formlabel" for="form3Example1c">Your Name</label>
+                          </div>
+                        </div>
+      
+                        <div class="d-flex flex-row align-items-center mb-4">
+                          <i class="fas fa-envelope fa-lg me-3 fa-fw"></i>
+                          <div class="form-outline flex-fill mb-0 forminput">
+                            <input type="text" id="email" name="email" class="form-control" />
+                            <label class="form-label formlabel" for="form3Example3c">Your Email</label>
+                          </div>
+                        </div>
+      
+                        <div class="d-flex flex-row align-items-center mb-4">
+                          <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
+                          <div class="form-outline flex-fill mb-0 forminput">
+                            <input type="password" id="password" name="password" class="form-control" />
+                            <label class="form-label formlabel" for="form3Example4c">Password</label>
+                          </div>
+                        </div>
+      
+                        <div class="d-flex flex-row align-items-center mb-4">
+                          <i class="fas fa-key fa-lg me-3 fa-fw"></i>
+                          <div class="form-outline flex-fill mb-0 forminput">
+                            <input type="password" id="confirmpass" name="confirmpass" class="form-control" />
+                            <label class="form-label formlabel"  for="form3Example4cd">Repeat your password</label>
+                          </div>
+                        </div>
+      
+                        <div class="form-check d-flex justify-content-center mb-3">
+                          <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
+                          <label class="form-check-label" for="form2Example3">
+                            I agree all statements in <a href="#">Terms of service</a>
+                          </label>
+                        </div>
+      
+                        <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
+                          <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                        </div>
+      
+                      </form>
+      
+                    </div>
+                    <div class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center order-1 order-lg-2">
+      
+                      <img src="view/static/asset/images/user-registration.png"
+                        class="img-fluid" alt="Sample image">
+        <!-- registrations section ends -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </section>
 
-        <a href="<?php echo SITE_PATH; ?>templates/login">Already have an account? Login</a>
-        <br>
-         <small class="text-center">This site is protected by reCAPTCHA and the Google <br>
-          <a href="https://policies.google.com/privacy">Privacy Policy</a> and
-          <a href="https://policies.google.com/terms">Terms of Service</a> apply.
-        </small>
+	<script src="view/static/asset/js/app.js"></script>
 
-    </div>
-  </form>
-</div>
+  <script type="text/javascript">
+    
+    const login_process_url="register_loginService.php";
+    const site_path="http://localhost/crud/";
+
+    $("#signupform").on("submit",function(e){
+      e.preventDefault();
+
+      const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+      let name=$("#signupform #name").val().trim();
+      let email=$("#signupform #email").val().trim();
+      let password=$("#signupform #password").val().trim();
+      let confirmpass=$("#signupform #confirmpass").val().trim();
+    
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
-<script src="<?php echo SITE_PATH; ?>asset/firebase.js"></script>
+      if(name.length<=2 || name.length>=16){
+          $(".error").text("Name should 3 to 15 characters long!");
+          $("#signupform #name").focus();
+          $("#signupform #name").addClass("border-danger");
+      }
+      else if(!email.match(mailformat)){
+        $(".error").text("Invalid Email!");
+        $("#signupform #email").focus();
+      }
+      else if(password!=confirmpass){
+        $(".error").text("Password Not Matching!");
+        $("#signupform #confirmpass").focus();
+      }
+      else{
+        $.ajax({  
+                   type:"POST",  
+                   url:login_process_url,  
+                   data:$("#signupform").serialize()+"&type=register",
+                   success:function(result){
+        
+                    msg=jQuery.parseJSON(result);
 
+                     if(msg.status=="fail"){
+                         $(".error").text(msg.msg);
+                     }
+                     if(msg.status=="success"){
+                       window.location.href=site_path;
+                     }
+                   }
+                   
+                  });
+      }
+
+
+    });
+
+
+
+
+  </script>
 
 </body>
+
 </html>

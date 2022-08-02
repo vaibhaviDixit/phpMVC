@@ -16,6 +16,13 @@ class homeModel{
 		return $result;
 	}
 
+	function getAllCoupons(){
+		$sql="select * from coupon where status='1'";
+		$result=$this->db_handle->runBasicQuery($sql);
+		return $result;
+	}
+
+
 }
 
 ?>

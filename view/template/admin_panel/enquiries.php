@@ -1,11 +1,4 @@
-<?php
-
-include ('top.php');
-$res=mysqli_query($con,"select * from query order by id desc");
-   
-?>
-      
-      <main class="content">
+ <main class="content">
 				<div class="container-fluid p-0">
 
 					<div class="mb-3">
@@ -30,9 +23,9 @@ $res=mysqli_query($con,"select * from query order by id desc");
 
 						<?php  
 
-							if(mysqli_num_rows($res) > 0){
+							if(count($enquiryArray) > 0){
 								$i=1;
-								while( $row=mysqli_fetch_assoc($res) ){
+								foreach($enquiryArray as $row){
 
 						?>
 
@@ -44,10 +37,10 @@ $res=mysqli_query($con,"select * from query order by id desc");
 						<td scope="col"> <?php  echo date("d/m/Y h:i:s A",strtotime($row['date'])); ?></td>
 						<td scope="col">
 
-							<a href="<?php echo SITE_PATH.'templates/admin_panel/'; ?>AddEnquiry/<?php echo $row['id']; ?>"> <button class="btn btn-success btn-sm">Edit</button> </a>
+							<a href="?type=admin&page=AddEnquiry&id=<?php echo $row['id']; ?>"> <button class="btn btn-success btn-sm">Edit</button> </a>
 
 
-							<a href="?id=<?php echo $row['id']; ?>&type=delete "> <button class="btn btn-danger btn-sm">Delete</button> </a>
+							<a href="?type=admin&page=enquiries&id=<?php echo $row['id']; ?>&oper=deletenquiry"> <button class="btn btn-danger btn-sm">Delete</button> </a>
 
 
 						</td>
@@ -88,7 +81,7 @@ $res=mysqli_query($con,"select * from query order by id desc");
 
       <?php
 
-        include 'footer.php';
+        
       ?>
 
    

@@ -6,24 +6,25 @@
       <div class="container-fluid mt-2 d-flex flex-wrap justify-content-center">
 
             <?php 
-               $uid=$_SESSION['CURRENT_USER_ID'];
-               $his=mysqli_query($con,"select bookonline.*,package.packageName,package.packagePrice,package.packagePhoto from bookonline,package where bookonline.packageId=package.id and bookonline.uid='$uid' and bookonline.paymentStatus='success' and bookonline.status=1 ORDER BY bookonline.id DESC ");
-               if(mysqli_num_rows($his)>0){
-                  while($row=mysqli_fetch_assoc($his)){         
+               
+               if(count($historyArray)>0){
+                  foreach($historyArray as $row){         
 
             ?>
             <!-- card starts -->
-            <div class="card mb-3 mx-2" style="max-width: 100%">
+            <div class="card mb-3 mx-2" style="max-width: 15rem;">
                <div class="g-0">
                   <div class="" style="max-width: 500px; max-height:400px">
-                     <img src="<?php echo SITE_PACKAGE_IMAGE.$row['packagePhoto']; ?>" class="img-fluid rounded-start">
+                     <img src="<?php echo SITE_PACKAGE_IMAGE.$row['img1']; ?>" class="img-fluid rounded-start">
                   </div>
-                  <div class="">
+                  <div class="historycard">
                      <div class="card-body">
-                        <h6 ><?php echo $row['packageName']; ?></h6>
-                        <h6 >&#8377; <?php echo $row['total']; ?></h6>
-                        <h6 >Booked On: <?php echo date('d/m/Y',strtotime($row['bookedOn'])); ?></h6>
-                 <a href="<?php echo SITE_PATH.'templates/'; ?>downloadPdf/<?php echo $row['bookId'];  ?>">
+                        <p><?php echo $row['packageName']; ?></p>
+                        <p>&#8377; <?php echo $row['total']; ?></p>
+                        <p >Booked On: <?php echo date('d/m/Y',strtotime($row['bookedOn'])); ?></p>
+                 <a href="?page=downloadPdf&id=<?php echo $row['id']; ?>">
+
+
                         <button class="btn btn-success">
                           <span class="svg-icon svg-icon-white svg-icon-2x"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="24px" height="24px" viewBox="0 0 24 24" version="1.1">
     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">

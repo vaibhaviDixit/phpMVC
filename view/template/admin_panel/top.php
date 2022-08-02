@@ -1,18 +1,10 @@
 <?php
-   session_start();
-   
-      include ($_SERVER['DOCUMENT_ROOT'].'/Travello/templates/include/database.inc.php');
-      include ($_SERVER['DOCUMENT_ROOT'].'/Travello/templates/include/functions.inc.php');
-      include ($_SERVER['DOCUMENT_ROOT'].'/Travello/templates/include/constants.inc.php');
-     
-      $row=getAdminDetails();
-
    
       if(!isset($_SESSION['ADMIN'])){
-         redirect(SITE_PATH.'templates/adminlogin');
+         redirect(SITE_PATH.'?page=adminlogin');
       }
       
-      ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -20,49 +12,34 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
-      <link rel="apple-touch-icon" sizes="76x76" href="<?php echo SITE_PATH; ?>asset/logo/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo SITE_PATH; ?>asset/logo/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo SITE_PATH; ?>asset/logo/favicon-16x16.png">
-    <link rel="manifest" href="<?php echo SITE_PATH; ?>asset/logo/site.webmanifest">
-    <link rel="mask-icon" href="<?php echo SITE_PATH; ?>asset/logo/safari-pinned-tab.svg" color="#5bbad5">
-<meta name="msapplication-TileColor" content="#da532c">
-<meta name="theme-color" content="#ffffff">
+
+
+      <link rel="apple-touch-icon" sizes="76x76" href="<?php echo SITE_PATH; ?>view/static/asset/logo/
+      apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo SITE_PATH; ?>view/static/asset/logo/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo SITE_PATH; ?>view/static/asset/logo/favicon-16x16.png">
+    <link rel="manifest" href="<?php echo SITE_PATH; ?>view/static/asset/logo/site.webmanifest">
+    <link rel="mask-icon" href="<?php echo SITE_PATH; ?>view/static/asset/logo/safari-pinned-tab.svg" color="#5bbad5">
+   <meta name="msapplication-TileColor" content="#da532c">
+   <meta name="theme-color" content="#ffffff">
       <meta name="author" content="AdminKit">
       <meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
       <!-- cdn for data table -->
-      <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.11.1/css/jquery.dataTables.min.css">
-     
-      <!-- font awesome cdn link  -->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-      <!-- custom css -->
-      <link href="<?php echo SITE_PATH; ?>asset/css_admin/custom.css" rel="stylesheet">
-       
-      <link rel="preconnect" href="https://fonts.gstatic.com">
-      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-   <link href="<?php echo SITE_PATH; ?>asset/bootstrap.min.css" rel="stylesheet">
 
+
+<!-- custom css -->
+   <link href="<?php echo SITE_PATH; ?>view/static/asset/css_admin/custom.css" rel="stylesheet">
+   <!-- bootstrap css -->
+   <link href="<?php echo SITE_PATH; ?>view/static/asset/bootstrap.min.css" rel="stylesheet">
+    <!-- panel css -->
+     <link rel="stylesheet" href="<?php echo SITE_PATH; ?>view/static/asset/css/light.css">
+      <link rel="stylesheet" href="<?php echo SITE_PATH; ?>view/static/asset/css/all.css">
+
+       <link rel="preconnect" href="https://fonts.gstatic.com">
       <link href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet">
-      <link rel="preconnect" href="https://fonts.gstatic.com">
-      <link rel="shortcut icon" href="<?php echo SITE_PATH; ?>asset/img_user/icon-48x48.png" />
-      <link rel="canonical" href="https://demo-basic.adminkit.io/" />
-      <!-- admin profile -->
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-      <link rel="preconnect" href="https://fonts.gstatic.com">
-      <link rel="shortcut icon" href="<?php echo SITE_PATH; ?>asset/img_user/icon-48x48.png" />
-      <link rel="canonical" href="https://demo-basic.adminkit.io/" />
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-      <link href="<?php echo SITE_PATH; ?>asset/css_admin/app.css" rel="stylesheet">
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-      <link rel="canonical" href="https://demo-basic.adminkit.io/" />
       <title>Admin Panel</title>
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
-  <!-- Push notification js -->
-   <script src="<?php echo SITE_PATH; ?>asset/push.min.js"></script>
-   <script src="<?php echo SITE_PATH; ?>asset/serviceWorker.min.js"></script>
 
    <style type="text/css">
       .linkActive{
@@ -73,112 +50,133 @@
    </style>
    
    </head>
-   <body>
+   <body data-theme="light" data-layout="fluid" data-sidebar-position="right" data-sidebar-layout="default">
       <div class="wrapper">
-      <nav id="sidebar" class="sidebar js-sidebar">
-         <div class="sidebar-content js-simplebar">
-            <a class="sidebar-brand" href="<?php echo SITE_PATH; ?>"><span class="align-middle">Imperious</span></a>
-            <ul class="sidebar-nav">
-               <li class="sidebar-item ">
-                  <a class="sidebar-link" href="<?php echo SITE_PATH.'templates/admin_panel/index'; ?>">
-                  <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
-                  </a>
-               </li>
-               <li class="sidebar-item">
-                  <a class="sidebar-link" href="<?php echo SITE_PATH.'templates/admin_panel/' ?>profile">
-                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
-                     </svg>
-                     <span class="align-middle">Profile</span>
-                  </a>
-               </li>
-               <li class="sidebar-item" >
-                  <a class="sidebar-link" href="<?php echo SITE_PATH.'templates/admin_panel/' ?>EditViewDetails">
-                  <i class="align-middle" data-feather="edit-3"></i> <span class="align-middle">Edit View Details Page</span>
-                  </a>
-               </li>
+         <!-- SIDEBAR START -->
+<nav id="sidebar" class="sidebar js-sidebar collapsed">
+   <div class="sidebar-content js-simplebar">
 
-	      <li class="sidebar-header">
-                  Enquiries
-               </li>
-               <li class="sidebar-item">
-                  <a class="sidebar-link" href="<?php echo SITE_PATH.'templates/admin_panel/' ?>enquiries">
-                  <i class="align-middle" data-feather="message-circle"></i> <span class="align-middle">Enquiries</span>
-                  </a>
-               </li>
-             <li class="sidebar-item">
-                  <a class="sidebar-link" href="<?php echo SITE_PATH.'templates/admin_panel/' ?>AddEnquiry">
-                  <i class="align-middle" data-feather="message-circle"></i> <span class="align-middle">Add Enquiry</span>
-                  </a>
-               </li>
+      <ul class="sidebar-nav">
+      <li class="sidebar-header shadow-sm text-black" >
+                  <b>DashBoard</b>
+            </li>
+           <li class="sidebar-item active">
+                  <a class="sidebar-link" href="?type=admin&page=dash">
+                           <i class="align-middle" data-feather="sliders"></i> <span>DashBoard</span>
+                       </a>
+                
+            </li>
 
 
+            <li class="sidebar-item active">
+                  <a class="sidebar-link" href="?type=admin&page=profile">
+                           <i class="align-middle" data-feather="user"></i> <span>Profile</span>
+                       </a>
+                
+            </li>
                
-               <li class="sidebar-header">
-                  Packages
-               </li>
-               <li class="sidebar-item ">
-                  <a class="sidebar-link" href="<?php echo SITE_PATH.'templates/admin_panel/' ?>AddElement">
-                  <i class="align-middle" data-feather="plus-square"></i> <span class="align-middle">Add Package</span>
-                  </a>
-               </li>
-               <li class="sidebar-item ">
-                  <a class="sidebar-link" href="<?php echo SITE_PATH.'templates/admin_panel/' ?>ListElement">
-                  <i class="align-middle" data-feather="list"></i> <span class="align-middle">List Packages</span>
-                  </a>
-               </li>
-               <li class="sidebar-header">
-                  Bookings
-               </li>
-               <li class="sidebar-item ">
-                  <a class="sidebar-link" href="<?php echo SITE_PATH.'templates/admin_panel/' ?>AddBooking">
+
+             <!-- <hr style="border:1px groove #3b7ddd;">  -->
+
+             <li class="sidebar-header shadow-sm text-black" >
+                  <b>Enquiries</b>
+            </li>
+
+            <li class="sidebar-item">
+                  <a class="sidebar-link" href="?type=admin&page=enquiries">
+                 <i class="align-middle" data-feather="message-circle"></i> <span class="align-middle">Enquiries</span>
+                        </a>
+            </li>
+
+            <li class="sidebar-item">
+                  <a class="sidebar-link" href="?type=admin&page=AddEnquiry">
+                  <i class="align-middle" data-feather="message-circle"></i> <span class="align-middle">Add Enquiry</span>
+                        </a>
+            </li>
+            
+            
+      
+
+             <li class="sidebar-header shadow-sm text-black" >
+                  <b>Packages</b>
+            </li>
+
+            <li class="sidebar-item">
+                  <a class="sidebar-link" href="?type=admin&page=AddElement">
+                  <i class="align-middle" data-feather="plus-square"> </i><span class="align-middle">Add Package</span>
+                        </a>
+            </li>
+
+            <li class="sidebar-item">
+                  <a class="sidebar-link" href="?type=admin&page=ListElement">
+                  <i class="align-middle" data-feather="list"></i> <span class="align-middle">Package List</span>
+                        </a>
+            </li>
+           
+
+            <li class="sidebar-header shadow-sm text-black" >
+                  <b>Bookings</b>
+            </li>
+
+            <li class="sidebar-item">
+                  <a class="sidebar-link" href="?type=admin&page=AddBooking">
                   <i class="align-middle" data-feather="plus-circle"></i> <span class="align-middle">Add Bookings</span>
-                  </a>
-               </li>
-               <li class="sidebar-item ">
-                  <a class="sidebar-link" href="<?php echo SITE_PATH.'templates/admin_panel/' ?>ListBooking">
+                        </a>
+            </li>
+
+            <li class="sidebar-item">
+                  <a class="sidebar-link" href="?type=admin&page=ListBooking">
                   <i class="align-middle" data-feather="list"></i> <span class="align-middle">Offline Bookings</span>
-                  </a>
-               </li>
-               <li class="sidebar-item ">
-                  <a class="sidebar-link" href="<?php echo SITE_PATH.'templates/admin_panel/' ?>onlineBookings">
+                        </a>
+            </li>
+            <li class="sidebar-item">
+                  <a class="sidebar-link" href="?type=admin&page=onlineBookings">
                   <i class="align-middle" data-feather="list"></i> <span class="align-middle">Online Bookings</span>
-                  </a>
-               </li>
-               <li class="sidebar-item ">
-                  <a class="sidebar-link" href="<?php echo SITE_PATH.'templates/admin_panel/' ?>paymentDues">
-                  <i class="align-middle" data-feather="list"></i> <span class="align-middle">Payment Dues</span>
-                  </a>
-               </li>
-               <li class="sidebar-header">
-                  Category
-               </li>
-               <li class="sidebar-item">
-                  <a class="sidebar-link" href="<?php echo SITE_PATH.'templates/admin_panel/' ?>AddCategory">
-                  <i class="align-middle" data-feather="plus"></i> <span class="align-middle">Add Package Catogery</span>
-                  </a>
-               </li>
-               <li class="sidebar-item">
-                  <a class="sidebar-link" href="<?php echo SITE_PATH.'templates/admin_panel/' ?>listCategory">
-                  <i class="align-middle" data-feather="list"></i> <span class="align-middle">List Category</span>
-                  </a>
-               </li>
-               <li class="sidebar-header">
-                  Coupons
-               </li>
-               <li class="sidebar-item">
-                  <a class="sidebar-link" href="<?php echo SITE_PATH.'templates/admin_panel/' ?>AddCoupon">
-                  <i class="align-middle" data-feather="plus"></i> <span class="align-middle">Add Coupon</span>
-                  </a>
-               </li>
-               <li class="sidebar-item">
-                  <a class="sidebar-link" href="<?php echo SITE_PATH.'templates/admin_panel/' ?>ListCoupon">
+                        </a>
+            </li>
+            <li class="sidebar-item">
+                  <a class="sidebar-link" href="?type=admin&page=paymentDues">
+                 <i class="align-middle" data-feather="list"></i> <span class="align-middle">Payment Dues</span>
+                        </a>
+            </li>
+
+
+            <li class="sidebar-header shadow-sm text-black" >
+                  <b>Coupon</b>
+            </li>
+
+            <li class="sidebar-item">
+                  <a class="sidebar-link" href="?type=admin&page=AddCoupon">
+                  <i class="align-middle" data-feather="plus-circle"></i> <span class="align-middle">Add Coupon</span>
+                        </a>
+            </li>
+
+            <li class="sidebar-item">
+                  <a class="sidebar-link" href="?type=admin&page=ListCoupon">
                   <i class="align-middle" data-feather="list"></i> <span class="align-middle">List Coupon</span>
-                  </a>
-               </li>
-              
-         </div>
-      </nav>
+                        </a>
+            </li>
+               
+
+
+
+            <li class="sidebar-header shadow-sm text-black" >
+                  <b>LogOut</b>
+            </li>
+
+            <li class="sidebar-item">
+                  <a class="sidebar-link" href="?type=admin&page=logout">
+                  <i class="align-middle" data-feather="log-out"></i> <span class="align-middle">LogOut</span>
+                        </a>
+            </li>
+
+
+      </ul>
+      
+   </div>
+</nav>
+
+      <!-- SIDEBAR END -->
       <!-- admin navbar starts -->
       <div class="main">
       <nav class="navbar navbar-expand navbar-light navbar-bg">
@@ -189,21 +187,22 @@
             <ul class="navbar-nav navbar-align">
                <li class="nav-item">
                   <a class="nav-link  userdropdown d-sm-inline-block " href="javascript:void(0)"  >
-                  <img src="<?php  echo SITE_PROFILE_IMAGE.$row['profile']; ?>" class="avatar img-fluid rounded me-1" alt="Charles Hall" /> 
+                  <img src="<?php  echo SITE_PROFILE_IMAGE.$row['profile']; ?>" class="avatar img-fluid rounded me-1" alt="Admin" /> 
                   <span class="text-dark"><?php echo $row['name']; ?></span>
-                  <span> <i class="fas fa-caret-down"></i> </span>
+                  <span> <i class="align-middle" data-feather="chevron-down"></i> </span>
                   </a>
-                  <div class="card"  id="userDrop" style=" position: absolute !important; top: 2rem; display: none;">
+                  <div class="card"  id="userDrop" style=" position: absolute !important; top: 2rem; display: none; z-index: 1000;">
                      <ul class="list-group list-group-flush">
 
-                        <li class="list-group-item"><a target="_blank" class="dropdown-item" href="<?php echo SITE_PATH.'templates/admin_panel/' ?>adminHelp">Help</a></li>
+                        <li class="list-group-item"><a target="_blank" class="dropdown-item" href="?type=admin&page=adminHelp">Help</a></li>
 
-                        <li class="list-group-item"><a class="dropdown-item" href="<?php echo SITE_PATH.'templates/admin_panel/' ?>logout">Log out</a></li>
+                        <li class="list-group-item"><a class="dropdown-item" href="?type=admin&page=logout">Log out</a></li>
                      </ul>
                   </div>
                </li>
             </ul>
          </div>
       </nav>
+         <!-- NAVBAR END -->
 
    

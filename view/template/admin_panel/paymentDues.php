@@ -1,17 +1,4 @@
 
-<?php
-
-include ('top.php');
-
-$sql="select booking.*,package.packageName from booking,package where booking.packageId=package.id and booking.rem>0";
-$res=mysqli_query($con,$sql);
-
-
-?>
-<!-- </div>-->
-
-
-
 			<main class="content">
 				<div class="container-fluid p-0">
 
@@ -21,7 +8,7 @@ $res=mysqli_query($con,$sql);
 					<hr>
 				<div class="container table-responsive">
 
-					<table id="dttable">
+					<table id="dttable" class="table table-striped   table-hover  table-sm pt-3">
 					<thead class="table-primary">
 						<tr>
 						<th scope="col">Sr. No</th>
@@ -48,9 +35,9 @@ $res=mysqli_query($con,$sql);
 
 						<?php  
 
-							if(mysqli_num_rows($res) > 0){
+							if(count($getAllPaymentDues) > 0){
 								$i=1;
-								while( $row=mysqli_fetch_assoc($res) ){
+								foreach($getAllPaymentDues as $row){
 
 						?>
 
@@ -98,9 +85,6 @@ $res=mysqli_query($con,$sql);
 
 						?>
 						
-
-						
-						
 					</tbody>
 
 					</table>
@@ -113,16 +97,3 @@ $res=mysqli_query($con,$sql);
 					
 				</div>
 			</main>
-
-      <?php
-
-        include 'footer.php';
-      ?>
-
-   
-<?php
-
-
-
-
-?>

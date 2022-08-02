@@ -1,17 +1,7 @@
 <?php
-   session_start();
-   
-
-include ('view/template/layout/include/functions.inc.php');
-include ('view/template/layout/include/constants.inc.php');
-   
-   
-   
-   $favArray=getFavourites();
-   $row=getCurrentUserDetails();
    
    if(!isset($_SESSION['CURRENT_USER_ID'])){
-   	redirect(SITE_PATH.'templates/login');
+   	redirect(SITE_PATH.'?page=login');
    }
    
    
@@ -66,12 +56,12 @@ include ('view/template/layout/include/constants.inc.php');
                <span class="align-middle"><i class="fas fa-history"></i> History</span>
                </a>
             </li>
-            <li class="sidebar-item ">
+          <!--   <li class="sidebar-item ">
                <a class="sidebar-link" href="?page=userfav">
                   
                   <span class="align-middle"><i class="fas fa-heart"></i> Favourites</span>
                </a>
-            </li>
+            </li> -->
 
             <li class="sidebar-item">
                <a class="sidebar-link" href="?page=rateus">
@@ -96,8 +86,8 @@ include ('view/template/layout/include/constants.inc.php');
             <ul class="navbar-nav navbar-align">
                <li class="nav-item">
                   <a class="nav-link  userdropdown d-sm-inline-block" href="javascript:void(0)"  >
-                  <img src="<?php  echo SITE_PROFILE_IMAGE.$row['profile']; ?>" class="avatar img-fluid rounded me-1" alt="<?php echo getCurrentUserName(); ?>" onerror="this.onerror=null;this.src=`<?php  echo $row['profile']; ?>`;">
-                  <span class="text-dark"><?php echo getCurrentUserName(); ?></span>
+                  <img src="<?php  echo SITE_PROFILE_IMAGE.$currentUserDetails['profile']; ?>" class="avatar img-fluid rounded me-1" alt="<?php echo $currentUserDetails['name']; ?>" onerror="this.onerror=null;this.src=`<?php  echo $currentUserDetails['profile']; ?>`;">
+                  <span class="text-dark"><?php echo $currentUserDetails['name']; ?></span>
                   <span> <i class="fas fa-caret-down"></i> </span>
                   </a>
                   <div class="card" style="width: 7rem;" id="userDrop">

@@ -1,103 +1,143 @@
-<?php
-
-session_start();
-
-
-include ($_SERVER['DOCUMENT_ROOT'].'/view/template/layout/include/functions.inc.php');
-include ($_SERVER['DOCUMENT_ROOT'].'/view/template/layout/include/constants.inc.php');
-   
-?>
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en">
+
 <head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+	<meta name="author" content="AdminKit">
+	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
 
-  <!-- google sign in -->
-  <meta name="google-signin-client_id" content="19666336114-r81ci252rgmv8ee73ikpjb6i4j8o7uf9.apps.googleusercontent.com">
-  <script src="https://apis.google.com/js/platform.js" async defer></script>
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
 
-  <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <link rel="apple-touch-icon" sizes="76x76" href="<?php echo SITE_PATH; ?>view/static/asset/logo/apple-touch-icon.png">
-   <title><?php echo SITE_NAME; ?></title>
-    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo SITE_PATH; ?>view/static/asset/logo/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo SITE_PATH; ?>view/static/asset/logo/favicon-16x16.png">
-    <link rel="manifest" href="<?php echo SITE_PATH; ?>view/static/asset/logo/site.webmanifest">
-    <link rel="mask-icon" href="<?php echo SITE_PATH; ?>view/static/asset/logo/safari-pinned-tab.svg" color="#5bbad5">
-<meta name="msapplication-TileColor" content="#da532c">
-<meta name="theme-color" content="#ffffff">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<link href='https://fonts.googleapis.com/css?family=Galada' rel='stylesheet'>
-<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="<?php echo SITE_PATH; ?>view/static/asset/css_user/login-signup-css.css">
-<link rel='stylesheet' href='https://unpkg.com/aos@2.3.0/dist/aos.css'>
-</head>
-<body>
-  <button onclick="go_home()" id="home-btn"  class="home-btn"><i class="material-icons">keyboard_arrow_left</i></button>
-  <script>
-    function go_home(){
-      window.location.href = "<?php echo SITE_PATH; ?>";
-    }
-   
-  </script>
-  <div class="video-container">
-    <video src="<?php echo SITE_PATH; ?>view/static/asset/img_user/vid-1.mp4" id="video-slider" loop autoplay muted></video>
-</div>
-<div class="container">
 
-  <div class="box">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+	<title>Imporous Tour  And Travels</title>
 
-     <!-- sign up using gmail or facebook -->
-       <div>
-         <div class="g-signin2" data-onsuccess="gmailLogIn"></div>
-       </div>
-       <div class="line-between"><span>OR</span></div>
+	<link href="view/static/asset/css/app.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+	<!-- Favicons -->
+	<link rel="shortcut icon" href="view/static/asset/logo/apple-touch-icon.png" type="image/svg+xml">
+   <!-- favicon ends -->
+
+
+   <style type="text/css">
      
-    
-  <form method="post" class="loginForm text-center">
-    <h1>Login</h1>
-     <span id="msg"></span>
-     <div id="mainLoginForm" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-    <input type="text" name="phone" id="loginPhone" placeholder="Enter your Phone" required  />   
-    <div class="text-center mt-3">
-    <button type="submit" id="loginBtn" class="login-btn"  name="submit" >Continue</button>
-    </div>
-   </div>
-   </form>
-    <div class="loginVerify" style="display: none; flex-direction: column; justify-content: center; align-items: center;">
-      <div id="recaptcha-container"></div>
-      <input type="text" id="logotp" name="logotp" placeholder="OTP" required  /> 
-      <button type="submit" id="verifyLoginOtp" class="login-btn"  name="submit" >Verify</button>
-    </div>
+      /* Sign up form*/
+      .forminput{
+        position: relative;
+      }
+      .forminput .formlabel{
+        position: absolute;
+        top: -20px;
+        left: 10px;
+        z-index: 1000;
+        background-color: #fff;
+        padding: 0 6px;
+      }
+
+   </style>
+ 
+</head>
 
 
-    <a href="?page=signup">Don't have an account? Sign up</a>
-    
-    <br/><br/>
-    <a href="?page=adminlogin">ADMIN LOGIN</a>
-<br/>
-    <small class="text-center">This site is protected by reCAPTCHA and the Google <br>
-      <a href="https://policies.google.com/privacy">Privacy Policy</a> and
-      <a href="https://policies.google.com/terms">Terms of Service</a> apply.
-    </small>
+<body>
+	<main class="d-flex w-100">
+		<div class="container d-flex flex-column">
+			<div class="row vh-100">
+				<div class="col-sm-10 col-md-8 col-lg-6 mx-auto d-table h-100">
+					<div class="d-table-cell align-middle">
 
-  </div>
-    
-</div>
+						<div class="text-center mt-2">
+							<h1 class="h3">Welcome back,</h1>
+							<p class="lead">
+								Sign in to your account to continue
+							</p>
+						</div>
+
+						<div class="card">
+							<div class="card-body">
+								<div class="m-sm-4">
+									<div class="text-center">
+										<img src="view/static/asset/images/user-login.png" alt="Charles Hall" class="img-fluid rounded-circle" width="132" height="132" />
+										<p class="text-danger error text-center"></p>
+									</div>
+									<form id="loginform">
+										<div class="mb-4 forminput">
+											<label class="form-label formlabel">Email</label>
+											<input class="form-control form-control-lg " type="email" name="email" placeholder="Enter your email" required />
+										</div>
+										<div class="mb-4 forminput">
+											<label class="form-label formlabel">Password</label>
+											<input class="form-control form-control-lg" type="password" name="password" placeholder="Enter your password" required />
+											
+										</div>
+										<div>
+											
+										</div>
+										<div class="text-center mt-3">
+											
+											<div class="text-center mt-3">
+											  <button type="submit" class="btn btn-primary btn-lg">Sign in</button>
+											</div>
+											<div class="text-center mt-3">
+												<a href="?page=adminlogin">Admin Login</a>
+											</div>
+											<div class="text-center mt-3">
+												<label>Don't Have Account? </label><br>
+											</div>
+											<div class="text-center mt-3">
+												<a href="?page=signup" class="btn btn-lg btn-primary">SignUp</a>
+											</div>
+											</div>
+										</div>
+									</form>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<script src="view/static/asset/js/app.js"></script>
 
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
-<script src="<?php echo SITE_PATH; ?>view/static/asset/firebase.js"></script>
+	<script type="text/javascript">
 
+	const login_process_url="register_loginService.php";
+    const site_path="http://localhost/crud/";
+		
+		$("#loginform").on("submit",function(e){
+      		e.preventDefault();
 
+        $.ajax({  
+                   type:"POST",  
+                   url:login_process_url,  
+                   data:$("#loginform").serialize()+"&type=login",
+                   success:function(result){
+                   
+                      msg=jQuery.parseJSON(result);
 
+                     if(msg.status=="fail"){
+                         $(".error").text(msg.msg);
+                     }
+                     if(msg.status=="success"){
+                       window.location.href=site_path;
+                     }
+                   }
+                   
+                  });
 
+    });
 
-
-
-
+	</script>
 
 </body>
+
 </html>

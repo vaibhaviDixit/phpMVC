@@ -169,7 +169,7 @@
 								if(r5){stars=5;}
 
 								     jQuery.ajax({
-										    url:'submitRate',
+										    url:'submitRate.php',
 										    type:'post',
 										    data:{stars : stars,msg:msg},
 										    success:function(result){

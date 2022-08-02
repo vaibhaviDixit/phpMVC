@@ -1,17 +1,4 @@
 
-<?php
-
-include ('top.php');
-
-$sql="select * from coupon";
-$res=mysqli_query($con,$sql);
-
-
-?>
-<!-- </div>-->
-
-
-
 			<main class="content">
 				<div class="container-fluid p-0">
 
@@ -39,9 +26,9 @@ $res=mysqli_query($con,$sql);
 
 						<?php  
 
-							if(mysqli_num_rows($res) > 0){
+							if(count($couponArray)>0){
 								$i=1;
-								while( $row=mysqli_fetch_assoc($res) ){
+								foreach($couponArray as $row){
 
 						?>
 
@@ -55,13 +42,13 @@ $res=mysqli_query($con,$sql);
 						<td scope="col"> <?php  echo date("d/m/Y",strtotime($row['addedOn'])); ?></td>
 						<td scope="col">
 
-							<a href="<?php echo SITE_PATH.'templates/admin_panel/'; ?>AddCoupon/<?php echo $row['id']; ?>"> <button class="btn btn-success btn-sm">Edit</button> </a>
+							<a href="?type=admin&page=AddCoupon&id=<?php echo $row['id']; ?>"> <button class="btn btn-success btn-sm">Edit</button> </a>
 
 
 							<?php
 								if( $row['status'] == 1 ){
 							?>
-							<a href="?id=<?php echo $row['id']; ?>&type=deactive "> <button class="btn btn-primary btn-sm">Active</button> </a>
+							<a href="?type=admin&page=ListCoupon&id=<?php echo $row['id']; ?>&oper=deactivecoupon"> <button class="btn btn-primary btn-sm">Active</button> </a>
 
 							<?php
 
@@ -69,14 +56,15 @@ $res=mysqli_query($con,$sql);
 								else
 								{
 							?>
-							<a href="?id=<?php echo $row['id']; ?>&type=active "> <button class="btn btn-secondary btn-sm">Deactive</button> </a>
+							<a href="?type=admin&page=ListCoupon&id=<?php echo $row['id']; ?>&oper=activecoupon"> <button class="btn btn-secondary btn-sm">Deactive</button> </a>
 
 							<?php
 								}
 
 							?>
 							
-							<a href="?id=<?php echo $row['id']; ?>&type=delete "> <button class="btn btn-danger btn-sm">Delete</button> </a>
+							<a href="?type=admin&page=ListCoupon&id=<?php echo $row['id']; ?>&oper=deletecoupon"> 
+								<button class="btn btn-danger btn-sm">Delete</button> </a>
 
 
 						</td>
@@ -117,7 +105,7 @@ $res=mysqli_query($con,$sql);
 
       <?php
 
-        include 'footer.php';
+        
       ?>
 
    

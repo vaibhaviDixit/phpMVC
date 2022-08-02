@@ -1,196 +1,301 @@
 <?php
 
-   if(isset($_GET['id'])){
-     $pckId=getSafeVal($_GET['id']);
-      $packages=mysqli_query($con,"select * from package where id='$pckId' ");
-      $packagesRow=mysqli_fetch_assoc($packages);
-      $price=$packagesRow['packagePrice'];
+require_once("model/packagesModel.php");
+$packagesModel=new packagesModel();
 
+   if(isset($_GET['id'])){
+     $pckId=$_GET['id'];
+      $packagesRow=$packagesModel->getpackageById($pckId);
+      if(count($packagesRow)>0){
+        $packagePrice=$packagesRow['packagePrice'];
+        $total=$packagesRow['packagePrice'];
+
+        $off=$packagesRow['discount'];
+        $distype=$packagesRow['disType'];
+        $offval=$packagesRow['discount'];
+
+        if($distype=='cash'){
+          $offval.="&#8377;";
+          $offtype="cash";
+          $finalPrice=intval($total)-intval($off);
+        }
+        else{
+          $offval.="%";
+          $offtype="per";
+          $finalPrice=intval($total)-((intval($off)/100)*intval($total));
+        }
+
+
+      }
+      else{
+        redirect(SITE_PATH);
+      }
    }
    else{
     redirect(SITE_PATH);
    }
 
- 
+
 
    ?>
-    <section class="book " id="book">
+    <section class="book" id="book">
 
-      <h1 class="head">
-          <span>b</span>
-          <span>o</span>
-          <span>o</span>
-          <span>k</span>
-          <span class="space"></span>
-          <span>n</span>
-          <span>o</span>
-          <span>w</span>
-      </h1>
-  
-      <div class="content">
-          <div class="booking-form">
+      <div class="booking">
 
-            <form method="post" action="<?php echo SITE_PATH.'templates/checkout'; ?>" >
 
-            <p id="red-msg">Please select valid check-in and check-out date</p>
-            <div class="dates">
-                <div class="check">
-                    <p><i class="fa fa-calendar"></i> Check-in Date </p>
-                    <input type="date" name="check-in-date" id="check-in-date" required>
-                </div>
-                <div class="check">
-                    <p><i class="fa fa-calendar"></i> Check-out Date </p>
-                    <input type="date" name="check-out-date" id="check-out-date" required>
-                </div> 
+          
+          <div class="">
+
+            <div class="tourtitle">
+              <h5 class="packagetitle"><?php  echo $packagesRow['packageName']; ?></h5>
+              <p class="d-flex fs-sm"><ion-icon name="location"></ion-icon> <?php  echo $packagesRow['packageLocation']; ?>&emsp;
+              <ion-icon name="time"></ion-icon> <span id="noOfDays"><?php  echo $packagesRow['packageDuration']; ?></span>&nbsp;days / <?php  echo intval($packagesRow['packageDuration'])-1; ?> nights
+
+              </p>
+            
             </div>
-            <div class="passengers">
-                <div class="passenger">
-                    <h6 id="p-ac">Adults</h6><p>(18 Years and Above 18Years)</p>
-                    <input type="number" id="adults" name="adults" value="1" min="1" required>
+
+            <div class="image_slider owl-carousel">
+                
+                <div class="item owlitem">
+                  <img src="<?php echo SITE_PACKAGE_IMAGE.$packagesRow['img1'];  ?>" alt="tour" loading="lazy">
                 </div>
-                <div class="passenger">
-                    <h6 id="p-ac">Children </h6><p>(Below 18Years)</p>
-                    <input type="number" id="children" name="children" value="0" min="0" required>
+
+                <div class="item owlitem">
+                  <img src="<?php echo SITE_PACKAGE_IMAGE.$packagesRow['img2'];  ?>" alt="tour" loading="lazy">
                 </div>
-      
+
+                <div class="item owlitem">
+                  <img src="<?php echo SITE_PACKAGE_IMAGE.$packagesRow['img3'];  ?>" alt="tour" loading="lazy">
+                </div>
+
+                <div class="item owlitem">
+                  <img src="<?php echo SITE_PACKAGE_IMAGE.$packagesRow['img4'];  ?>" alt="tour" loading="lazy">
+                </div>
+
+                <div class="item owlitem">
+                  <img src="<?php echo SITE_PACKAGE_IMAGE.$packagesRow['img5'];  ?>" alt="tour" loading="lazy">
+                </div>
+
+                <div class="item owlitem">
+                  <img src="<?php echo SITE_PACKAGE_IMAGE.$packagesRow['img6'];  ?>" alt="tour" loading="lazy">
+                </div>
+
+
             </div>
-            <div class="display-total">
-                <p>Sub Total: <span id="bookingPrice"> </span></p>
-                <p><span id="msgUser" class="text-danger"> </span></p>
-                <input type="text" name="total" id="total" hidden value="" required>
-                <input type="text" name="days" id="days" hidden value="" required>
-                <input type="text" name="adultPrice" id="adultPrice" hidden value="" required>
-                <input type="text" name="childrenPrice" id="childrenPrice" hidden value="" required>
-                <input type="text" name="package" id="package" hidden value="<?php echo $pckId; ?>" required>
-            </div>
-            <button type="submit" name="book" class="book-btn" id="book-btn">BOOK NOW</button>
-          </form>
           </div>
-  
-      </div>
+          <div class="row"> 
+            <div class="tourdescription" id="left_container">
+
+              <?php echo $packagesRow['packageDesc']; ?>
+
+                                      
+            </div>
+
+            <div class="">
+
+              <div id="right_container" class="fs-14">
+                  
+                  <table class="w-100">
+                    <form  method="post" action="?page=checkout">
+                    <p id="offBlock"><?php echo $offval; ?> OFF</p>
+                      
+                      <input type="hidden" name="page" value="checkout">
+                      <input type="hidden" name="offval" id="offval" value="<?php echo $off; ?>">
+                      <input type="hidden" name="offtype" id="offtype" value="<?php echo $offtype; ?>">
+                      <input type="hidden" name="package" id="package" value="<?php echo $packagesRow['id']; ?>">
+                      <input type="hidden" name="packagePrice" id="packagePrice" value="<?php echo $packagePrice; ?>">
+                      <input type="hidden" name="noofchild" id="noofchild" value="0">
+                       <input type="hidden" name="noofadult" id="noofadult" value="1">
+                       <input type="hidden" name="finalAmt" id="finalAmt" value="<?php echo $finalPrice; ?>">
+                       <input type="hidden" name="subtotal" id="subtotal" value="<?php echo $total; ?>">
+                        <input type="hidden" name="checkout" id="checkout" value="">
+                    <tr>
+                      <td class="fs-12"><strike>&#8377;<span id="totalPrice" style="display: inline;"><?php echo $total; ?></span></strike></td>
+                    </tr>
+
+                    <tr>
+                      <td class="bold fs-16">&#8377; <span id="finalPrice" style="display: inline;"><?php echo $finalPrice; ?></span></td>
+                    </tr>
+
+                    <tr>
+                      <td class="bold fs-16">Date</td>
+                      <td><span>
+                          <label for="date">Change</label>
+                          <input type="date" name="checkin" id="date" required min="<?php echo date("Y-m-d"); ?>" >
+
+                        </span>
+                      </td>
+
+                    </tr>
+                    <tr>
+                      <td class="fs-12">
+                        <span id="inoutdates"></span>
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td><span class="bold fs-16">Adults</span><span class="fs-12">(Age 18+)</span></td>
+                      <td class="d-flex fs-16">
+                          
+                         <span class="dec" onclick="adultcount('dec')">-</span>
+                          <span class="adults" id="adult_count">1</span>
+                          <span class="inc" onclick="adultcount('inc')">+</span>
+
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td><span class="bold fs-16">Children</span><span class="fs-12">(Age 1-17)</span></td>
+                      <td class="d-flex fs-16">
+                          
+                          <span class="dec" onclick="childcount('dec')">-</span>
+                          <span class="child" id="child_count">0</span>
+                          <span class="inc" onclick="childcount('inc')">+</span>
+
+                      </td>
+                    </tr>
+
+                    <tr>
+                      <td colspan="2">
+                      <button class="book-btn" type="submit" name="submit">Book Now</button>
+                      </td>
+                    </tr>
+                  </table>
+
+                  </form>
+
+                  <!-- <table class="w-100">
+
+                    <tr>
+                      <td class="bold fs-16">Apply Coupon</td>
+                      <td><span>
+                          <input type="text" name="coupon" id="coupon" placeholder="Coupon Code" class="inputstyle">
+
+                        </span>
+                      </td>
+
+                    </tr>
+                  
+                    <tr>
+                      <td colspan="2">
+                        <a href=""><button class="book-btn">Apply Coupon</button></a>
+                      </td>
+                    </tr>
+
+                  </table> -->
+
+              </div>
+                      
+                  
+            </div>
+
+          </div>
+
+
+        </div>
   
   </section>
-
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+   <script src="<?php echo SITE_PATH; ?>view/static/asset/js/jquery.min.js"></script>
 
 <script type="text/javascript">
 
-    $("#check-in-date").on("change",function(){
-     bookingData();
-     dateMan();
-     })
-    $("#check-out-date").on("change",function(){
-      bookingData();
-    })
+
+  $(".header").css("background-color", "#223544");
+
+
+function adultcount(val){
+
+  let count=parseInt($("#adult_count").text());
+
+
+  if(val=='inc'){
+
+    if(count>=0 && count<100){
+      $("#adult_count").text(count+1);
+      $("#noofadult").val(count+1);
+    }
+
+  }
+  else{
+    if(count!=1){
+      $("#adult_count").text(count-1);
+      $("#noofadult").val(count-1);
+    }
+  }
+
+  bookingValue();
+}
+
+
+function childcount(val){
+
+  let count=parseInt($("#child_count").text());
+
+
+  if(val=='inc'){
+
+    if(count>=0 && count<100){
+      $("#child_count").text(count+1);
+      $("#noofchild").val(count+1);
+    }
+
+  }
+  else{
+    if(count!=0){
+      $("#child_count").text(count-1);
+      $("#noofchild").val(count-1);
+    }
+  }
+  bookingValue();
+}
+
+    $("#date").on("change",function(){
+
+       let date=new Date($(this).val()); 
+       let outdate = new Date(date);
+       outdate.setDate(outdate.getDate() + (parseInt($("#noOfDays").text())-1));
+
+       let checkin=date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
+       let checkout=outdate.getDate()+"/"+(outdate.getMonth()+1)+"/"+outdate.getFullYear();
+
+       let inoutdates=checkin+" - "+checkout;
+       $("#inoutdates").text(inoutdates);
+       $("#checkout").val(outdate.getFullYear()+"-"+(outdate.getMonth()+1)+"-"+outdate.getDate());
+
+     });
     
-    $("#adults").on("change",function(){
-     bookingData();
-     })
-    $("#children").on("change",function(){
-      bookingData();
-    })
-
   
-  function bookingData(){
-    checkIn=$("#check-in-date").val();
-    checkOut=$("#check-out-date").val();
-    adults=$("#adults").val();
-    children=$("#children").val();
+  function bookingValue(){
 
+    let packagePrice=parseInt($("#packagePrice").val());//price before OFF (package price per person)
+    let finalPrice=parseInt($("#finalPrice").text());//price after OFF    
+    let child_count=parseInt($("#child_count").text());//child count 
+    let adult_count=parseInt($("#adult_count").text());//adult count
 
-        var date1 = new Date(checkIn);
-        var date2 = new Date(checkOut);
-  
-      // calculate the time difference of two dates
-      var Difference_In_Time = date2.getTime() - date1.getTime();
-      // calculate the no. of days between two dates
-      var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+    let offval=parseInt($("#offval").val());//discount value
+    let offtype=$("#offtype").val();//discount type
 
+    let childPrice=child_count*(packagePrice/2);
+    let adultPrice=adult_count*packagePrice;
+    let total=childPrice+adultPrice;
 
-     chPrice=0;
-      packagePrice="<?php echo $price; ?>";
-      if(children<1){
-        adultPrice=parseInt(packagePrice)*parseInt(Difference_In_Days)*parseInt(adults);
-        Total=adultPrice;
-      }
-      else{
-        chPrice=parseInt(children)*parseInt(Difference_In_Days)*(parseInt(packagePrice)/2);
-        adultPrice=parseInt(packagePrice)*parseInt(Difference_In_Days)*parseInt(adults);
-        Total=adultPrice+chPrice;
-      }
-      
-      if(Total<=0){
-        swal("Please select valid checkin checkout dates");
-        $("#msgUser").html("Please select valid checkin checkout dates");
-         $("#bookingPrice").html("0");
-        $("#book-btn").attr("disabled",true);
+    $("#totalPrice").text(String(total));//strike price
+    $("#subtotal").val(total);
 
-      }else{
-        $("#book-btn").attr("disabled",false);
-        $("#msgUser").html("");
-        $("#bookingPrice").html(Total);
-        $("#total").val(Total);
-        $("#adultPrice").val(adultPrice);
-        $("#childrenPrice").val(chPrice);
-        $("#days").val(Difference_In_Days); 
-      }
-         
+    if(offtype=="per"){
 
+      let perOff=total-(total*(offval/100));
+      $("#finalPrice").text(perOff);
+      $("#finalAmt").val(perOff);
+    }
+    else{
+      let cashOff=total-offval;
+      $("#finalPrice").text(cashOff);
+      $("#finalAmt").val(cashOff);
+    }  
   
   }
 
 
-
-//disable past dates
-$(document).ready(function(){
-  dateMan();
-  bookingData();
-})
-  
-function dateMan(){
-
-  date = new Date();
-  y=date.getFullYear();
-  m=date.getMonth()+1;
-  d=date.getDate();
- 
-  if(d<10){
-    d='0'+d;
-  }
-  if(m<10){
-    m='0'+m;
-  }
-  
-   mindt=y+"-"+m+"-"+d;
-
-  dbt=new Date($("#check-in-date").val());
-  dbt.setDate(dbt.getDate() + 1);
-
-  yy=dbt.getFullYear();
-  mm=dbt.getMonth()+1;
-  dd=dbt.getDate();
- 
-  if(dd<10){
-    dd='0'+dd;
-  }
-  if(mm<10){
-    mm='0'+mm;
-  }
-  
-   chkOutMin=yy+"-"+mm+"-"+dd;
-
-  $("#check-in-date").attr("min",mindt);
-  $("#check-out-date").attr("min",chkOutMin);
-  console.log(mindt+" "+chkOutMin);
-
-}
-
-
-</script>
-<script type="text/javascript">
-  
-  if ( window.history.replaceState ) {
-  window.history.replaceState( null, null, window.location.href );
-}
 </script>

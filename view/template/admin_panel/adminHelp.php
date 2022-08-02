@@ -1,15 +1,6 @@
 <?php
-   session_start();
-   
-      include ($_SERVER['DOCUMENT_ROOT'].'/Travello/templates/include/database.inc.php');
-      include ($_SERVER['DOCUMENT_ROOT'].'/Travello/templates/include/functions.inc.php');
-      include ($_SERVER['DOCUMENT_ROOT'].'/Travello/templates/include/constants.inc.php');
-     
-      $row=getAdminDetails();
-
-   
       if(!isset($_SESSION['ADMIN'])){
-         redirect(SITE_PATH.'templates/adminlogin');
+         redirect(SITE_PATH.'?page=adminlogin');
       }
       
       ?>
@@ -22,11 +13,11 @@
       <meta http-equiv="x-ua-compatible" content="ie=edge">
       
       <!-- Favicons -->
-      <link rel="apple-touch-icon" sizes="76x76" href="<?php echo SITE_PATH; ?>asset/logo/apple-touch-icon.png">
-      <link rel="icon" type="image/png" sizes="32x32" href="<?php echo SITE_PATH; ?>asset/logo/favicon-32x32.png">
-      <link rel="icon" type="image/png" sizes="16x16" href="<?php echo SITE_PATH; ?>asset/logo/favicon-16x16.png">
-      <link rel="manifest" href="<?php echo SITE_PATH; ?>asset/logo/site.webmanifest">
-      <link rel="mask-icon" href="<?php echo SITE_PATH; ?>asset/logo/safari-pinned-tab.svg" color="#5bbad5">
+      <link rel="apple-touch-icon" sizes="76x76" href="<?php echo SITE_PATH; ?>view/static/asset/logo/apple-touch-icon.png">
+      <link rel="icon" type="image/png" sizes="32x32" href="<?php echo SITE_PATH; ?>view/static/asset/logo/favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="<?php echo SITE_PATH; ?>view/static/asset/logo/favicon-16x16.png">
+      <link rel="manifest" href="<?php echo SITE_PATH; ?>view/static/asset/logo/site.webmanifest">
+      <link rel="mask-icon" href="<?php echo SITE_PATH; ?>view/static/asset/logo/safari-pinned-tab.svg" color="#5bbad5">
       <meta name="msapplication-TileColor" content="#da532c">
       <meta name="theme-color" content="#ffffff">
 
@@ -36,13 +27,13 @@
       <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
       <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/css/swiper.css'>
-      <link rel="stylesheet" href="<?php echo SITE_PATH; ?>asset/css_user/style.css">
+      <link rel="stylesheet" href="<?php echo SITE_PATH; ?>view/static/asset/css_user/style.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
       <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      <link rel="stylesheet" href="<?php echo SITE_PATH; ?>asset/bootstrap.min.css">
+      <link rel="stylesheet" href="<?php echo SITE_PATH; ?>view/static/asset/bootstrap.min.css">
       <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
       <!-- font awesome cdn link  -->
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -96,7 +87,7 @@
         <div class="swiper-wrapper">
             <div class="swiper-slide row">
               <div class="img-container col-sm-7">
-                  <img src="<?php echo SITE_PATH; ?>asset/screenshots/dash.png" class="img-fluid" >
+                  <img src="<?php echo SITE_PATH; ?>view/static/asset/screenshots/dash.png" class="img-fluid" >
               </div>
                 <div class="headline col-sm-5">
                   <h1>Dashboard</h1>
@@ -111,7 +102,7 @@
 
             <div class="swiper-slide row">
               <div class="img-container col-sm-7">
-                  <img src="<?php echo SITE_PATH; ?>asset/screenshots/profile.png" class="img-fluid" >
+                  <img src="<?php echo SITE_PATH; ?>view/static/asset/screenshots/profile.png" class="img-fluid" >
               </div>
                 <div class="headline col-sm-5">
                   <h1>Profile</h1>
@@ -126,7 +117,7 @@
 
              <div class="swiper-slide row">
               <div class="img-container col-sm-7">
-                  <img src="<?php echo SITE_PATH; ?>asset/screenshots/editview.png" class="img-fluid" >
+                  <img src="<?php echo SITE_PATH; ?>view/static/asset/screenshots/editview.png" class="img-fluid" >
               </div>
                 <div class="headline col-sm-5">
                   <h1>Manage View Details page of tour</h1>
@@ -143,7 +134,7 @@
 
               <div class="swiper-slide row">
               <div class="img-container col-sm-7">
-                  <img src="<?php echo SITE_PATH; ?>asset/screenshots/addenq.png" class="img-fluid" >
+                  <img src="<?php echo SITE_PATH; ?>view/static/asset/screenshots/addenq.png" class="img-fluid" >
               </div>
                 <div class="headline col-sm-5">
                   <h1>Manage User Enquiries</h1>
@@ -154,7 +145,7 @@
                         <li>You can Delete Enquiries by clicking delete button</li>
                   </ul> 
 
-                  <img src="<?php echo SITE_PATH; ?>asset/screenshots/lsenq.png" class="img-fluid" >                 
+                  <img src="<?php echo SITE_PATH; ?>view/static/asset/screenshots/lsenq.png" class="img-fluid" >                 
                 </div>
                     
             </div>
@@ -162,7 +153,7 @@
 
               <div class="swiper-slide row">
               <div class="img-container col-sm-7">
-                  <img src="<?php echo SITE_PATH; ?>asset/screenshots/addPck.png" class="img-fluid" >
+                  <img src="<?php echo SITE_PATH; ?>view/static/asset/screenshots/addPck.png" class="img-fluid" >
               </div>
                 <div class="headline col-sm-5">
                   <h1>Manage tours</h1>
@@ -173,14 +164,14 @@
                         <li>You can Delete Tour by clicking delete button</li>
                   </ul> 
 
-                  <img src="<?php echo SITE_PATH; ?>asset/screenshots/listPck.png" class="img-fluid" >                 
+                  <img src="<?php echo SITE_PATH; ?>view/static/asset/screenshots/listPck.png" class="img-fluid" >                 
                 </div>
                     
             </div>
 
              <div class="swiper-slide row">
               <div class="img-container col-sm-7">
-                  <img src="<?php echo SITE_PATH; ?>asset/screenshots/offlineBook.png" class="img-fluid" >
+                  <img src="<?php echo SITE_PATH; ?>view/static/asset/screenshots/offlineBook.png" class="img-fluid" >
               </div>
                 <div class="headline col-sm-5">
                   <h1>Manage Offline Bookings</h1>
@@ -192,14 +183,14 @@
                         <li>Access booking receipt in booking list</li>
                   </ul> 
 
-                  <img src="<?php echo SITE_PATH; ?>asset/screenshots/lsOffline.png" class="img-fluid" >                 
+                  <img src="<?php echo SITE_PATH; ?>view/static/asset/screenshots/lsOffline.png" class="img-fluid" >                 
                 </div>
                     
             </div>
 
              <div class="swiper-slide row">
               <div class="img-container col-sm-7">
-                  <img src="<?php echo SITE_PATH; ?>asset/screenshots/onlineBook.png" class="img-fluid" >
+                  <img src="<?php echo SITE_PATH; ?>view/static/asset/screenshots/onlineBook.png" class="img-fluid" >
               </div>
                 <div class="headline col-sm-5">
                   <h1>Manage Online Bookings</h1>
@@ -215,7 +206,7 @@
 
              <div class="swiper-slide row">
               <div class="img-container col-sm-7">
-                  <img src="<?php echo SITE_PATH; ?>asset/screenshots/payDues.png" class="img-fluid" >
+                  <img src="<?php echo SITE_PATH; ?>view/static/asset/screenshots/payDues.png" class="img-fluid" >
               </div>
                 <div class="headline col-sm-5">
                   <h1>Manage Payment Dues</h1>
@@ -230,7 +221,7 @@
 
             <div class="swiper-slide row">
               <div class="img-container col-sm-7">
-                  <img src="<?php echo SITE_PATH; ?>asset/screenshots/addCate.png" class="img-fluid" >
+                  <img src="<?php echo SITE_PATH; ?>view/static/asset/screenshots/addCate.png" class="img-fluid" >
               </div>
                 <div class="headline col-sm-5">
                   <h1>Manage categories of tours</h1>
@@ -242,14 +233,14 @@
 
                   </ul> 
 
-                  <img src="<?php echo SITE_PATH; ?>asset/screenshots/lscate.png" class="img-fluid" >                 
+                  <img src="<?php echo SITE_PATH; ?>view/static/asset/screenshots/lscate.png" class="img-fluid" >                 
                 </div>
                     
             </div>
 
              <div class="swiper-slide row">
               <div class="img-container col-sm-7">
-                  <img src="<?php echo SITE_PATH; ?>asset/screenshots/addcp.png" class="img-fluid" >
+                  <img src="<?php echo SITE_PATH; ?>view/static/asset/screenshots/addcp.png" class="img-fluid" >
               </div>
                 <div class="headline col-sm-5">
                   <h1>Manage coupons</h1>
@@ -261,7 +252,7 @@
 
                   </ul> 
 
-                  <img src="<?php echo SITE_PATH; ?>asset/screenshots/lscp.png" class="img-fluid" >                 
+                  <img src="<?php echo SITE_PATH; ?>view/static/asset/screenshots/lscp.png" class="img-fluid" >                 
                 </div>
                     
             </div>
@@ -277,10 +268,18 @@
 
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/js/swiper.min.js'></script>
-<script  src="<?php echo SITE_PATH; ?>asset/js_user/script.js"></script>
+<script  src="<?php echo SITE_PATH; ?>view/static/asset/js_user/script.js"></script>
 <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="<?php echo SITE_PATH; ?>asset/bootstrap.min.js" ></script>
+<script src="<?php echo SITE_PATH; ?>view/static/asset/bootstrap.min.js" ></script>
+<script type="text/javascript">
+  
 
+  $("footer").remove();
+  $(".sidebar").remove();
+  $(".navbar").remove();
+
+
+</script>
 </body>
 </html>

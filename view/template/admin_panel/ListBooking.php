@@ -1,17 +1,4 @@
-
-<?php
-
-include ('top.php');
-
-$sql="select booking.*,package.packageName from booking,package where booking.packageId=package.id order by booking.id desc";
-$res=mysqli_query($con,$sql);
-
-?>
-<!-- </div>-->
-
-
-
-			<main class="content">
+<main class="content">
 				<div class="container-fluid p-0">
 
 					<div class="mb-3">
@@ -20,7 +7,7 @@ $res=mysqli_query($con,$sql);
 					<hr>
 				<div class="container table-responsive">
 
-					<table id="dttable">
+					<table id="dttable" class="table table-striped   table-hover  table-sm pt-3">
 					<thead class="table-primary">
 						<tr>
 						<th scope="col">Sr. No</th>
@@ -49,9 +36,9 @@ $res=mysqli_query($con,$sql);
 						<?php  
 
 
-							if(mysqli_num_rows($res) > 0){
+							if(count($offlineBookingArray) > 0){
 								$i=1;
-								while( $row=mysqli_fetch_assoc($res) ){
+								foreach($offlineBookingArray as $row){
 
 						?>
 
@@ -75,9 +62,9 @@ $res=mysqli_query($con,$sql);
 						<td scope="col"> <?php  echo date("d/m/Y", strtotime($row['bookedOn'])); ?></td>
 						<td scope="col">
 
-							<a href="<?php echo SITE_PATH.'templates/admin_panel/'; ?>AddBooking/<?php echo $row['id']; ?>"> <button class="btn btn-success btn-sm">Edit</button> </a>
+							<a href="?type=admin&page=AddBooking&id=<?php echo $row['id']; ?>"> <button class="btn btn-success btn-sm">Edit</button> </a>
 							
-							<a target="_blank" href="<?php echo SITE_PATH.'templates/'; ?>bookReceipt/<?php echo $row['id'];?>"> <button class="btn btn-danger btn-sm">View</button> </a>
+							<a target="_blank" href="?page=bookReceipt&id=<?php echo $row['id']; ?>"> <button class="btn btn-danger btn-sm">View</button> </a>
 
 
 						</td>
@@ -118,7 +105,7 @@ $res=mysqli_query($con,$sql);
 
       <?php
 
-        include 'footer.php';
+        
       ?>
 
    

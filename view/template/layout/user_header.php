@@ -1,93 +1,150 @@
-<?php
-session_start();
-
-include 'include/functions.inc.php';
-include 'include/constants.inc.php';
-
-$favArray=getFavourites();
-$fav_count=count($favArray);
-$currentUserDetails=getCurrentUserDetails();
-
-
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html lang="en">
-   <head>
-      <!-- google sign in -->
-      <meta name="google-signin-client_id" content="875579401591-3sthut12r3le5hl4noodducetvrmek04.apps.googleusercontent.com">
-      <script src="https://apis.google.com/js/platform.js" async defer></script>
 
-      <meta charset="UTF-8">
-      <title><?php echo SITE_NAME; ?></title>
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta http-equiv="x-ua-compatible" content="ie=edge">
-      
-      <!-- Favicons -->
-      <link rel="apple-touch-icon" sizes="76x76" href="<?php echo SITE_PATH; ?>view/static/view/static/asset/logo/apple-touch-icon.png">
-      <link rel="icon" type="image/png" sizes="32x32" href="<?php echo SITE_PATH; ?>view/static/asset/logo/favicon-32x32.png">
-      <link rel="icon" type="image/png" sizes="16x16" href="<?php echo SITE_PATH; ?>view/static/asset/logo/favicon-16x16.png">
-      <link rel="manifest" href="<?php echo SITE_PATH; ?>view/static/asset/logo/site.webmanifest">
-      <link rel="mask-icon" href="<?php echo SITE_PATH; ?>view/static/asset/logo/safari-pinned-tab.svg" color="#5bbad5">
-      <meta name="msapplication-TileColor" content="#da532c">
-      <meta name="theme-color" content="#ffffff">
-      <link rel="stylesheet" href="<?php echo SITE_PATH; ?>view/static/asset/css_user/home-css.css"/>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <link href='https://fonts.googleapis.com/css?family=Galada' rel='stylesheet'>
-      <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-      <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.3/css/swiper.css'>
-      <link rel="stylesheet" href="<?php echo SITE_PATH; ?>view/static/asset/css_user/style.css">
-      <link rel="stylesheet" href="<?php echo SITE_PATH; ?>view/static/asset/css_user/destination-details-css.css"/>
-      <link rel="stylesheet" href="<?php echo SITE_PATH; ?>view/static/asset/css_user/home-css.css"/>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-      <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-      <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      <link rel="stylesheet" href="<?php echo SITE_PATH; ?>view/static/asset/bootstrap.min.css">
-      <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-      <!-- font awesome cdn link  -->
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-      <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.1/assets/owl.carousel.min.css'>
-      <link rel='stylesheet' href='https://themes.audemedia.com/html/goodgrowth/css/owl.theme.default.min.css'>
-      <link rel="stylesheet" href="<?php echo SITE_PATH; ?>view/static/asset/css_user/home-css.css">
-   </head>
-   <body>
-      <nav class="navbar">
-         <div class="logo">
-            <a href="<?php echo SITE_PATH; ?>"><img src="<?php echo SITE_PATH; ?>view/static/asset/logo/apple-touch-icon.png"></a>
-            <div class="bars" onclick="menuToggle()"><i class="fas fa-bars"></i></div>
-         </div>
-         <ul class="nav-menu">
-            <li class="nav-item"><a href="?page=home">Home</a></li>
-            <li class="nav-item"><a href="#about">About us</a></li>
-            <li class="nav-item"><a href="<?php if(isset($_SESSION['CURRENT_USER_ID'])){
-               echo "?page=profile";
-               }else{
-               echo "?page=login";
-               } ?>">
-               <?php if(isset($_SESSION['CURRENT_USER_ID']))
-                  { ?>Hi, <?php echo getCurrentUserName(); }
-                  else{
-                    ?>
-               <i class="material-icons">person</i>
-               <?php
-                  }
-                  
-                  ?>
-               </a>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><?php echo SITE_NAME; ?></title>
+
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="view/static/asset/logo/apple-touch-icon.png" type="image/svg+xml">
+
+  <!-- 
+    - custom css link
+  -->
+  <link rel="stylesheet" href="view/static/asset/css/style.css">
+
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- owl carousel links -->
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.1.1/assets/owl.carousel.min.css'>
+  <link rel='stylesheet' href='https://themes.audemedia.com/html/goodgrowth/css/owl.theme.default.min.css'>
+
+
+    
+</head>
+
+<body id="top">
+
+  <!-- 
+    - #HEADER
+  -->
+
+  <header class="header" data-header>
+
+    <div class="overlay" data-overlay></div>
+
+    <div class="header-top">
+      <div class="container">
+
+        <a href="tel:+91<?php echo $adminSocial['phone'];  ?>" class="helpline-box">
+
+          <div class="icon-box">
+            <ion-icon name="call-outline"></ion-icon>
+          </div>
+
+          <div class="wrapper">
+            <p class="helpline-title">For Further Inquires :</p>
+
+            <p class="helpline-number">+91 <?php echo $adminSocial['phone'];  ?></p>
+          </div>
+
+        </a>
+
+        <a href="<?php echo SITE_PATH; ?>" class="logo">
+          <img src="view/static/asset/logo/apple-touch-icon.png" alt="Tourly logo">
+        </a>
+
+        <div class="header-btn-group">
+
+     <!--      <button class="search-btn" aria-label="Search">
+            <ion-icon name="search"></ion-icon>
+          </button> -->
+
+          <button class="nav-open-btn" aria-label="Open Menu" data-nav-open-btn>
+            <ion-icon name="menu-outline"></ion-icon>
+          </button>
+
+        </div>
+
+      </div>
+    </div>
+
+    <div class="header-bottom">
+      <div class="container">
+
+        <nav class="navbar" data-navbar>
+
+          <div class="navbar-top">
+
+            <a href="#" class="logo">
+              <img src="view/static/asset/logo/apple-touch-icon.png" alt="Tourly logo">
+            </a>
+
+            <button class="nav-close-btn" aria-label="Close Menu" data-nav-close-btn>
+              <ion-icon name="close-outline"></ion-icon>
+            </button>
+
+          </div>
+
+          <ul class="navbar-list">
+
+            <li>
+              <a href="<?php echo SITE_PATH; ?>" class="navbar-link" data-nav-link>home</a>
             </li>
-            <li class="nav-item" >
-              <a  href="?page=favorite">    <i class="material-icons is-liked bouncy">favorite 
-                <span id="favItems" class="count"><?php echo $fav_count; ?></span></i>
-              </a> 
-              </li>
-         </ul>
-      </nav>
-      <div class="alert alert-success w-20 successMsg" id="addToCartSuccess" role="alert" >
-         <i class="fas fa-check-circle green-tick"></i>Added to cart successfully!
+
+            <li>
+              <a href="<?php echo SITE_PATH; ?>#about" class="navbar-link" data-nav-link>about us</a>
+            </li>
+
+
+            <li>
+              <a href="<?php echo SITE_PATH; ?>#package" class="navbar-link" data-nav-link>packages</a>
+            </li>
+
+            <li>
+              <a href="<?php echo SITE_PATH; ?>#testimonials" class="navbar-link" data-nav-link>Testimonials</a>
+            </li>
+
+            <li>
+              <a href="<?php echo SITE_PATH; ?>#contact" class="navbar-link" data-nav-link>contact us</a>
+            </li>
+
+            <?php if(isset($_SESSION['CURRENT_USER_ID'])){
+            ?>
+            <li>
+              <b><a href="?page=profile" class="navbar-link" data-nav-link>Hi, <?php echo $currentUserDetails['name'];?></a></b>
+            </li>
+            <?php
+               }
+               else{
+                ?>
+                <li>
+                  <a href="?page=login" class="navbar-link" data-nav-link>login</a>
+                </li>
+                <?php
+               }
+             ?>
+
+
+          </ul>
+
+        </nav>
+
       </div>
-      <div class="alert alert-success w-20 successMsg" id="addToFavSuccess" role="alert" >
-         <i class="fas fa-check-circle green-tick"></i>Added to Favourites successfully!
-      </div>
+    </div>
+
+  </header>
+
+
+

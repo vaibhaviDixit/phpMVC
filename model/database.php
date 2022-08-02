@@ -8,10 +8,8 @@ class Database
 	private $db_pass="";
 	private $db_name="tours";
 
-
 	private $conn=false;
 	private $pdo=null;
-	private $result=array();
 
 
 	//make connection
@@ -39,7 +37,7 @@ class Database
 	}
 
 	function runBasicQuery($sql){
-		$result="";
+		$result=array();
 		$query=$this->pdo->query($sql);
 
 		if($query){
@@ -49,6 +47,43 @@ class Database
 		return $result;
 
 	}
+
+
+	function runInsertQuery($sql){
+
+		if($this->pdo->query($sql)){
+				return $this->pdo->lastInsertId();
+		}else{
+				return 0;
+		}
+
+	}
+
+	function runUpdateQuery($sql){
+		
+		$stmt=$this->pdo->prepare($sql);
+
+		if($stmt->execute()){
+				return $stmt->rowCount();
+		}else{
+				return 0;
+		}
+
+	}
+
+	function runDeleteQuery($sql){
+		
+		$stmt=$this->pdo->prepare($sql);
+
+		if($stmt->execute()){
+				return $stmt->rowCount();
+		}else{
+				return 0;
+		}
+
+	}
+
+
 
 	//destroy connection
 	public function __destruct(){

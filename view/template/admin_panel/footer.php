@@ -15,21 +15,49 @@
       <!-- footer ends here -->
     
 
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
-   <script src="<?php echo SITE_PATH; ?>asset/js_admin/app.js"></script>
-  <script src="//cdn.datatables.net/1.11.1/js/jquery.dataTables.min.js"></script>
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<script src="<?php echo SITE_PATH; ?>templates/ckeditor/ckeditor.js"></script>
-   <link href="<?php echo SITE_PATH; ?>asset/bootstrap.min.js" rel="stylesheet">
+  
+<script src="<?php echo SITE_PATH; ?>view/static/asset/ckeditor/ckeditor.js"></script>
+  <script src="<?php echo SITE_PATH; ?>view/static/asset/js/jquery.min.js"></script>
+  <script src="<?php echo SITE_PATH; ?>view/static/asset/js_admin/app.js"></script>
+  <script src="<?php echo SITE_PATH; ?>view/static/asset/js/datatables.js"></script>
+  <script src="<?php echo SITE_PATH; ?>view/static/asset/js/sweetalert.min.js"></script>
+  <script src="<?php echo SITE_PATH; ?>view/static/asset/bootstrap.min.js"></script>
+
 
   <script type="text/javascript">
+
     $(document).ready( function () {
       $('#dttable').DataTable();
   } );
 
     CKEDITOR.replace('placedesc');
+
+
+   function previewImage(id){
+
+    document.querySelector("#"+id).addEventListener("change",function(e){
+
+        if(e.target.files.length==0){
+          return;
+        }
+        let file=e.target.files[0];
+        let url=URL.createObjectURL(file);
+        document.querySelector("#preview_"+id+" img").src=url;
+
+    });
+
+   }
+
+   previewImage("img_1");
+   previewImage("img_2");
+   previewImage("img_3");
+   previewImage("img_4");
+   previewImage("img_5");
+   previewImage("img_6");
+
   </script>
  
+
   <script>
 
 
@@ -37,10 +65,10 @@
         {
             {
                 $.post("bardata.php",
-                function (data)
+                function (result)
                 {
 
-                     console.log(data);
+                     let data=jQuery.parseJSON(result);
                      var earnings =[];
                      var lb=[];
                      
@@ -114,14 +142,16 @@
         function showGraph()
         {
             {
-                $.post("data.php",
-                function (data)
-                {
-                     var bookCount = [];
+                $.post("bookingdata.php",
+                function (result)
+                { 
+                    let data=jQuery.parseJSON(result);
+                    var bookCount = [];
                     for (var i in data) {
                         bookCount.push(data[i]);
                     }
                      var chartdata = {
+                      //dont modify this sequence
                         labels: ["Todays", "Online", "Offline", "Pending","Confirmed"],
                         datasets: [
                             {
@@ -176,6 +206,25 @@
         });     
 
 
+        $(".descriptionDropDown").click(function(){
+            
+            $(".packageDescription").toggle();
+        });  
+
+        $(document).on('click', '.descriptionDropDown', function(e) {
+              
+              $(".packageDescription").hide();
+              let id=$(this).attr("data-id");
+              $("#packageDescription_"+id).show();
+
+        });
+
+        $(document).on('click', '.closeDrop', function(e) {
+              $(".packageDescription").hide();
+
+        });
+
+
         $( "#changePassFrom" ).submit(function( event ) {  
 
             event.preventDefault(); 
@@ -193,7 +242,7 @@
             }
 
               jQuery.ajax({
-                  url:'changepass',
+                  url:'changeAdminpass.php',
                   type:'post',
                   data:"oldPass="+oldp+"&newPass="+newp,
                   success:function(result){

@@ -1,6 +1,11 @@
 <?php
 
 session_start();
+require_once("model/userModel.php");
+require_once("model/adminModel.php");
+
+$userModel=new userModel();
+$adminModel=new adminModel();
 
 include ('layout/include/constants.inc.php');
 include ('layout/include/functions.inc.php');
@@ -10,22 +15,14 @@ $type=$_POST['type'];
 if($type=="signUp"){
 
 
-		$name=$_POST['name'];
-		$mobile=$_POST['mobile'];
-		$add=$_POST['add'];
+		$id=$userModel->addUser($_POST);
 
-
-		$check=mysqli_query($con,"INSERT INTO `user`(`name`, `mobile`, `address`) VALUES ('$name','$mobile','$add') ");
-
-		if($check){
+		if($id>0){
 			$arr=array("status"=>"success","msg"=>"Registered successfully!");
-			$check=mysqli_query($con,"select * from user where mobile='$mobile' ");
-			$row=mysqli_fetch_assoc($check);
-			$_SESSION['CURRENT_USER_ID']=$row['id'];
-		   echo json_encode($arr);
+			$_SESSION['CURRENT_USER_ID']=$id;
+		   	echo json_encode($arr);
 		}
 		else{
-
 		  $arr=array("status"=>"fail","msg"=>"Please Try Again");
 		   echo json_encode($arr);
 		}
@@ -35,12 +32,8 @@ if($type=="signUp"){
 
 if($type=="checkMobile"){
 
-
 		$mobile=$_POST['mobile'];
-
-		$checkMb=mysqli_query($con,"select * from user where mobile='$mobile'");
-
-		if(mysqli_num_rows($checkMb)>0){
+		if($userModel->mobileExists($mobile)==true){
 			$arr=array("status"=>"success","msg"=>"Enter OTP sent to ".$mobile);
 		    echo json_encode($arr);
 		}
@@ -58,15 +51,12 @@ if($type=="checkMbEmail"){
 		$mobile=$_POST['mobile'];
 		$email=$_POST['email'];
 
-		$checkMb=mysqli_query($con,"select * from user where mobile='$mobile'");
-		$checkEm=mysqli_query($con,"select * from user where email='$email'");
-
-		if(mysqli_num_rows($checkMb)>0 || mysqli_num_rows($checkEm)>0){
-			if(mysqli_num_rows($checkMb)>0){
+		if($userModel->mobileExists($mobile)==true || $userModel->emailExists($email)==true){
+			if($userModel->mobileExists($mobile)==true){
 				$arr=array("fail"=>"success","msg"=>"Mobile already registered!");
 		    	echo json_encode($arr);
 			}
-			if(mysqli_num_rows($checkEm)>0){
+			if($userModel->emailExists($email)==true){
 				$arr=array("fail"=>"success","msg"=>"Email already registered!");
 		    	echo json_encode($arr);
 			}
@@ -83,12 +73,9 @@ if($type=="login"){
 
 
 		$mobile=$_POST['mobile'];
+		if($userModel->mobileExists($mobile)==true && $userModel->getUserByMob($mobile)>0){
 
-		$check=mysqli_query($con,"select * from user where mobile='$mobile' ");
-
-		if(mysqli_num_rows($check)>0){
-			$row=mysqli_fetch_assoc($check);
-			$_SESSION['CURRENT_USER_ID']=$row['id'];
+			$_SESSION['CURRENT_USER_ID']=$userModel->getUserByMob($mobile);
 			$arr=array("status"=>"success","msg"=>"login successfully");
 		    echo json_encode($arr);
 		}
@@ -98,62 +85,40 @@ if($type=="login"){
 
 		}
 		
-
-
-
 }
+
+
 if($type=="adminlogin"){
 		$uname=$_POST['uname'];
 		$pass=$_POST['pass'];
 
-		$check=mysqli_query($con,"select * from admin where name='$uname' ");
-
-		if(mysqli_num_rows($check)>0){
-
-			$row=mysqli_fetch_assoc($check);
-			$adminpass=$row['pass'];
-
-			if (password_verify($pass, $adminpass)) {
-				$_SESSION['ADMIN']=$row['id'];
-				$arr=array("status"=>"success","msg"=>"login successfully");
-			    echo json_encode($arr);
-			} else {
-				$arr=array("status"=>"fail","msg"=>"Invalid username or password!");
-			    echo json_encode($arr);
-			}
-
-		}
-		else{
+		if ($adminModel->adminLogin($uname, $pass)) {
+			$_SESSION['ADMIN']=$row['id'];
+			$arr=array("status"=>"success","msg"=>"login successfully");
+			echo json_encode($arr);
+		} else {
 			$arr=array("status"=>"fail","msg"=>"Invalid username or password!");
-		    echo json_encode($arr);
-
+			echo json_encode($arr);
 		}
+
 		
 }
 
 if($type=="regUsingGmail"){
 
 
-		$name=getSafeVal($_POST['name']);
-		$email=getSafeVal($_POST['email']);
-		$profile=getSafeVal($_POST['profile']);
+       if($userModel->emailExists($email)==true){
 
-		$checkEmailExist=mysqli_num_rows(mysqli_query($con,"select * from user where email='$email' "));
-       if($checkEmailExist>0){
+				$_SESSION['CURRENT_USER_ID']=$userModel->getUserByEmail($email);
        		    $arr=array("status"=>"success","msg"=>"Login successfully!");
-				$check=mysqli_query($con,"select * from user where email='$email' ");
-				$row=mysqli_fetch_assoc($check);
-				$_SESSION['CURRENT_USER_ID']=$row['id'];
-			   echo json_encode($arr);
+			    echo json_encode($arr);
        }else{
 
-			$check=mysqli_query($con,"INSERT INTO `user`(`name`, `email`, `profile`) VALUES ('$name','$email','$profile') ");
+			$id=$userModel->addUserByGmail($_POST);
 
-			if($check){
+			if($id>0){
 				$arr=array("status"=>"success","msg"=>"Registered successfully!");
-				$check=mysqli_query($con,"select * from user where email='$email' ");
-				$row=mysqli_fetch_assoc($check);
-				$_SESSION['CURRENT_USER_ID']=$row['id'];
+				$_SESSION['CURRENT_USER_ID']=$id;
 			   echo json_encode($arr);
 			}
 			else{
@@ -161,9 +126,7 @@ if($type=="regUsingGmail"){
 			  $arr=array("status"=>"fail","msg"=>"Please Try Again");
 			   echo json_encode($arr);
 			}
-
        }
-
 
 }
 

@@ -1,9 +1,4 @@
 <?php
-session_start();
-
-include 'layout/include/functions.inc.php';
-include 'layout/include/constants.inc.php';
-
 
 $pkgId=getSafeVal($_POST['id']);
 $operation=getSafeVal($_POST['operation']);

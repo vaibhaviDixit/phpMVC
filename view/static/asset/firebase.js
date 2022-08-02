@@ -1,7 +1,7 @@
-const login_process_url="view/template/register_login.php";
-const profile_update_url="view/template/user_panel/changeUserDetails.php"
+const login_process_url="register_loginService.php";
+const profile_update_url="changeUserDetails.php"
 const site_path="http://localhost/crud/";
-const admin_panel="view/template/admin_panel/index.php";
+const admin_panel="http://localhost/crud/?type=admin&page=dash";
 
 
 const firebaseConfig = {
@@ -55,7 +55,8 @@ const firebaseConfig = {
                    url:login_process_url,  
                    data:"mobile="+phone+"&type=checkMobile",
                    success:function(result){
-                      
+                      console.log(result);
+
                       msg=jQuery.parseJSON(result);
 
                      if(msg.status=="success"){
@@ -119,7 +120,6 @@ const firebaseConfig = {
                    url:login_process_url,  
                    data:"mobile="+mob+"&email="+email+"&type=checkMbEmail",
                    success:function(result){
-
                       msg=jQuery.parseJSON(result);
 
                      if(msg.status=="fail"){
@@ -145,10 +145,8 @@ const firebaseConfig = {
                         }).catch(function(error){
                             
                         })
-
                        
                      }
-                     
                    }
                    
                   });
@@ -262,7 +260,7 @@ $("#verifyLoginOtp").on("click",function(e){
                    url:login_process_url,  
                    data:"mobile="+phone+"&type=login",
                    success:function(result){
-                
+                      console.log(result);
                       msg=jQuery.parseJSON(result);
 
                      if(msg.status=="success"){
@@ -310,6 +308,7 @@ $("#verifyLoginOtp").on("click",function(e){
                    url:login_process_url,  
                    data:"uname="+adminUname+"&pass="+adminPass+"&type=adminlogin",
                    success:function(result){
+                    console.log(result)
                       msg=jQuery.parseJSON(result);
 
                      if(msg.status=="success"){
@@ -375,7 +374,7 @@ jQuery('#changeUserProfileForm #sendOTPWalaBtn').on('click',function(e){
     data:"userPhone="+userPhone+"&action=check",
     success:function(result){
         msg=jQuery.parseJSON(result);
-      
+        
         if(msg.status=="error"){
           swal(msg.msg,"", "error");
         }
@@ -462,15 +461,6 @@ jQuery('#changeUserProfileForm #verifyOTPWalaBtn').on('click',function(e){
 
 
 
-
-
-
-
-
-
-
-
-
 jQuery('#checkOutForm #sendOTPWhileBooking').on('click',function(e){
   e.preventDefault();
   userPhone=$("#checkOutForm #mobile").val();
@@ -486,8 +476,9 @@ jQuery('#checkOutForm #sendOTPWhileBooking').on('click',function(e){
     type:'post',
     data:"userPhone="+userPhone+"&action=check",
     success:function(result){
+       console.log(result);
         msg=jQuery.parseJSON(result);
-      
+        
         if(msg.status=="error"){
           swal(msg.msg,"", "error");
         }

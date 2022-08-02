@@ -16,3 +16,31 @@ form label{
 #dttable .btn-sm{
 	margin-top:10px; 
 }
+
+.packageimages input{
+	display: none;
+}
+
+.packageimages label{
+	width: 100%;
+    height: 130px;
+    background: #ccc;
+    position: relative;
+    cursor: pointer;
+}
+.packageimages label img{
+
+	width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+}
+ 
+.packageimages .icon{
+	position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+

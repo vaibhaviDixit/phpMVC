@@ -1,12 +1,3 @@
-<?php
-
-include ('top.php');
-
-$sql="select package.*,category.name from package,category  where package.packageType=category.id";
-$res=mysqli_query($con,$sql);
-
-?>
-
 			<main class="content">
 				<div class="container-fluid p-0">
 
@@ -23,11 +14,11 @@ $res=mysqli_query($con,$sql);
 
 						<th scope="col">Sr No.</th>
 						<th scope="col">Name</th>
+						<th scope="col">Location</th>
 						<th scope="col">Description</th>
-						<th scope="col" width="10%">Photo</th>
 						<th scope="col">Price</th>
 						<th scope="col">Discount</th>
-						<th scope="col">Category</th>
+						<th scope="col">Duration</th>
 						<th scope="col" width="20%">Actions</th>
 
 						</tr>
@@ -35,33 +26,63 @@ $res=mysqli_query($con,$sql);
 					<tbody>
 					<?php  
 
-							if(mysqli_num_rows($res) > 0){
+							if(count($allPackages) > 0){
 								$i=1;
-								while( $row=mysqli_fetch_assoc($res) ){
-
+								foreach($allPackages as $row){
 						?>
+
+							<div class="card packageDescription" id="packageDescription_<?php echo $row['id']; ?>"  style=" position: absolute !important;  display: none; z-index: 1000; width: 70%; height: 85vh; overflow: scroll; left: 20%; top: 10%;">
+							    <a href="#" class="closeDrop" style="font-size: 2rem; position: absolute; right:3%;text-decoration: none;">&times;</a>
+								<b class="card-header"><?php  echo $row['packageName']; ?><br>
+									<?php  echo $row['packageLocation']; ?>
+								</b>
+                    			<div class="card-body"><?php  echo $row['packageDesc']; ?></div>
+                  			</div>
 
 						
 						<tr>
 						<td scope="col"> <?php  echo $i; ?></td>
 						<td scope="col" > <?php  echo $row['packageName']; ?></td>
-						<td scope="col" > <?php  echo $row['packageDesc']; ?></td>
-						<td scope="col" width="20%" > <a target="_blank" href="<?php  echo SITE_PACKAGE_IMAGE.$row['packagePhoto']; ?>"> <img class="img-fluid" src="<?php  echo SITE_PACKAGE_IMAGE.$row['packagePhoto']; ?>" > </a> </td>
+						<td scope="col" > <?php  echo $row['packageLocation']; ?></td>
+						<td scope="col" > 
+							<a href="#" style="text-decoration: none;" class="descriptionDropDown" data-id="<?php echo $row['id']; ?>">See Description</a>
 
+						</td>
 						<td scope="col" > <?php  echo $row['packagePrice']; ?></td>
 						<td scope="col" > <?php  echo $row['discount']; if($row['disType']=='cash'){
 							echo "&#8377;";}if($row['disType']=='per'){echo "%";} ?></td>
-						<td scope="col" > <?php  echo $row['name']; ?></td>
+						<td scope="col" > <?php  echo $row['packageDuration']; ?> Days</td>
 						<td scope="col" >
 
-							<a href="<?php echo SITE_PATH.'templates/admin_panel/'; ?>AddElement/<?php echo $row['id']; ?>"> <button class="btn btn-success btn-sm">Edit</button> </a>
+							<a href="?type=admin&page=AddElement&id=<?php echo $row['id']; ?>"> <button class="btn btn-success btn-sm">Edit</button> </a>
 							
-							<a href="?id=<?php echo $row['id']; ?>&type=delete "> <button class="btn btn-danger btn-sm">Delete</button> </a>
+
+
+							<?php
+								if( $row['status'] == 1 ){
+							?>
+							<a href="?type=admin&page=ListElement&id=<?php echo $row['id']; ?>&oper=deactivepackage"> <button class="btn btn-primary btn-sm">Active</button> </a>
+
+							<?php
+
+								}
+								else
+								{
+							?>
+							<a href="?type=admin&page=ListElement&id=<?php echo $row['id']; ?>&oper=activepackage"> <button class="btn btn-secondary btn-sm">Deactive</button> </a>
+
+							<?php
+								}
+
+							?>
+
+							<a href="?type=admin&page=ListElement&id=<?php echo $row['id']; ?>&oper=deletepackage"> <button class="btn btn-danger btn-sm">Delete</button> </a>
 
 
 						</td>
 						</tr>
 
+						
 
 						<?php
 								$i++;
@@ -86,34 +107,3 @@ $res=mysqli_query($con,$sql);
 					
 				</div>
 			</main>
-
-		
-
-			<?php
-
-				include 'footer.php';
-
-			?>
-		
-
-		<?php
-
-			if( isset($_GET['type']) && $_GET['type']!==' '  &&  isset($_GET['id']) && $_GET['id'] > 0  )
-			{
-
-				$type=$_GET['type'];
-				$id=$_GET['id'];
-
-				if( $type == 'delete')
-				{
-					 mysqli_query($con,"delete from package where id='$id' ");
-					 redirect(SITE_PATH.'templates/admin_panel/ListElement');
-
-				}
-
-
-
-
-			}
-
-?>

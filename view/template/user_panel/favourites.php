@@ -10,15 +10,13 @@
 <div class="box-container">
   <?php
 
-
+if(count($favArray)>0){
       foreach ($favArray as $key => $value) {
 
         $pckgId=$value['pckgId'];
-        // pra($favArray);
-            $packages=mysqli_query($con,"select * from package where id='$pckgId' ");
+            $pckgRow=$packagesModel->getpackageById($pckgId);
 
-             if(mysqli_num_rows($packages)>0){
-               while ($pckgRow=mysqli_fetch_assoc($packages)) {
+             if(count($pckgRow)>0){
                 ?>
                
           <div class="box">
@@ -72,9 +70,12 @@
           <?php
 
               }
-            }
           }
-           ?>
+        }
+        else{
+                  echo "<h3>You haven't favorite tours!</h3>";
+        }           
+      ?>
 </div>
 
 

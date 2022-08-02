@@ -1,61 +1,3 @@
-<?php
-
-include ('top.php');
-
-$msg="";
-
-                          
-
-//update admin profile
-if(isset($_POST['submit'])){
-  
-  $adminName=$_POST['adminName'];
-    $adminPhone=$_POST['adminPhone'];
-    $adminLocation=$_POST['adminLocation'];
-  $adminEmail=$_POST['adminEmail'];
-    $adminWeb=$_POST['adminWeb'];
-    $adminFb=$_POST['adminFb'];
-    $adminInsta=$_POST['adminInsta'];
-    $adminWh=$_POST['adminWh'];
-    $adminYt=$_POST['adminYt'];
-
-
-
-    $adminQ=mysqli_query($con,"update `admin` set `name`='$adminName', `email`='$adminEmail', `phone`='$adminPhone', `address`='$adminLocation',`website`='$adminWeb',`fb`='$adminFb',`insta`='$adminInsta',`whatsapp`='$adminWh',`youtube`='$adminYt' ");
-      if($adminQ){
-        redirect(SITE_PATH.'templates/admin_panel/profile');
-      }
-
-    ?>
-
-      <script type="text/javascript"></script>
-    <?php
-
-  
-}
-
-if(isset($_FILES['adminProfile'])){
-
-  $type=$_FILES['adminProfile']['type'];
-
-  if($type!="image/jpeg" && $type!="image/png" && $type!="image/jpg"){
-        $msg="Invalid image format";
-      }
-      else{
-
-        $adminProfile=rand(111111111,999999999).'_'.$_FILES['adminProfile']['name'];
-        move_uploaded_file($_FILES['adminProfile']['tmp_name'],SERVER_PROFILE_IMAGE.$adminProfile);
-        mysqli_query($con,"update admin set profile='$adminProfile'");
-        
-           
-        redirect(SITE_PATH.'templates/admin_panel/profile');
-
-      }
-
-  
-}
-
-?>
       
       <main class="content">
         <div class="container-fluid p-0">
@@ -67,16 +9,9 @@ if(isset($_FILES['adminProfile'])){
           
           </div>
           <div class="row">
-            <?php 
-                    if(strlen( $msg ) > 0){
-                    ?>
-                    <div class="alert alert-danger" role="alert" >  <?php echo $msg;  ?> </div>
-                    <?php
-                      }
-
-                  ?>  
+      
             <div class="col-md-4 col-xl-3">
-              <div class="card mb-3">
+              <div class="card mb-3 w-100">
                 <div class="card-header">
                   <h5 class="card-title mb-0">Profile Details</h5>
                 </div>
@@ -90,7 +25,7 @@ if(isset($_FILES['adminProfile'])){
 
                   <form method="post" enctype="multipart/form-data">
                        <label type="button" for="adminProfile" class="badge btn btn-primary btn-sm mt-2 rounded-pill">Change Profile <i class="fas fa-greater-than"></i></label>
-                        <input class="form-control form-control-sm" type="file" id="adminProfile" name="adminProfile" accept="image/*" onchange="this.form.submit();" hidden>
+                        <input class="form-control form-control-sm" type="file" id="adminProfile" name="updateAdminProfile" accept="image/*" onchange="this.form.submit();" hidden>
                                
                    </form>
 <br>
@@ -104,7 +39,7 @@ if(isset($_FILES['adminProfile'])){
 
 
             <div class="col-md-8 col-xl-9">
-              <div class="card mb-3">
+              <div class="card mb-3 w-100">
                 <div class="card-header">
                   <h5 class="card-title mb-0">Basic Infromation</h5>
                 </div>
@@ -148,42 +83,42 @@ if(isset($_FILES['adminProfile'])){
             </div>
             <!-- Change pass modal -->
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <span id="passMsg" class="text-danger"></span>
-        <form id="changePassFrom">
-          <div class="mb-3">
-            <label for="oldPass" class="col-form-label">Old Password:</label>
-            <input type="text" class="form-control" id="oldPass">
-          </div>
-          <span id="repassMsg" class="text-danger"></span>
-          <div class="mb-3">
-            <label for="newPass" class="col-form-label">New Password:</label>
-            <input class="form-control" id="newPass">
-          </div>
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <span id="passMsg" class="text-danger"></span>
+                    <form id="changePassFrom">
+                      <div class="mb-3">
+                        <label for="oldPass" class="col-form-label">Old Password:</label>
+                        <input type="text" class="form-control" id="oldPass">
+                      </div>
+                      <span id="repassMsg" class="text-danger"></span>
+                      <div class="mb-3">
+                        <label for="newPass" class="col-form-label">New Password:</label>
+                        <input class="form-control" id="newPass">
+                      </div>
 
-          <div class="mb-3">
-            <label for="renewp" class="col-form-label">Repeat Password:</label>
-            <input class="form-control" id="renewp">
-          </div>
+                      <div class="mb-3">
+                        <label for="renewp" class="col-form-label">Repeat Password:</label>
+                        <input class="form-control" id="renewp">
+                      </div>
 
-        <button type="submit" class="btn btn-primary">Change Password</button>
+                    <button type="changeAdminPass" class="btn btn-primary">Change Password</button>
 
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
 
           </div>
     <div class="col-md-8 col-xl-12">
         
-                <div class="card">
+                <div class="card w-100">
                   <div class="card-header">
                     <h3>Edit Profile</h3>
                   </div>
@@ -246,22 +181,14 @@ if(isset($_FILES['adminProfile'])){
                              </div>
 
 
-                            <button class="btn btn-success" name="submit" type="submit">Save Changes</button>
+                            <button class="btn btn-success" name="updateAdminDetails" type="submit">Save Changes</button>
 
                             </form>
                          </div>
                       </div> 
                       <!-- card ends -->
 
-</div>
-
-
-
+  </div>
       
       </main>
 
-      <?php
-
-        include 'footer.php';
-
-      ?>

@@ -1,5 +1,7 @@
 <?php
 
+require_once("service/emailService.php");
+
 if(isset($_SESSION['bookId'])){
 
  $id=$_SESSION['bookId'];
@@ -11,7 +13,7 @@ else{
 }
 ?>
 
-<section id="bookingProcess"  style="padding-top: 10% !important; height: 100vh;">
+<section id="bookingProcess"  style="padding-top: 40vh !important; height: 100vh;">
 
 	<div class="container pt-3">
 		<h3>Thank You!</h3>
@@ -24,9 +26,19 @@ else{
 
 </section>
 
+<script src="<?php echo SITE_PATH; ?>view/static/asset/js/jquery.min.js"></script>
+
+<script type="text/javascript">
+  $(".header").css("background-color", "#223544");
+</script>
 
 <?php
 
 unset($_SESSION['bookingArray']);
+unset($_SESSION['bookId']);
+
+// send email acknowledgement to admin about new booking...
+$text="You have new booking.<br>Check your admin panel now...";
+email($adminSocial['email'],$text);
 
 ?>

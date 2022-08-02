@@ -14,7 +14,11 @@ else{
 	</div>
 
 </section>
+<script src="<?php echo SITE_PATH; ?>view/static/asset/js/jquery.min.js"></script>
 
+<script type="text/javascript">
+  $(".header").css("background-color", "#223544");
+</script>
 <?php
 	unset($_SESSION['bookingArray']);
 ?>
