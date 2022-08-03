@@ -35,16 +35,11 @@ function email($email,$message){
 	    $mail->Body    = $message;
 	    
 	    if($mail->send()){
-	      echo json_encode(array("success"=>true));
-	      die();
-	    }
-	    else{
-	       echo json_encode(array("success"=>false));
-	      die();
+	      // 
 	    }
 	    
 	} catch (Exception $e) {
-
+		
 	}
 
 }

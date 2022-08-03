@@ -44,6 +44,7 @@ class onlineBookingModel{
 	function addOnlineBooking($params=array()){
 		$name=$params['name'];
 		$phone=$params['mobile'];
+		$email=$params['email'];
 		$adrs=$params['adrs'];
 		$check_in=$params['check_in'];
 		$check_out=$params['check_out'];
@@ -60,7 +61,7 @@ class onlineBookingModel{
 		$ORDER_ID = $params["ORDER_ID"];
 		$uid=explode("_", $CUST_ID)[1];
 
-	    $sql="INSERT INTO `bookonline`(`uid`, `bookId`, `name`, `phone`, `address`, `packageId`, `packagePrice`, `checkIn`, `checkOut`, `adults`, `children`, `subTotal`, `discount`, `disType`, `coupon`, `total`, `paymentStatus`) VALUES ('$uid','$ORDER_ID','$name','$phone','$adrs','$packageId','$packagePrice','$check_in','$check_out','$adults','$children','$subTotal','$dis','$disType','$coupon','$TXN_AMOUNT','pending')";
+	    $sql="INSERT INTO `bookonline`(`uid`, `bookId`, `name`, `phone`,`email`, `address`, `packageId`, `packagePrice`, `checkIn`, `checkOut`, `adults`, `children`, `subTotal`, `discount`, `disType`, `coupon`, `total`, `paymentStatus`) VALUES ('$uid','$ORDER_ID','$name','$phone','$email','$adrs','$packageId','$packagePrice','$check_in','$check_out','$adults','$children','$subTotal','$dis','$disType','$coupon','$TXN_AMOUNT','pending')";
 
 		return $this->db_handle->runInsertQuery($sql);
 

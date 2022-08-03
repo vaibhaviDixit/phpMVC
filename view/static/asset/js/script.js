@@ -83,3 +83,36 @@ $('.image-slider').owlCarousel({
 })
 
 });
+
+let loadMorePackages=document.querySelector("#loadMorePackages");
+let currentPackage=4;
+
+loadMorePackages.onclick=()=>{
+
+      let cards=[...document.querySelectorAll('.package-list .singlePackage')]
+
+      for(var i=currentPackage; i<currentPackage+4; i++){
+          cards[i].style.display="block";
+      }
+      currentPackage+=4;
+
+      if(currentPackage>=cards.length){
+        loadMorePackages.style.display="none";
+      }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

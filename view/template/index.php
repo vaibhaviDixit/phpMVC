@@ -140,7 +140,7 @@
                 foreach($packagesArray as $pckgRow) {
                   //package start
                   ?>
-                    <li>
+                    <li class="singlePackage">
               <div class="package-card">
 
                 <figure class="card-banner">
@@ -211,7 +211,7 @@
 
           </ul>
 
-          <button class="btn btn-primary">View All Packages</button>
+          <button class="btn btn-primary" id="loadMorePackages">View All Packages</button>
 
         </div>
       </section>

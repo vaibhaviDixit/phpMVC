@@ -79,8 +79,6 @@
                         lb.push(data['data1'][k]);
                      }
 
-                     console.log(earnings);
-                     console.log(lb);
 
                      var bardata = {
                         labels:lb,

@@ -709,6 +709,18 @@ body { background: var(--white); }
   margin-bottom: 20px;
 }
 
+.package-list .singlePackage{
+  display: none;
+}
+
+.package-list .singlePackage:nth-child(1),
+.package-list .singlePackage:nth-child(2),
+.package-list .singlePackage:nth-child(3),
+.package-list .singlePackage:nth-child(4)
+{
+  display: block;
+}
+
 .card-meta-list {
   background: var(--white);
   max-width: max-content;
