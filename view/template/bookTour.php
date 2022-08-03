@@ -97,7 +97,7 @@ $packagesModel=new packagesModel();
               <div id="right_container" class="fs-14">
                   
                   <table class="w-100">
-                    <form  method="post" action="?page=checkout">
+                    <form  method="get">
                     <p id="offBlock"><?php echo $offval; ?> OFF</p>
                       
                       <input type="hidden" name="page" value="checkout">
@@ -122,7 +122,7 @@ $packagesModel=new packagesModel();
                       <td class="bold fs-16">Date</td>
                       <td><span>
                           <label for="date">Change</label>
-                          <input type="date" name="checkin" id="date" required min="<?php echo date("Y-m-d"); ?>" >
+                          <input type="date" name="checkin" id="date" required min="<?php echo date("Y-m-d"); ?>" value="<?php echo date("Y-m-d"); ?>">
 
                         </span>
                       </td>
@@ -265,6 +265,7 @@ function childcount(val){
 
      });
     
+    $("#date").trigger("change");
   
   function bookingValue(){
 

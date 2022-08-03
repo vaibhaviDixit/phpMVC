@@ -3,22 +3,22 @@
 if(!isset($_SESSION['CURRENT_USER_ID'])){
 	redirect(SITE_PATH);
 }
-if(isset($_POST['submit'])){
+if(isset($_GET['submit'])){
 
 	$oid="IMPERIOUS".rand(10000,99999999)."_".$_SESSION['CURRENT_USER_ID'];
 
-	   $checkin=$_POST['checkin'];
-	   $checkout=$_POST['checkout'];
-       $adults=$_POST['noofadult'];
-       $children=$_POST['noofchild'];
-       $package=$_POST['package'];
-       $subtotal=$_POST['subtotal'];
+	   $checkin=$_GET['checkin'];
+	   $checkout=$_GET['checkout'];
+       $adults=$_GET['noofadult'];
+       $children=$_GET['noofchild'];
+       $package=$_GET['package'];
+       $subtotal=$_GET['subtotal'];
 
     $packagesRow=$packagesModel->getpackageById($package);
 
     $dis=floatval(($packagesRow['discount']));
     $disType=$packagesRow['disType'];
-    $payAmt=$_POST['finalAmt'];
+    $payAmt=$_GET['finalAmt'];
     $days=$packagesRow['packageDuration'];
 
 }
