@@ -184,9 +184,10 @@ body { background: var(--white); }
   text-transform: uppercase;
   font-family: var(--ff-montserrat);
   margin-bottom: 8px;
+  text-align: center;
 }
 
-.section-title { margin-bottom: 15px; }
+.section-title { margin-bottom: 15px; text-align: center; }
 
 .section-text {
   color: var(--black-coral);
@@ -455,7 +456,7 @@ body { background: var(--white); }
  * #about
 \*-----------------------------------*/
 
-.about { padding-block: var(--section-padding); }
+.about { padding-block: var(--section-padding); padding-bottom: 0px;}
 
 /*-----------------------------------*\
  * #booking

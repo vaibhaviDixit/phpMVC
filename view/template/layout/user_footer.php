@@ -74,7 +74,9 @@
       <div class="container">
 
         <p class="copyright">
-          &copy; 2022 <a href="">codewithsadee</a>. All rights reserved
+          &copy;
+            <script>document.write(new Date().getFullYear());</script> <a href="<?php echo SITE_PATH; ?>" ><b>Imperious Tours</b></a>.
+          All rights reserved | Developed By <a target="_blank" href="https://intelliseit.com/"><b> intelliseit </b></a>
         </p>
 
         <ul class="footer-bottom-list">
@@ -118,7 +120,7 @@
   <!-- 
     - custom js link
   -->
-  <script src="view/static/asset/js/script.js"></script>
+  <script src="<?php echo SITE_PATH; ?>view/static/asset/js/script.js"></script>
 
   <!-- 
     - ionicon link
@@ -128,6 +130,8 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+
+<script src="<?php echo SITE_PATH; ?>view/static/asset/js/autologout.js"></script>
 
 
 </body>

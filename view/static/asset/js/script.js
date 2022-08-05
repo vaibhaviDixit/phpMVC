@@ -92,22 +92,19 @@ loadMorePackages.onclick=()=>{
       let cards=[...document.querySelectorAll('.package-list .singlePackage')]
 
       for(var i=currentPackage; i<currentPackage+4; i++){
-          cards[i].style.display="block";
+
+          if(i<cards.length){
+            cards[i].style.display="block";
+          }
       }
       currentPackage+=4;
 
+      console.log(currentPackage)
+      console.log("len"+cards.length)
       if(currentPackage>=cards.length){
         loadMorePackages.style.display="none";
       }
 }
-
-
-
-
-
-
-
-
 
 
 

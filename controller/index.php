@@ -94,6 +94,7 @@ if(isset($_GET['page']) && !isset($_GET['type'])){
                   
 	}
 	elseif($page=='login'){
+		require('service/loginService.php');
 		require('view/template/login.php');
 	}
 	elseif($page=='signup'){

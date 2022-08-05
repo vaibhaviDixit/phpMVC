@@ -137,6 +137,7 @@
             <?php
               //check package array is empty or not
               if(count($packagesArray)>0){
+                
                 foreach($packagesArray as $pckgRow) {
                   //package start
                   ?>

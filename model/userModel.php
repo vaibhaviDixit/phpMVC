@@ -17,9 +17,19 @@ class userModel{
 			$pwd=$params['password'];
 			$password=password_hash($pwd, PASSWORD_DEFAULT);
 
-			$sql="INSERT INTO `user`(`name`, `email`, `password`,`profile`) VALUES ('$name','$email','$password','default.png') ";
+			$token=bin2hex(random_bytes(15));
+
+			$sql="INSERT INTO `user`(`name`, `email`, `password`,`profile`,`token`) VALUES ('$name','$email','$password','default.png','$token') ";
 
 			return $this->db_handle->runInsertQuery($sql);
+
+
+	}
+
+	function activateAcc($token){
+
+		$sql="update user set active=1 where token='$token'";		
+		return $this->db_handle->runUpdateQuery($sql);
 
 
 	}
@@ -62,7 +72,10 @@ class userModel{
 
 	function mobExists($params=array()){
 		$phone=$params['userPhone'];
-        $uid=$_SESSION['CURRENT_USER_ID'];
+		$uid=0;
+		if(isset($_SESSION['CURRENT_USER_ID'])){
+			$uid=$_SESSION['CURRENT_USER_ID'];
+		}
 
 		$sql="select * from user where mobile='$phone' and id<>'$uid' ";
 		$result=$this->db_handle->runBasicQuery($sql);

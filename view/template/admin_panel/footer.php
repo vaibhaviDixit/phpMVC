@@ -24,6 +24,38 @@
   <script src="<?php echo SITE_PATH; ?>view/static/asset/bootstrap.min.js"></script>
 
 
+<script type="text/javascript">
+  
+
+const site_path="http://localhost/crud/";
+let logoutUrl=site_path+"?type=admin&page=logout"
+
+function checkTime(){
+
+    $.ajax(
+            {  
+                       type:"POST",  
+                       url:"autoLogout.php",  
+                       data:"type=checktime",
+                       success:function(result){
+                           if(result!=null){
+                              let resp=jQuery.parseJSON(result);
+                              if(resp.type=="logout"){
+                                window.location.href=logoutUrl;
+                              }
+                          } 
+                       }
+                       
+    });
+}
+
+
+$(document).ready(function(){
+ setInterval(checkTime,1000);
+});
+
+
+</script>
   <script type="text/javascript">
 
     $(document).ready( function () {
@@ -259,6 +291,8 @@
               }); 
 
         });  
+
+
 
 
   </script>

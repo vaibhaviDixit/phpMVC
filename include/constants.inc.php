@@ -2,6 +2,9 @@
 
 // define constants here
 define('SITE_NAME','ImperiousTours');
+// define('SITE_PATH','http://imperioustours.com/');
+// define('SERVER_PATH',$_SERVER['DOCUMENT_ROOT']);
+
 define('SITE_PATH','http://localhost/crud/');
 define('SERVER_PATH',$_SERVER['DOCUMENT_ROOT'].'/crud/');
 
@@ -16,7 +19,8 @@ define('SERVER_PROFILE_IMAGE',SERVER_PATH."media/profile/");
 define('SITE_PROFILE_IMAGE',SITE_PATH."media/profile/");
 
 
-
+//define active time
+define('ACTIVE_TIME',36000);
 
 ?>
 

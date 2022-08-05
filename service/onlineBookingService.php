@@ -1,6 +1,5 @@
 <?php
 
-require_once("service/emailService.php");
 require_once("model/onlineBookingModel.php");
 require_once("model/packagesModel.php");
 

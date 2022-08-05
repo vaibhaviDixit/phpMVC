@@ -3,9 +3,12 @@
    if(!isset($_SESSION['CURRENT_USER_ID'])){
    	redirect(SITE_PATH.'?page=login');
    }
+
+   if(isset($_SESSION['LAST_ACTIVE_TIME'])){
+      $_SESSION['LAST_ACTIVE_TIME']=time();
+   }
    
-   
-   ?>
+?>
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -22,20 +25,21 @@
     <link rel="mask-icon" href="<?php echo SITE_PATH; ?>view/static/asset/logo/safari-pinned-tab.svg" color="#5bbad5">
 <meta name="msapplication-TileColor" content="#da532c">
 <meta name="theme-color" content="#ffffff">
-      <link rel="stylesheet" href="<?php echo SITE_PATH; ?>view/static/asset/css_user/style.css"/>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link href='https://fonts.googleapis.com/css?family=Galada' rel='stylesheet'>
       <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
       <link rel="preconnect" href="https://fonts.gstatic.com">
-      <script src="<?php echo SITE_PATH; ?>view/static/asset/js_user/script.js"></script>
+
       <link rel="canonical" href="https://demo-basic.adminkit.io/" />
       <title>User Panel</title>
       <link href="<?php echo SITE_PATH; ?>view/static/asset/bootstrap.min.css" rel="stylesheet">
       <link href="<?php echo SITE_PATH; ?>view/static/asset/css_admin/app.css" rel="stylesheet">
-      <link href="<?php echo SITE_PATH; ?>view/static/asset/css_user/cards.css" rel="stylesheet">
-      <link href="<?php echo SITE_PATH; ?>view/static/asset/css_user/rateus.css" rel="stylesheet">
+     <!--  <link href="<?php echo SITE_PATH; ?>view/static/asset/css_user/cards.css" rel="stylesheet"> -->
+      <link href="<?php echo SITE_PATH; ?>view/static/asset/css/rateus.css" rel="stylesheet">
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+
    </head>
    <body>
       <div class="wrapper">
@@ -90,7 +94,13 @@
                   <span class="text-dark"><?php echo $currentUserDetails['name']; ?></span>
                   <span> <i class="fas fa-caret-down"></i> </span>
                   </a>
-                  <div class="card" style="width: 7rem;" id="userDrop">
+                  <div class="card" id="userDrop" style="
+                        width: 7rem;
+                        position: absolute !important;
+                        right: 1rem;
+                        display: none;
+
+                  ">
                      <ul class="list-group list-group-flush">
                         <li class="list-group-item"><a class="dropdown-item" href="?page=userlogout">Log out</a></li>
                      </ul>
@@ -99,3 +109,4 @@
             </ul>
          </div>
       </nav>
+

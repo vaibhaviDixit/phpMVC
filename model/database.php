@@ -3,6 +3,11 @@
 class Database
 {
 	//connection variables
+	// private $db_host="localhost";
+	// private $db_user="u282558932_root";
+	// private $db_pass="Tours@#Improu$34";
+	// private $db_name="u282558932_tours";
+
 	private $db_host="localhost:3309";
 	private $db_user="root";
 	private $db_pass="";

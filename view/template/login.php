@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -63,6 +64,14 @@
 								<div class="m-sm-4">
 									<div class="text-center">
 										<img src="view/static/asset/images/user-login.png" alt="Charles Hall" class="img-fluid rounded-circle" width="132" height="132" />
+										<p class="text-info text-center">
+											<?php 
+												if(isset($_SESSION['reg_msg'])){
+													echo $_SESSION['reg_msg'];
+												}
+											?>
+
+										</p>
 										<p class="text-danger error text-center"></p>
 									</div>
 									<form id="loginform">

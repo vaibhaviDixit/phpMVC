@@ -90,13 +90,6 @@
                           </div>
                         </div>
       
-                        <div class="form-check d-flex justify-content-center mb-3">
-                          <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
-                          <label class="form-check-label" for="form2Example3">
-                            I agree all statements in <a href="#">Terms of service</a>
-                          </label>
-                        </div>
-      
                         <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                           <button type="submit" class="btn btn-primary btn-lg">Register</button>
                         </div>
@@ -134,9 +127,8 @@
       let email=$("#signupform #email").val().trim();
       let password=$("#signupform #password").val().trim();
       let confirmpass=$("#signupform #confirmpass").val().trim();
-    
-
-
+      
+      
       if(name.length<=2 || name.length>=16){
           $(".error").text("Name should 3 to 15 characters long!");
           $("#signupform #name").focus();
@@ -163,7 +155,7 @@
                          $(".error").text(msg.msg);
                      }
                      if(msg.status=="success"){
-                       window.location.href=site_path;
+                       window.location.href=site_path+"?page=login";
                      }
                    }
                    

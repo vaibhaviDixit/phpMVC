@@ -1,3 +1,8 @@
+<?php
+if(isset($_SESSION['LAST_ACTIVE_TIME'])){
+      $_SESSION['LAST_ACTIVE_TIME']=time();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 

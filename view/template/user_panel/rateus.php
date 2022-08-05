@@ -1,18 +1,17 @@
 		<main class="content">
 				
-				<div class="container-fluid">
+				<div class="container-fluid p-0">
 					<div class="row">
 					<h1 class="h3 mb-3"><strong>Rate Us</strong></h1>
 
 
 					<div class="col-12 col-md-12  d-flex">
-					<div class="feedback">
+					<div class="feedback px-4">
 						<br/>
 						<h4><strong>Dear Customer, </strong></h4>
 						<p>
 					Thank you for accepting our services. We would like to know how we performed. Please spare some time to give us your valuable feedback as it will help us in improving our service.</p>
 						</p>
-					<br/><br/><br/>
 					<h4><strong>Please rate your service experience</strong></h4>
 					
 
@@ -125,8 +124,7 @@
 						</div>
 					  </div>
 
-<br/><br/>
-					
+	
 					  <div class="clear"></div> 
 					  <hr class="survey-hr"> 
 					<!-- <label for="m_3189847521540640526commentText">Any Other suggestions:</label><br/><br/> -->

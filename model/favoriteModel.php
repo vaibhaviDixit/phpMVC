@@ -39,7 +39,11 @@ class favoriteModel{
 
 	function getUserFavFromDb(){
 
-		$uid=$_SESSION['CURRENT_USER_ID'];
+		$uid=0;
+		if(isset($_SESSION['CURRENT_USER_ID'])){
+			$uid=$_SESSION['CURRENT_USER_ID'];
+		}
+		
 		$sql="select * from favourites where userId='$uid' ";
 		$result=$this->db_handle->runBasicQuery($sql);
 		return $result;

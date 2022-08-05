@@ -35,11 +35,11 @@ function email($email,$message){
 	    $mail->Body    = $message;
 	    
 	    if($mail->send()){
-	      // 
+	      return true;
 	    }
 	    
 	} catch (Exception $e) {
-		
+		return false;
 	}
 
 }

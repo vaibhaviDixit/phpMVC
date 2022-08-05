@@ -19,7 +19,11 @@ class onlineBookingModel{
 
 
 	function getBookingsOfCurrentUser(){
-		$uid=$_SESSION['CURRENT_USER_ID'];
+
+		$uid=0;
+		if(isset($_SESSION['CURRENT_USER_ID'])){
+			$uid=$_SESSION['CURRENT_USER_ID'];	
+		}
 		
 		$sql="select bookonline.*,package.packageName,package.img1 from bookonline,package where bookonline.packageId=package.id and bookonline.uid='$uid' and bookonline.paymentStatus='success' and bookonline.status=1 ORDER BY bookonline.id DESC ;";
 
