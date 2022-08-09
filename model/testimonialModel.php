@@ -16,12 +16,31 @@ class testimonialModel{
 		return $result;
 	}
 
-	function addReview($uid,$params=array()){
-		$stars=$params['stars'];
- 		$msg=$params['msg'];
-		$sql="INSERT INTO `reviews`( `userId`, `description`, `stars`) VALUES ('$uid','$msg','$stars')";
-		return $this->db_handle->runInsertQuery($sql);
+	function addReview($params=array()){
+        
+        $uid=0;
+		if(isset($_SESSION['CURRENT_USER_ID'])){
+			$uid=$_SESSION['CURRENT_USER_ID'];
+		}
+		else{
+			return 0;
+		}
+
+		$data = [
+		    'uid' => $uid,
+		    'msg' => $params['msg'],
+		    'stars' => $params['stars']
+		];
+
+		$sql="INSERT INTO `reviews`( `userId`, `description`, `stars`) VALUES (:uid, :msg, :stars)";
+
+
+		return $this->db_handle->runInsertQuery($sql,$data);
 	}
+
+
+
+
 
 
 }

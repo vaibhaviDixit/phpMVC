@@ -30,25 +30,30 @@ class offlineBookingModel{
 
 
 	function addOfflineBooking($params=array()){
-		$name=$params['name'];
-		    $phone=$params['phone'];
-		    $address=$params['address'];
-		    $packageId=$params['packageId'];
-		    $checkIn=$params['checkIn'];
-		    $checkOut=$params['checkOut'];
-		    $payMode=$params['payMode'];
-		    $adults=$params['adults'];
-		    $children=$params['children'];
-		    $packagePrice=$params['packagePrice'];
-		    $subTotal=$params['subTotal']; 
-		    $discount=$params['discount']; 
-		    $total=$params['total']; 
-		    $paid=$params['paid']; 
-		    $rem=$params['rem']; 
 
-	    $sql="INSERT INTO `booking`(`name`, `phone`,`address`,`packageId`, `packagePrice`, `checkIn`, `checkOut`, `payMode`, `adults`, `children`, `subTotal`, `discount`,`distype`, `total`, `paid`, `rem`) VALUES ('$name','$phone','$address','$packageId','$packagePrice','$checkIn','$checkOut','$payMode','$adults','$children','$subTotal','$discount','$disType','$total','$paid','$rem')";
 
-		return $this->db_handle->runInsertQuery($sql);
+		$data = [
+		    'name' => $params['name'],
+		    'phone' => $params['phone'],
+		    'address' => $params['address'],
+		    'packageId' => $params['packageId'],
+		    'checkIn' => $params['checkIn'],
+		    'checkOut' => $params['checkOut'],
+		    'payMode' => $params['payMode'],
+		    'adults' => $params['adults'],
+		    'children' => $params['children'],
+		    'packagePrice' => $params['packagePrice'],
+		    'subTotal' => $params['subTotal'],
+		    'discount' => $params['discount'],
+		    'total' => $params['total'],
+		    'paid' => $params['paid'], 
+		    'rem' => $params['rem']
+		];
+
+
+	    $sql="INSERT INTO `booking`(`name`, `phone`,`address`,`packageId`, `packagePrice`, `checkIn`, `checkOut`, `payMode`, `adults`, `children`, `subTotal`, `discount`,`distype`, `total`, `paid`, `rem`) VALUES (:name,:phone,:address,:packageId,:packagePrice,:checkIn,:checkOut,:payMode,:adults,:children,:subTotal,:discount,:disType,:total,:paid,:rem')";
+
+		return $this->db_handle->runInsertQuery($sql,$data);
 
 	}
 
@@ -77,26 +82,30 @@ class offlineBookingModel{
 	}
 
 	function updateOfflineBooking($id,$params=array()){
-		$name=$params['name'];
-		    $phone=$params['phone'];
-		    $address=$params['address'];
-		    $packageId=$params['packageId'];
-		    $checkIn=$params['checkIn'];
-		    $checkOut=$params['checkOut'];
-		    $payMode=$params['payMode'];
-		    $adults=$params['adults'];
-		    $children=$params['children'];
-		    $packagePrice=$params['packagePrice'];
-		    $subTotal=$params['subTotal']; 
-		    $discount=$params['discount']; 
-		    $total=$params['total']; 
-		    $paid=$params['paid']; 
-		    $rem=$params['rem']; 
+		$data = [
+		    'name' => $params['name'],
+		    'phone' => $params['phone'],
+		    'address' => $params['address'],
+		    'packageId' => $params['packageId'],
+		    'checkIn' => $params['checkIn'],
+		    'checkOut' => $params['checkOut'],
+		    'payMode' => $params['payMode'],
+		    'adults' => $params['adults'],
+		    'children' => $params['children'],
+		    'packagePrice' => $params['packagePrice'],
+		    'subTotal' => $params['subTotal'],
+		    'discount' => $params['discount'],
+		    'total' => $params['total'],
+		    'paid' => $params['paid'], 
+		    'rem' => $params['rem'],
+		    'id' => $id
+		];
 
 
-		$sql="update `booking` set `name`='$name', `phone`='$phone', `packageId`='$packageId', `packagePrice`='$packagePrice', `checkIn`='$checkIn', `checkOut`='$checkOut', `payMode`='$payMode', `adults`='$adults', `children`='$children', `subTotal`='$subTotal', `discount`='$discount', `total`='$total', `paid`='$paid', `rem`='$rem' where `id`='$id' ";
+
+		$sql="update `booking` set `name`=:name, `phone`=:phone, `packageId`=:packageId, `packagePrice`=:packagePrice, `checkIn`=:checkIn, `checkOut`=:checkOut, `payMode`=:payMode, `adults`=:adults, `children`=:children, `subTotal`=:subTotal, `discount`=:discount, `total`=:total, `paid`=:paid, `rem`=:rem' where `id`=:id' ";
 		
-		return $this->db_handle->runUpdateQuery($sql);
+		return $this->db_handle->runUpdateQuery($sql,$data);
 
 
 	}

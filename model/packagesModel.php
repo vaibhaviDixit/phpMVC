@@ -24,13 +24,17 @@ class packagesModel{
 
 	function addPackage($file=array(),$params=array()){
 
-		$packageName=$params['packageName'];
-		$packageDesc=$params['packageDesc'];
-		$packagePrice=$params['packagePrice'];
-	 	$packageLocation=$params['packageLocation'];
-	 	$packageDuration=$params['packageDuration'];
-	    $packageDis=$params['packageDis'];
-	    $packageDisType=$params['packageDisType'];
+		$data=[	
+
+			'packageName'=>$params['packageName'],
+			'packageDesc'=>$params['packageDesc'],
+			'packagePrice'=>$params['packagePrice'],
+		 	'packageLocation'=>$params['packageLocation'],
+		 	'packageDuration'=>$params['packageDuration'],
+		    'packageDis'=>$params['packageDis'],
+		    'packageDisType'=>$params['packageDisType']
+
+		];
 
 
 		$img1=rand(111111111,999999999).'_'.$file['img1']['name'];
@@ -54,9 +58,9 @@ class packagesModel{
 
 		if($upload1 && $upload2 && $upload3 && $upload4 && $upload5 && $upload6){
 
-			$sql="INSERT INTO `package`(`packageName`, `packageDesc`, `packagePrice`, `packageLocation`,`packageDuration`,`discount`, `disType`,`img1`,`img2`,`img3`,`img4`,`img5`,`img6`) VALUES ('$packageName','$packageDesc','$packagePrice','$packageLocation','$packageDuration','$packageDis','$packageDisType','$img1','$img2','$img3','$img4','$img5','$img6')";
+			$sql="INSERT INTO `package`(`packageName`, `packageDesc`, `packagePrice`, `packageLocation`,`packageDuration`,`discount`, `disType`,`img1`,`img2`,`img3`,`img4`,`img5`,`img6`) VALUES (:packageName,:packageDesc,:packagePrice,:packageLocation,:packageDuration,:packageDis,:packageDisType,'$img1','$img2','$img3','$img4','$img5','$img6')";
 
-			return $this->db_handle->runInsertQuery($sql);
+			return $this->db_handle->runInsertQuery($sql,$data);
 
 		}
 		return 0;
@@ -83,13 +87,18 @@ class packagesModel{
 
 
 	function updatePackage($id,$file=array(),$params=array()){
-		$packageName=$params['packageName'];
-		$packageDesc=$params['packageDesc'];
-		$packagePrice=$params['packagePrice'];
-	 	$packageLocation=$params['packageLocation'];
-	 	$packageDuration=$params['packageDuration'];
-	    $packageDis=$params['packageDis'];
-	    $packageDisType=$params['packageDisType'];
+		$data=[	
+
+			'packageName'=>$params['packageName'],
+			'packageDesc'=>$params['packageDesc'],
+			'packagePrice'=>$params['packagePrice'],
+		 	'packageLocation'=>$params['packageLocation'],
+		 	'packageDuration'=>$params['packageDuration'],
+		    'packageDis'=>$params['packageDis'],
+		    'packageDisType'=>$params['packageDisType'],
+		    'id'=>$id
+
+		];
 
 	    $image_condition="";
 
@@ -155,10 +164,10 @@ class packagesModel{
 	    }
 
 		
-		$sql="update package set packageName='$packageName',packageDesc='$packageDesc',packagePrice='$packagePrice',discount='$packageDis' ,disType='$packageDisType' ,packageLocation='$packageLocation',packageDuration='$packageDuration' $image_condition where id='$id'  ";
+		$sql="update package set packageName=:packageName,packageDesc=:packageDesc,packagePrice=:$packagePrice,discount=:packageDis,disType=:packageDisType,packageLocation=:packageLocation,packageDuration=:packageDuration $image_condition where id=:id  ";
 
 		
-		return $this->db_handle->runUpdateQuery($sql);
+		return $this->db_handle->runUpdateQuery($sql,$data);
 
 
 	}

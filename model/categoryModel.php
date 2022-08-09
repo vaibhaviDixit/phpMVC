@@ -17,12 +17,15 @@ class categoryModel{
 	}
 
 	function addCategory($params=array()){
-		$category=$params['category'];
-	    $description=$params['description'];
 
 
-		$sql="insert into category(name,description,status) values('$category','$description',1)";
-		return $this->db_handle->runInsertQuery($sql);
+		$data = [
+		    'category' => $params['category'],
+		    'description' => $params['description']
+		];
+
+		$sql="insert into category(name,description,status) values(:category,:description,1)";
+		return $this->db_handle->runInsertQuery($sql,$data);
 
 
 	}
@@ -58,12 +61,17 @@ class categoryModel{
 
 	function updateCategory($id,$params=array()){
 
-		$category=$params['category'];
-	   	$description=$params['description'];
-
-		$sql="update category set name='$category', description='$description' where id='$id'  ";
 		
-		return $this->db_handle->runUpdateQuery($sql);
+		$data = [
+		    'category' => $params['category'],
+		    'description' => $params['description'],
+		    'id' => $id
+		];
+
+
+		$sql="update category set name=:category, description=:description where id=:id  ";
+		
+		return $this->db_handle->runUpdateQuery($sql,$data);
 
 
 	}

@@ -171,8 +171,7 @@
 										    type:'post',
 										    data:{stars : stars,msg:msg},
 										    success:function(result){
-										         
-
+										        
 										      msg=jQuery.parseJSON(result);
 										      if(msg.status=="success"){
 										        swal("Thank you!", "Your reviews matters for us!", "success");

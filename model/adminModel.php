@@ -49,20 +49,22 @@ class adminModel{
 
 	function updateAdmin($params=array()){
 
-		  $adminName=$params['adminName'];
-		    $adminPhone=$params['adminPhone'];
-		    $adminLocation=$params['adminLocation'];
-		    $adminEmail=$params['adminEmail'];
-		    $adminWeb=$params['adminWeb'];
-		    $adminFb=$params['adminFb'];
-		    $adminInsta=$params['adminInsta'];
-		    $adminWh=$params['adminWh'];
-		    $adminYt=$params['adminYt'];
+		$data = [
+		    'adminName'=> $params['adminName'],
+		    'adminPhone'=> $params['adminPhone'],
+		    'adminLocation'=> $params['adminLocation'],
+		    'adminEmail'=> $params['adminEmail'],
+		    'adminWeb'=> $params['adminWeb'],
+		    'adminFb'=> $params['adminFb'],
+		    'adminInsta'=> $params['adminInsta'],
+		    'adminWh'=> $params['adminWh'],
+		    'adminYt'=> $params['adminYt']
+		];
+		  
 
-
-		$sql="update `admin` set `name`='$adminName', `email`='$adminEmail', `phone`='$adminPhone', `address`='$adminLocation',`website`='$adminWeb',`fb`='$adminFb',`insta`='$adminInsta',`whatsapp`='$adminWh',`youtube`='$adminYt' ";
+		$sql="update `admin` set `name`=:adminName, `email`=:adminEmail, `phone`=:adminPhone, `address`=:adminLocation,`website`=:adminWeb,`fb`=:adminFb,`insta`=:adminInsta,`whatsapp`=:adminWh,`youtube`=:adminYt ";
 		
-		return $this->db_handle->runUpdateQuery($sql);
+		return $this->db_handle->runUpdateQuery($sql,$data);
 
 
 	}
@@ -77,10 +79,14 @@ class adminModel{
 		 $adminProfile=rand(111111111,999999999).'_'.$file['adminProfile']['name'];
          $isupload=move_uploaded_file($file['adminProfile']['tmp_name'],SERVER_PROFILE_IMAGE.$adminProfile);
 
+         $data=[
+         	'adminProfile'=>$adminProfile
+         ];
+
          if($isupload){
 
-         	$sql="update admin set profile='$adminProfile'";
-			return $this->db_handle->runUpdateQuery($sql);
+         	$sql="update admin set profile=:adminProfile";
+			return $this->db_handle->runUpdateQuery($sql,$data);
          }
          return 0;
 	}
@@ -88,9 +94,11 @@ class adminModel{
 
 	function updateAdminPass($pass){
 
-		$sql="update admin set pass='$pass' ";
+		$data=['pass'=> $pass];
+
+		$sql="update admin set pass=:pass";
 		
-		return $this->db_handle->runUpdateQuery($sql);
+		return $this->db_handle->runUpdateQuery($sql,$data);
 
 
 	}

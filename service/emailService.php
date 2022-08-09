@@ -1,7 +1,5 @@
 <?php
 
-require_once("model/enquiryModel.php");
-
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -11,7 +9,7 @@ require 'phpmailer/Exception.php';
 require 'phpmailer/PHPMailer.php';
 require 'phpmailer/SMTP.php';
 
-$enquiryModel=new enquiryModel();
+
 
 
 function email($email,$message){
@@ -44,13 +42,5 @@ function email($email,$message){
 
 }
 
-function emailToAllSubs($text){
-	$arr=$enquiryModel->getAllSubscribers();
-	if(count($arr)>0){
-		foreach ($arr as $emails) {
-			email($emails['email'],$text);
-		}
-	}
-}
 
 ?>

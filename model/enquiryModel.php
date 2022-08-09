@@ -21,17 +21,25 @@ class enquiryModel{
 		if(isset($params['name'])){
 			$name=$params['name'];
 		}
-		$phone=$params['phone'];
-		$query=$params['query'];
+
+		$data = [
+		    'name' => $name,
+		    'phone' => $params['phone'],
+		    'query' => $params['query']
+		];
 
 
-		$sql="insert into query(name,phone,query) values('$name','$phone','$query') ";
-		return $this->db_handle->runInsertQuery($sql);
+		$sql="insert into query(name,phone,query) values(:name,:phone,:query) ";
+		return $this->db_handle->runInsertQuery($sql,$data);
 
 
 	}
 
 	function subscribe($email){
+
+		$data=[
+			'email'=>$email
+		];
 
 		$sql="select * from subscription where email='$email'";
 		$result=$this->db_handle->runBasicQuery($sql);
@@ -39,8 +47,8 @@ class enquiryModel{
 			return 0;
 		}
 		else{
-			$sql="insert into subscription(email) values('$email') ";
-			return $this->db_handle->runInsertQuery($sql);
+			$sql="insert into subscription(email) values(:email) ";
+			return $this->db_handle->runInsertQuery($sql,$data);
 		}
 
 	}
@@ -73,13 +81,18 @@ class enquiryModel{
 
 	function updateEnquiry($id,$params=array()){
 
-		$name=$params['name'];
-		$phone=$params['phone'];
-		$query=$params['query'];
-
-		$sql="update query set name='$name',phone='$phone',query='$query' where id='$id'";
 		
-		return $this->db_handle->runUpdateQuery($sql);
+		$data = [
+		    'name' => $params['name'],
+		    'phone' => $params['phone'],
+		    'query' => $params['query'],
+		    'id'=> $id
+		];
+
+
+		$sql="update query set name=:name,phone=:phone,query=:query where id=:id";
+		
+		return $this->db_handle->runUpdateQuery($sql,$data);
 
 
 	}

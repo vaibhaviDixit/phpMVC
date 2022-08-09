@@ -153,7 +153,7 @@
                   <h3 class="h3 card-title"><?php  echo $pckgRow['packageName']; ?></h3>
 
                   <p class="card-text">
-                   <?php  echo substr(strip_tags($pckgRow['packageDesc']),0,175); ?>....
+                   <?php  echo substr(html_entity_decode(strip_tags($pckgRow['packageDesc'])),0,175); ?>....
                   </p>
 
                   <ul class="card-meta-list">

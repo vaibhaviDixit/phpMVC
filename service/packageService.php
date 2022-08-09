@@ -1,9 +1,11 @@
 <?php 
 
 require_once("model/packagesModel.php");
+require_once("service/emailService.php");
+require_once("model/enquiryModel.php");
 
 
-
+$enquiryModel=new enquiryModel();
 $packagesModel=new packagesModel();
 $packagesArray=$packagesModel->getActivePackages();
 $allPackages=$packagesModel->getAllPackages();
@@ -41,7 +43,16 @@ if(isset($_POST['addPackage'])){
 		
 			$result=$packagesModel->addPackage($_FILES,$_POST);
 			if($result>0){
-				emailToAllSubs("Explore new package : <b>".$_POST['packageName']);
+
+				$text="Explore new package : <b>".$_POST['packageName'];
+
+				$arr=$enquiryModel->getAllSubscribers();
+				if(count($arr)>0){
+					foreach ($arr as $emails) {
+						email($emails['email'],$text);
+					}
+				}
+				
 				redirect(SITE_PATH."?type=admin&page=ListElement");
 			}
 			else{

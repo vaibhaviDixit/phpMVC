@@ -4,9 +4,9 @@ class Database
 {
 	//connection variables
 	// private $db_host="localhost";
-	// private $db_user="u282558932_root";
-	// private $db_pass="Tours@#Improu$34";
-	// private $db_name="u282558932_tours";
+	// private $db_user="u282558932_tours";
+	// private $db_pass="Transport@2022";
+	// private $db_name="u282558932_imporius";
 
 	private $db_host="localhost:3309";
 	private $db_user="root";
@@ -54,9 +54,15 @@ class Database
 	}
 
 
-	function runInsertQuery($sql){
+	function runInsertQuery($sql,$data){
 
-		if($this->pdo->query($sql)){
+		$stmt= $this->pdo->prepare($sql);
+
+        foreach( $data as $key=>$val){
+        	$data[$key]=htmlentities($data[$key]);
+        }
+
+		if($stmt->execute($data)){
 				return $this->pdo->lastInsertId();
 		}else{
 				return 0;
@@ -64,11 +70,15 @@ class Database
 
 	}
 
-	function runUpdateQuery($sql){
+	function runUpdateQuery($sql,$data){
 		
-		$stmt=$this->pdo->prepare($sql);
+		$stmt= $this->pdo->prepare($sql);
 
-		if($stmt->execute()){
+        foreach( $data as $key=>$val){
+        	$data[$key]=htmlentities($data[$key]);
+        }
+
+		if($stmt->execute($data)){
 				return $stmt->rowCount();
 		}else{
 				return 0;

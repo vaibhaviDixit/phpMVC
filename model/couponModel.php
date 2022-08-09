@@ -17,11 +17,15 @@ class couponModel{
 	}
 
 	function addCoupon($params=array()){
-		$couponCode=$params['couponCode'];
-		$couponType=$params['couponType'];
-		$couponValue=$params['couponValue'];
-		$minValue=$params['minValue'];
-		$expiredOn=$params['expiredOn'];
+
+
+		$data = [
+		    'couponCode' => $params['couponCode'],
+		    'couponType' => $params['couponType'],
+		    'couponValue' => $params['couponValue'],
+		    'minValue' => $params['minValue'],
+		    'expiredOn' => $params['expiredOn']
+		];
 
 
 		if($this->couponExists($couponCode)){
@@ -29,8 +33,8 @@ class couponModel{
 		}
 		else{
 
-			$sql="insert into coupon(couponCode,couponType,couponValue,minValue,expiredOn,status) values('$couponCode','$couponType','$couponValue','$minValue','$expiredOn',1) ";
-			return $this->db_handle->runInsertQuery($sql);
+			$sql="insert into coupon(couponCode,couponType,couponValue,minValue,expiredOn,status) values(:couponCode,:couponType,:couponValue,:minValue,:expiredOn,1) ";
+			return $this->db_handle->runInsertQuery($sql,$data);
 		}
 		return 0;
 
@@ -72,16 +76,21 @@ class couponModel{
 
 
 	function updateCoupon($id,$params=array()){
-		$couponCode=$params['couponCode'];
-		$couponType=$params['couponType'];
-		$couponValue=$params['couponValue'];
-		$minValue=$params['minValue']; 
-		$expiredOn=$params['expiredOn'];
+
+		$data = [
+		    'couponCode' => $params['couponCode'],
+		    'couponType' => $params['couponType'],
+		    'couponValue' => $params['couponValue'],
+		    'minValue' => $params['minValue'],
+		    'expiredOn' => $params['expiredOn'],
+		    'id'=>$id
+		];
 
 
-		$sql="update coupon set couponCode='$couponCode',couponType='$couponType',couponValue='$couponValue',minValue='$minValue',expiredOn='$expiredOn' where id='$id' ";
+
+		$sql="update coupon set couponCode=:couponCode,couponType=:couponType,couponValue=:couponValue,minValue=:minValue',expiredOn=:expiredOn where id=:id ";
 		
-		return $this->db_handle->runUpdateQuery($sql);
+		return $this->db_handle->runUpdateQuery($sql,$data);
 
 
 	}
@@ -100,11 +109,6 @@ class couponModel{
 		$sql="update coupon set status='0' where id='$id'";
 		return $this->db_handle->runUpdateQuery($sql);
 	}
-
-
-
-
-
 
 
 

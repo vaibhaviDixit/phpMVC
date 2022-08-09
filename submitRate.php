@@ -2,13 +2,13 @@
 
 session_start();
 
-require_once("model/userModel.php");
+require_once("model/testimonialModel.php");
 
-$userModel=new userModel();
+$testimonialModel=new testimonialModel();
 
 if(isset($_POST['stars']) && isset($_POST['msg'])){
 
-if($userModel->addRatings($_POST) > 0){
+if($testimonialModel->addReview($_POST) > 0){
 	$arr=array("status"=>"success");
 	echo json_encode($arr);
 	die();

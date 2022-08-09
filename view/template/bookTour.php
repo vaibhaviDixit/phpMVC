@@ -87,7 +87,7 @@ $packagesModel=new packagesModel();
           <div class="row"> 
             <div class="tourdescription" id="left_container">
 
-              <?php echo $packagesRow['packageDesc']; ?>
+              <?php echo html_entity_decode($packagesRow['packageDesc']); ?>
 
                                       
             </div>

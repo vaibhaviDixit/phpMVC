@@ -12,14 +12,19 @@ class userModel{
 
 	//register user by form
 	function addUser($params=array()){
-			$name=$params['name'];
-			$email=$params['email'];
-			$pwd=$params['password'];
-			$password=password_hash($pwd, PASSWORD_DEFAULT);
 
-			$token=bin2hex(random_bytes(15));
 
-			$sql="INSERT INTO `user`(`name`, `email`, `password`,`profile`,`token`) VALUES ('$name','$email','$password','default.png','$token') ";
+			$data=[
+
+				'name'=>$params['name'],
+				'email'=>$params['email'],
+				'password'=>password_hash($params['password'], PASSWORD_DEFAULT),
+    			'profile'=>'default.png',
+				'token'=>bin2hex(random_bytes(15))
+			];
+
+			
+			$sql="INSERT INTO `user`(`name`, `email`, `password`,`profile`,`token`) VALUES (:name,:email,:password,:profile,:token) ";
 
 			return $this->db_handle->runInsertQuery($sql);
 
@@ -27,9 +32,11 @@ class userModel{
 	}
 
 	function activateAcc($token){
-
-		$sql="update user set active=1 where token='$token'";		
-		return $this->db_handle->runUpdateQuery($sql);
+		$data=[
+         	'token'=>$token
+         ];
+		$sql="update user set active=1 where token=:token ";		
+		return $this->db_handle->runUpdateQuery($sql,$data);
 
 
 	}
@@ -37,13 +44,15 @@ class userModel{
 	//register user by gmail
 	function addUserByGmail($params=array()){
 
-			$name=$_POST['name'];
-			$email=$_POST['email'];
-			$profile=$_POST['profile'];
+		$data=[
+			'name'=>$params['name'],
+			'email'=>$params['email'],
+			'profile'=>$params['profile']
+		];
 
-			$sql="INSERT INTO `user`(`name`, `email`, `profile`) VALUES ('$name','$email','$profile')";
+			$sql="INSERT INTO `user`(`name`, `email`, `profile`) VALUES (:name,:email,:profile)";
 
-			return $this->db_handle->runInsertQuery($sql);
+			return $this->db_handle->runInsertQuery($sql,$data);
 
 
 	}
@@ -136,10 +145,17 @@ class userModel{
 		 $userProfile=rand(111111111,999999999).'_'.$file['userProfile']['name'];
          $isupload=move_uploaded_file($file['userProfile']['tmp_name'],SERVER_PROFILE_IMAGE.$userProfile);
 
+         $data=[
+
+         	'profile'=>$userProfile,
+         	'uid'=>$uid
+
+         ];
+
          if($isupload){
 
-         	$sql="update user set profile='$userProfile' where id='$uid' ";
-			return $this->db_handle->runUpdateQuery($sql);
+         	$sql="update user set profile=:userProfile where id=:uid ";
+			return $this->db_handle->runUpdateQuery($sql,$data);
          }
          return 0;
 
@@ -147,32 +163,22 @@ class userModel{
 
 	function updateUserDetails($params=array()){
 
-		$name=$params['userName'];
-		$address=$params['userAddress'];
-		$phone=$params['userPhone'];
-        $uid=$_SESSION['CURRENT_USER_ID'];
+		$data=[
+
+				'name'=>$params['userName'],
+				'address'=>$params['userAddress'],
+				'phone'=>$params['userPhone'],
+    			'uid'=>$_SESSION['CURRENT_USER_ID']
+	   ];
+
         
-		$sql="update user set name='$name',address='$address',mobile='$phone' where id='$uid'";
+		$sql="update user set name=:name,address=:address,mobile=:phone where id=:uid";
 		
-		return $this->db_handle->runUpdateQuery($sql);
+		return $this->db_handle->runUpdateQuery($sql,$data);
 
 
 	}
 
-	//add ratings
-	function addRatings($params=array()){
-			
-			$stars=$_POST['stars'];
-			$msg=$_POST['msg'];
-
-			$uid=$_SESSION['CURRENT_USER_ID'];
-
-			$sql="INSERT INTO `reviews`( `userId`, `description`, `stars`) VALUES ('$uid','$msg','$stars')";
-
-			return $this->db_handle->runInsertQuery($sql);
-
-
-	}
 	
 
 }

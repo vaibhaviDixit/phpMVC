@@ -39,47 +39,60 @@ class onlineBookingModel{
 
 
 	function confirmBooking($id){
-		$sql="update bookonline set status=1 where id='$id'";
+
+		$data=[
+         	'id'=>$id
+         ];
+		$sql="update bookonline set status=1 where id=:id ";
 		
-		return $this->db_handle->runUpdateQuery($sql);
+		return $this->db_handle->runUpdateQuery($sql,$data);
 	}
 
 
 	function addOnlineBooking($params=array()){
-		$name=$params['name'];
-		$phone=$params['mobile'];
-		$email=$params['email'];
-		$adrs=$params['adrs'];
-		$check_in=$params['check_in'];
-		$check_out=$params['check_out'];
-		$adults=$params['adults'];
-		$children=$params['children'];
-		$subTotal=$params['total'];
-		$packageId=$params['package'];
-		$packagePrice=$params['packagePrice'];
-		$dis=$params['dis'];
-		$disType=$params['disType'];
-		$coupon=$params['coupon'];
-		$TXN_AMOUNT = $params["TXN_AMOUNT"];
-		$CUST_ID = $params["CUST_ID"];
-		$ORDER_ID = $params["ORDER_ID"];
-		$uid=explode("_", $CUST_ID)[1];
 
-	    $sql="INSERT INTO `bookonline`(`uid`, `bookId`, `name`, `phone`,`email`, `address`, `packageId`, `packagePrice`, `checkIn`, `checkOut`, `adults`, `children`, `subTotal`, `discount`, `disType`, `coupon`, `total`, `paymentStatus`) VALUES ('$uid','$ORDER_ID','$name','$phone','$email','$adrs','$packageId','$packagePrice','$check_in','$check_out','$adults','$children','$subTotal','$dis','$disType','$coupon','$TXN_AMOUNT','pending')";
+		$data=[
 
-		return $this->db_handle->runInsertQuery($sql);
+			'name'=>$params['name'],
+			'phone'=>$params['mobile'],
+			'email'=>$params['email'],
+			'adrs'=>$params['adrs'],
+			'check_in'=>$params['check_in'],
+			'check_out'=>$params['check_out'],
+			'adults'=>$params['adults'],
+			'children'=>$params['children'],
+			'subTotal'=>$params['total'],
+			'packageId'=>$params['package'],
+			'packagePrice'=>$params['packagePrice'],
+			'dis'=>$params['dis'],
+			'disType'=>$params['disType'],
+			'coupon'=>$params['coupon'],
+			'TXN_AMOUNT'=> $params["TXN_AMOUNT"],
+			'CUST_ID'=>$params["CUST_ID"],
+			'ORDER_ID'=>$params["ORDER_ID"],
+			'uid'=>explode("_", $params["CUST_ID"][1])
+
+		];
+
+	    $sql="INSERT INTO `bookonline`(`uid`, `bookId`, `name`, `phone`,`email`, `address`, `packageId`, `packagePrice`, `checkIn`, `checkOut`, `adults`, `children`, `subTotal`, `discount`, `disType`, `coupon`, `total`, `paymentStatus`) VALUES (:uid,:ORDER_ID,:name,:phone,:email,:adrs,:packageId,:packagePrice,:check_in,:check_out,:adults,:children,:subTotal,:dis,:disType,:coupon,:TXN_AMOUNT,'pending')";
+
+		return $this->db_handle->runInsertQuery($sql,$data);
 
 	}
 
 	function updateOnlineBooking($params=array()){
 
-		$oid=$params['ORDERID'];
-		$payId=$params['TXNID'];
-		$uid=explode("_", $oid)[1];
+		$data=[
 
-		$sql="update bookonline set `paymentId`='$payId', `paymentStatus`='success' where bookId='$oid' and uid='$uid' ";
+			'oid'=>$params['ORDERID'],
+			'payId'=>$params['TXNID'],
+			'uid'=>explode("_", $oid)[1]
+
+		];
+
+		$sql="update bookonline set `paymentId`=:payId, `paymentStatus`='success' where bookId=:oid and uid=:uid ";
 		
-		return $this->db_handle->runUpdateQuery($sql);
+		return $this->db_handle->runUpdateQuery($sql,$data);
 
 
 	}
