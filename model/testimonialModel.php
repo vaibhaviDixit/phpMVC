@@ -11,7 +11,7 @@ class testimonialModel{
 	}
 
 	function getAllTestimonials(){
-		$sql="select reviews.*, user.* from reviews,user where reviews.userId=user.id";
+		$sql="select reviews.*,reviews.id as rid, user.* from reviews,user where reviews.userId=user.id";
 		$result=$this->db_handle->runBasicQuery($sql);
 		return $result;
 	}
@@ -38,7 +38,10 @@ class testimonialModel{
 		return $this->db_handle->runInsertQuery($sql,$data);
 	}
 
-
+	function deleteTestimonial($id){
+		$sql="delete from reviews where id='$id' ";
+		return $this->db_handle->runDeleteQuery($sql);
+	}
 
 
 

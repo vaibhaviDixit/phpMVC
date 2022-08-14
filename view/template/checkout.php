@@ -85,10 +85,10 @@ else{
 								</div>
 						
 							<div class="d-flex space-between">
-								<div class="col-sm-4 mb-5">
+								<div class="col-sm-3 mb-5">
 							    	<input type="text" class="form-control form-control-sm" rows="3" id="coupon" name="coupon" placeholder="Coupon Code">
 								</div>
-								<div class="col-sm-4 mb-5">
+								<div class="col-sm-6 mb-5">
 							    	<button class="btn btn-sm btn-primary" type="button" onclick="applyCoupon()">Apply Coupon</button>
 								</div>
 							</div>
@@ -113,9 +113,9 @@ else{
 				</div>
 				<hr>
 				<div class="tbl">
-					<table class=" table-sm fs-16">
-						<tr><td>Departure Date </td><td><?php echo date("d/m/Y", strtotime($checkin)); ?></td></tr>
-						<tr><td>Check Out Date </td><td><?php echo date("d/m/Y", strtotime($checkout)); ?></td></tr>
+					<table class=" table-sm fs-16 td-margin">
+						<tr><td>Departure </td><td><?php echo date("d/m/Y", strtotime($checkin)); ?></td></tr>
+						<tr><td>Check Out </td><td><?php echo date("d/m/Y", strtotime($checkout)); ?></td></tr>
 						<tr><td>Duration </td><td><?php echo $days; ?> Days</td></tr>
 						<tr><td>Adults </td><td><?php echo $adults; ?></td></tr>
 						<tr><td>Children </td><td><?php echo $children; ?></td></tr>
@@ -125,7 +125,7 @@ else{
 				</div>
 				<hr>
 				<div class="tbl">
-					<table class=" table-sm fs-16">
+					<table class=" table-sm fs-16 td-margin">
 			
 						<tr class="text-success"><td>Total </td><td><?php echo $payAmt; ?></td></tr>
 

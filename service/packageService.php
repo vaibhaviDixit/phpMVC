@@ -24,6 +24,7 @@ if(isset($_GET['id']) && $_GET['id']>0){
     	$packageName=$row['packageName'];
 		$packagePrice=$row['packagePrice'];
 		$packageDesc=$row['packageDesc'];
+		$link=$row['link'];
 		$packageDuration=$row['packageDuration'];
 		$packageLocation=$row['packageLocation'];
 		$packageDis=$row['discount'];

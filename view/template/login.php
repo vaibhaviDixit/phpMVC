@@ -15,7 +15,7 @@
 
 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-	<title>Imporous Tour  And Travels</title>
+	<title><?php echo SITE_NAME; ?></title>
 
 	<link href="view/static/asset/css/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -92,9 +92,7 @@
 											<div class="text-center mt-3">
 											  <button type="submit" class="btn btn-primary btn-lg">Sign in</button>
 											</div>
-											<div class="text-center mt-3">
-												<a href="?page=adminlogin">Admin Login</a>
-											</div>
+											
 											<div class="text-center mt-3">
 												<label>Don't Have Account? </label><br>
 											</div>

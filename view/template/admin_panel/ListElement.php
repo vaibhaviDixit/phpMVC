@@ -31,14 +31,14 @@
 								foreach($allPackages as $row){
 						?>
 
-							<div class="card packageDescription" id="packageDescription_<?php echo $row['id']; ?>"  style=" position: absolute !important;  display: none; z-index: 1000; width: 70%; height: 85vh; overflow: scroll; left: 20%; top: 10%;">
+							
+						<div class="card packageDescription" id="packageDescription_<?php echo $row['id']; ?>"  style=" position: absolute !important;  display: none; z-index: 1000; width: 70%; height: 85vh; overflow: scroll; left: 20%; top: 10%;">
 							    <a href="#" class="closeDrop" style="font-size: 2rem; position: absolute; right:3%;text-decoration: none;">&times;</a>
 								<b class="card-header"><?php  echo $row['packageName']; ?><br>
 									<?php  echo $row['packageLocation']; ?>
 								</b>
-                    			<div class="card-body"><?php  echo $row['packageDesc']; ?></div>
-                  			</div>
-
+                    			<div class="card-body"><?php  echo html_entity_decode($row['packageDesc']); ?></div>
+                  		</div>
 						
 						<tr>
 						<td scope="col"> <?php  echo $i; ?></td>

@@ -1,4 +1,3 @@
-
 <main class="content">
 				<div class="container-fluid p-0">
 					<div class="mb-3">
@@ -12,33 +11,8 @@
 						<div class="row">
 							 <div class="col-sm-6 mb-3">
 							    	
-							    	<label for="name" class="form-label">Customer Name<span class="redStar">*</span></label>
-							       	<input type="text" class="form-control" rows="3" id="name" required name="name"  value="<?php echo $name; ?>">	 
-							       	
-							 </div>
-
-							 <div class="col-sm-6 mb-3">
-							    	<label for="mobile" class="form-label">Customer Mobile<span class="redStar">*</span></label>
-							       <input type="text" class="form-control" rows="3" id="mobile" required name="mobile"  value="<?php echo $phone; ?>">
-							 </div>
-
-						</div>
-						<div class="row">
-							<div class="col-sm-12 mb-3">
-							    	<label for="address" class="form-label">Customer Address<span class="redStar">*</span></label>
-							       <textarea class="form-control" id="address" required name="address">
-							       	<?php echo $address; ?>
-							       </textarea>
-							 </div>
-							
-
-						</div>
-
-						<div class="row">
-							 <div class="col-sm-6 mb-3">
-							    	
 							    	<label for="pc" class="form-label">Package Name<span class="redStar">*</span></label>
-							       		<select class="form-select mb-3" id="pc" name="pc" required onchange="nameChange()" value="<?php echo $category; ?>">
+							       		<select class="form-select mb-3" id="pc" name="pc" required onchange="this.form.submit()">
 							       			<option selected disabled value="">Select Package</option>
 											  <?php
 											    if(count($packagesArray)>0){
@@ -58,20 +32,46 @@
 									</select> 
 							       	
 							 </div>
-							
+
+
 							<div class="col-sm-3 mb-3">
 				           		   <label for="checkIn" class="form-label">Check In<span class="redStar">*</span></label>
-				                    <input type="date" class="form-control"  name="checkIn" id="checkIn" required value="<?php echo $checkIn; ?>">
+				                    <input type="date" class="form-control"  name="checkIn" id="checkIn" required  min="<?php echo date("Y-m-d"); ?>" value="<?php echo date("Y-m-d"); ?>">
 				                
 				            </div>
 				             <div class="col-sm-3 mb-3">
 				                    <label for="checkOut" class="form-label">Check Out<span class="redStar">*</span></label>
-				                    <input type="date" class="form-control" name="checkOut" id="checkOut" required value="<?php echo $checkOut; ?>">
+				                    <input type="date" class="form-control" name="checkOut" id="checkOut" required  readonly value="<?php echo date("Y-m-d"); ?>">
 				             </div> 
 
+							 <div class="col-sm-6 mb-3">
+							    	
+							    	<label for="name" class="form-label">Customer Name<span class="redStar">*</span></label>
+
+							       	<input type="text" class="form-control" rows="3" id="name" required name="name"  value="<?php echo $membername; ?>">	 
+							       	
+							 </div>
+
+							 <div class="col-sm-6 mb-3">
+							    	<label for="mobile" class="form-label">Customer Mobile<span class="redStar">*</span></label>
+							       <input type="text" class="form-control" rows="3" id="mobile" required name="mobile"  value="<?php echo $phone; ?>">
+							 </div>
+
+							 <div class="col-sm-12 mb-3">
+							    	<label for="address" class="form-label">Customer Address<span class="redStar">*</span></label>
+							       <textarea class="form-control" id="address" required name="address">
+							       	<?php echo $address; ?>
+							       </textarea>
+							 </div>
 
 						</div>
+			
+							
+							
 
+				
+
+		
 
 						<div class="row">
 
@@ -113,8 +113,10 @@
 				                    <input class="form-control"  type="number" id="children" name="children" min="0" required  value="<?php echo $children; ?>">
 				                </div>
 				                 <div class="col-sm-3 mb-3">
-				                    <input class="form-control" type="number" id="packagePrice" name="packagePrice" required hidden value="<?php echo $packagePrice; ?>">
+				                    <input class="form-control" type="number" id="packagePrice" name="packagePrice" required  value="<?php echo $packagePrice; ?>" hidden>
 				                </div>
+
+				                <input type="number" name="noOfDays" id="noOfDays" value="<?php echo $noOfDays; ?>" hidden>
 				     
 										
 						</div>
@@ -127,7 +129,7 @@
 				            </div>
 							<div class="col-sm-3 mb-3">
 				           		   <label for="dis" class="form-label">Discount<span class="redStar">*</span></label>
-				                    <input type="text" class="form-control"  name="dis" id="dis"  required value="<?php echo $discount;?>">
+				                    <input type="number" min="0" class="form-control"  name="dis" id="dis" required value="<?php echo $discount; ?>">
 				                
 				            </div>
 				            <div class="col-sm-3 mb-3">
@@ -166,7 +168,7 @@
 
 							<div class="col-sm-3 mb-3">
 				           		   <label for="payamt" class="form-label">Pay Amount<span class="redStar">*</span></label>
-				                    <input type="text" class="form-control" name="payamt" id="payamt" required onchange="payamt" value="<?php echo $paid; ?>">
+				                    <input type="text" class="form-control" name="payamt" id="payamt" required value="<?php echo $paid; ?>">
 				                
 				            </div>
 				            <div class="col-sm-3 mb-3">
@@ -187,8 +189,7 @@
 
 						 ?>
 
-						
-							 <input type="submit" id="submitBtn" oper="<?php if(isset($_GET['id'])){ echo 'update'; }else{ echo 'add'; } ?>" name="addOfflineBooking" class="btn btn-success" value="Submit">
+							 <input type="submit" id="submitBtn" name="addOfflineBooking" class="btn btn-success" value="Submit">
 
 					</form>
 
@@ -196,33 +197,22 @@
 				</div>
 			</main>
 
-
+   <script src="<?php echo SITE_PATH; ?>view/static/asset/js/jquery.min.js"></script>
 <script type="text/javascript">
 
-   $("#bookingForm").submit(function(e){
-   		$("#submitBtn").val("Submitting...");
-   		e.preventDefault();
-   		tp=$("#submitBtn").attr("oper");
- 
-   		$.ajax({
-   			url:"<?php echo SITE_PATH; ?>templates/admin_panel/bookDb",
-   			method:'post',
-   			data:$(this).serialize()+"&type="+tp,
-   			success:function(response){
-   				if(response=="success"){
-   					$("#submitBtn").val("Submit");
-	   				swal("Thanks!", "Booking Successfull!" ,"success");
-	   				window.location.href="<?php echo SITE_PATH; ?>templates/admin_panel/ListBooking";
 
-   				}
-   			}
+function formatDate(d) {
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
 
-   		});
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
 
-   });
-
-
-
+    return [year, month, day].join('-');
+}
 
   $(document).on("change",".pertype",function(){
      type=$(this).val();
@@ -246,27 +236,7 @@
    })
 
 
-	function nameChange(){
-			pcname=$("#pc").val();
-			 $.ajax({  
-                   type:"POST",  
-                   url:"<?php echo SITE_PATH; ?>view/template/admin_panel/getPckPrice.php",  
-                   data:"id="+pcname,
-                   success:function(result){
-
-                      msg=jQuery.parseJSON(result);
-
-                     if(msg.status=="success"){
-                       $("#packagePrice").val(msg.price);
-                       bookingData();
-
-                     }
-                     
-                   }
-                   
-             });
-
-     }
+	
 
 
   $("#distype").on("change",function(){
@@ -309,44 +279,31 @@ function calGrandTotal(){
 }
 
  $("#payamt").on("change",function payamt(){
-            
-     		total=parseInt($("#grtotal").val());
-     		pay=parseInt($("#payamt").val());
-     		amt=total-pay;
-     		$("#remAmt").val(amt);
+            let total=parseInt($("#grtotal").val());
+            if(parseInt($(this).val())>total){
+            	alert("Invalid amount, it should be less than or equal to  total amount...");
+            	$(this).val("0");
+            }
+            else{
+            	pay=parseInt($("#payamt").val());
+	     		amt=total-pay;
+	     		$("#remAmt").val(amt);
+            }
+     		
+     		
    })
      
 
-
-
-  $(document).ready(function(){
-
-  date = new Date();
-
-  y=date.getFullYear();
-  m=date.getMonth()+1;
-  d=date.getDate();
- 
-  if(d<10){
-    d='0'+d;
-  }
-  if(m<10){
-    m='0'+m;
-  }
-  
-   mindt=y+"-"+m+"-"+d;
-  $("#checkIn").attr("min",mindt);
-  $("#checkOut").attr("min",mindt);
-
-})
-
    
    $("#checkIn").on("change",function(){
-     bookingData();
-     })
-    $("#checkOut").on("change",function(){
-      bookingData();
-    })
+   	  let date=new Date($(this).val()); 
+       let outdate = new Date(date);
+       outdate.setDate(outdate.getDate() + (parseInt($("#noOfDays").val())));
+    
+       $("#checkOut").val(formatDate(outdate));
+       bookingData();
+     });
+
     
     $("#adults").on("change",function(){
      bookingData();
@@ -355,37 +312,30 @@ function calGrandTotal(){
       bookingData();
     })
 
+
   
+
+
   function bookingData(){
     checkIn=$("#checkIn").val();
     checkOut=$("#checkOut").val();
     adults=$("#adults").val();
     children=$("#children").val();
 
+    var Difference_In_Days =parseInt($("#noOfDays").val());
 
-        var date1 = new Date(checkIn);
-        var date2 = new Date(checkOut);
-  
-      // calculate the time difference of two dates
-      var Difference_In_Time = date2.getTime() - date1.getTime();
-      // calculate the no. of days between two dates
-      var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-
-
-     chPrice=0;
+      chPrice=0;
       packagePrice=$("#packagePrice").val();
       if(children<1){
         adultPrice=parseInt(packagePrice)*parseInt(Difference_In_Days)*parseInt(adults);
-        console.log(packagePrice+"-"+Difference_In_Days+"-"+adults)
-        console.log("1"+adultPrice);
         Total=adultPrice;
       }
       else{
         chPrice=parseInt(children)*parseInt(Difference_In_Days)*(parseInt(packagePrice)/2);
         adultPrice=parseInt(packagePrice)*parseInt(Difference_In_Days)*parseInt(adults);
         Total=adultPrice+chPrice;
-        console.log("2"+Total)
       }
+      console.log("child "+children+" Difference_In_Days"+Difference_In_Days+" adults"+adults+" packagePrice"+packagePrice)
       
       	$("#totalPrice").val(Total);
       	calGrandTotal();
@@ -393,7 +343,7 @@ function calGrandTotal(){
   
   }
 
-
-	
+$("#checkIn").trigger("change");
+bookingData();
 
 </script>

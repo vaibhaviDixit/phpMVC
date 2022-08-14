@@ -16,7 +16,7 @@ const navToggleEvent = function (elem) {
   for (let i = 0; i < elem.length; i++) {
     elem[i].addEventListener("click", function () {
       navbar.classList.toggle("active");
-      overlay.classList.toggle("active");
+      // overlay.classList.toggle("active");
     });
   }
 }

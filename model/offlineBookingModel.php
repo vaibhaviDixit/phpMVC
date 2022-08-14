@@ -34,24 +34,25 @@ class offlineBookingModel{
 
 		$data = [
 		    'name' => $params['name'],
-		    'phone' => $params['phone'],
+		    'phone' => $params['mobile'],
 		    'address' => $params['address'],
-		    'packageId' => $params['packageId'],
+		    'packageId' => $params['pc'],
+		    'packagePrice' => $params['packagePrice'],
 		    'checkIn' => $params['checkIn'],
 		    'checkOut' => $params['checkOut'],
-		    'payMode' => $params['payMode'],
+		    'payMode' => $params['ptype'],
 		    'adults' => $params['adults'],
 		    'children' => $params['children'],
-		    'packagePrice' => $params['packagePrice'],
-		    'subTotal' => $params['subTotal'],
-		    'discount' => $params['discount'],
-		    'total' => $params['total'],
-		    'paid' => $params['paid'], 
-		    'rem' => $params['rem']
+		    'subTotal' => $params['totalPrice'],
+		    'discount' => $params['dis'],
+		    'distype'=> $params['distype'],
+		    'total' => $params['grtotal'],
+		    'paid' => $params['payamt'], 
+		    'rem' => $params['remAmt']
 		];
 
 
-	    $sql="INSERT INTO `booking`(`name`, `phone`,`address`,`packageId`, `packagePrice`, `checkIn`, `checkOut`, `payMode`, `adults`, `children`, `subTotal`, `discount`,`distype`, `total`, `paid`, `rem`) VALUES (:name,:phone,:address,:packageId,:packagePrice,:checkIn,:checkOut,:payMode,:adults,:children,:subTotal,:discount,:disType,:total,:paid,:rem')";
+	    $sql="INSERT INTO `booking`(`name`, `phone`,`address`,`packageId`, `packagePrice`, `checkIn`, `checkOut`, `payMode`, `adults`, `children`, `subTotal`, `discount`,`distype`, `total`, `paid`, `rem`) VALUES (:name,:phone,:address,:packageId,:packagePrice,:checkIn,:checkOut,:payMode,:adults,:children,:subTotal,:discount,:distype,:total,:paid,:rem)";
 
 		return $this->db_handle->runInsertQuery($sql,$data);
 
@@ -84,26 +85,27 @@ class offlineBookingModel{
 	function updateOfflineBooking($id,$params=array()){
 		$data = [
 		    'name' => $params['name'],
-		    'phone' => $params['phone'],
+		    'phone' => $params['mobile'],
 		    'address' => $params['address'],
-		    'packageId' => $params['packageId'],
+		    'packageId' => $params['pc'],
+		    'packagePrice' => $params['packagePrice'],
 		    'checkIn' => $params['checkIn'],
 		    'checkOut' => $params['checkOut'],
-		    'payMode' => $params['payMode'],
+		    'payMode' => $params['ptype'],
 		    'adults' => $params['adults'],
 		    'children' => $params['children'],
-		    'packagePrice' => $params['packagePrice'],
-		    'subTotal' => $params['subTotal'],
-		    'discount' => $params['discount'],
-		    'total' => $params['total'],
-		    'paid' => $params['paid'], 
-		    'rem' => $params['rem'],
+		    'subTotal' => $params['totalPrice'],
+		    'discount' => $params['dis'],
+		    'distype'=> $params['distype'],
+		    'total' => $params['grtotal'],
+		    'paid' => $params['payamt'], 
+		    'rem' => $params['remAmt'],
 		    'id' => $id
 		];
 
 
 
-		$sql="update `booking` set `name`=:name, `phone`=:phone, `packageId`=:packageId, `packagePrice`=:packagePrice, `checkIn`=:checkIn, `checkOut`=:checkOut, `payMode`=:payMode, `adults`=:adults, `children`=:children, `subTotal`=:subTotal, `discount`=:discount, `total`=:total, `paid`=:paid, `rem`=:rem' where `id`=:id' ";
+		$sql="update `booking` set `name`=:name, `phone`=:phone,`address`=:address, `packageId`=:packageId, `packagePrice`=:packagePrice, `checkIn`=:checkIn, `checkOut`=:checkOut, `payMode`=:payMode, `adults`=:adults, `children`=:children, `subTotal`=:subTotal, `discount`=:discount,`distype`=:distype, `total`=:total, `paid`=:paid, `rem`=:rem where `id`=:id ";
 		
 		return $this->db_handle->runUpdateQuery($sql,$data);
 

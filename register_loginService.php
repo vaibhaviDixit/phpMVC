@@ -31,7 +31,7 @@ if($type=="register"){
 
 			if($id>0){
 
-				$userRow=$userModel->getUserByEmail($email);
+				$userRow=$userModel->getInactiveUserByEmail($email);
 				$token=$userRow['token'];
 				
 				$link=SITE_PATH."?page=login&token=$token";
@@ -71,6 +71,10 @@ if($type=="login"){
 
 			$_SESSION['CURRENT_USER_ID']=$userModel->getUserByEmail($email)['id'];
 			$_SESSION['LAST_ACTIVE_TIME']=time();
+
+			if(isset($_SESSION['reg_msg'])){
+				unset($_SESSION['reg_msg']);
+			}
 			
 			$arr=array("status"=>"success","msg"=>"login successfully");
 		    echo json_encode($arr);

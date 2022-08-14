@@ -3,6 +3,11 @@
       if(!isset($_SESSION['ADMIN'])){
          redirect(SITE_PATH.'?page=adminlogin');
       }
+      if(isset($_SESSION['LAST_ACTIVE_TIME'])){
+
+          $_SESSION['LAST_ACTIVE_TIME']=time();
+
+      }
       
 ?>
 <!DOCTYPE html>
@@ -71,6 +76,14 @@
             <li class="sidebar-item active">
                   <a class="sidebar-link" href="?type=admin&page=profile">
                            <i class="align-middle" data-feather="user"></i> <span>Profile</span>
+                       </a>
+                
+            </li>
+
+
+            <li class="sidebar-item active">
+                  <a class="sidebar-link" href="?type=admin&page=listTestimonials">
+                           <i class="align-middle" data-feather="edit-3"></i> <span>Testimonials</span>
                        </a>
                 
             </li>
@@ -179,11 +192,12 @@
       <!-- SIDEBAR END -->
       <!-- admin navbar starts -->
       <div class="main">
-      <nav class="navbar navbar-expand navbar-light navbar-bg">
+      <nav class="navbar navbar-expand navbar-light navbar-bg" style="justify-content: space-between !important;">
+
          <a class="sidebar-toggle js-sidebar-toggle">
          <i class="hamburger align-self-center"></i>
          </a>
-         <div style=" position: absolute !important; right: 4rem;">
+         <div style=" position: absolute !important; right: 3rem;">
             <ul class="navbar-nav navbar-align">
                <li class="nav-item">
                   <a class="nav-link  userdropdown d-sm-inline-block " href="javascript:void(0)"  >
@@ -201,7 +215,11 @@
                   </div>
                </li>
             </ul>
+
+
          </div>
+
+           <a href="<?php echo SITE_PATH; ?>" style="font-weight: bolder; color: #000;"><?php echo SITE_NAME; ?></a>
       </nav>
          <!-- NAVBAR END -->
 

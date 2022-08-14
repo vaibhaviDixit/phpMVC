@@ -1,43 +1,17 @@
 <?php
+ini_set( 'display_errors', 1 );
+error_reporting( E_ALL );
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception;
+function email($to,$message){
 
-//Load Composer's autoloader
-require 'phpmailer/Exception.php';
-require 'phpmailer/PHPMailer.php';
-require 'phpmailer/SMTP.php';
+	$from = "tours@imperioustours.com";
+	$subject = "Message from ImperiousTours";
+	$headers = "From:" . $from;
 
-
-
-
-function email($email,$message){
-
-	$from = "testingsoftwares10@gmail.com"; // your mail here
-	$mail = new PHPMailer();
-	try {
-
-	    $mail->isSMTP();                                            
-	    $mail->Host       = 'smtp.gmail.com';                     
-	    $mail->SMTPAuth   = "true";     
-	    $mail->SMTPSecure = "tls";                              
-	    $mail->Username   = $from;                     
-	    $mail->Password   = 'etfpyzvmvkoioeeh';                               
-	    $mail->Port       = "587";                                    
-	    $mail->setFrom($from);
-	    $mail->addAddress($from);
-	    $mail->addReplyTo($email);
-	    $mail->isHTML(true);                                  
-	    $mail->Subject ="Message from ImperiousTours";
-	    $mail->Body    = $message;
-	    
-	    if($mail->send()){
-	      return true;
-	    }
-	    
-	} catch (Exception $e) {
-		return false;
+	if(mail($to,$subject,$message, $headers)) {
+	    return true;
+	} else {
+	    return false;
 	}
 
 }

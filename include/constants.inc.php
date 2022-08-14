@@ -20,7 +20,7 @@ define('SITE_PROFILE_IMAGE',SITE_PATH."media/profile/");
 
 
 //define active time
-define('ACTIVE_TIME',36000);
+define('ACTIVE_TIME',1200);
 
 ?>
 

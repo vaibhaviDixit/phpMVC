@@ -23,13 +23,19 @@
 
 							  <div class="col-sm-3 mb-3">
 							    	<label for="packageLocation" class="form-label">Location of Package<span class="redStar">*</span></label>
-							       <input type="text" class="form-control" rows="3" id="packageLocation" required name="packageLocation" value="<?php echo $packageLocation; ?>">
+							       <input type="text" class="form-control" id="packageLocation" required name="packageLocation" value="<?php echo $packageLocation; ?>">
 
 							 </div>
 
 							  <div class="col-sm-3 mb-3">
 							    	<label for="packageDuration" class="form-label">Package Duration (No of days)<span class="redStar">*</span></label>
-							       <input type="number" class="form-control" rows="3" id="packageDuration" required name="packageDuration" value="<?php echo $packageDuration; ?>">
+							       <input type="number" class="form-control"  id="packageDuration" required name="packageDuration" value="<?php echo $packageDuration; ?>">
+
+							 </div>
+
+							 <div class="col-sm-3 mb-3">
+							    	<label for="packageLink" class="form-label">Youtube Link<span class="redStar">*</span></label>
+							       <input type="text" class="form-control"  id="packageLink" required name="packageLink" value="<?php echo $link; ?>">
 
 							 </div>
 
@@ -129,8 +135,3 @@
 
 				</div>
 			</main>
-
-<?php
-
-
-?>

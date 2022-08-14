@@ -26,7 +26,7 @@ class userModel{
 			
 			$sql="INSERT INTO `user`(`name`, `email`, `password`,`profile`,`token`) VALUES (:name,:email,:password,:profile,:token) ";
 
-			return $this->db_handle->runInsertQuery($sql);
+			return $this->db_handle->runInsertQuery($sql,$data);
 
 
 	}
@@ -35,10 +35,8 @@ class userModel{
 		$data=[
          	'token'=>$token
          ];
-		$sql="update user set active=1 where token=:token ";		
+		$sql="update user set active=1 where token=:token";	
 		return $this->db_handle->runUpdateQuery($sql,$data);
-
-
 	}
 
 	//register user by gmail
@@ -118,9 +116,24 @@ class userModel{
 	}
 
 	function getUserByEmail($email){
+		$sql="select * from user where email='$email' and active=1";
+		$result=$this->db_handle->runBasicQuery($sql);
+		if(count($result)>0){
+			 return $result[0];
+		}
+		return $result;
+	   
+	}
+
+
+	function getInactiveUserByEmail($email){
 		$sql="select * from user where email='$email'";
 		$result=$this->db_handle->runBasicQuery($sql);
-	    return $result[0];
+		if(count($result)>0){
+			 return $result[0];
+		}
+		return $result;
+	   
 	}
 
 	function getCurrentUserDetails(){

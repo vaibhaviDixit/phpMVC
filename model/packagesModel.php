@@ -31,6 +31,7 @@ class packagesModel{
 			'packagePrice'=>$params['packagePrice'],
 		 	'packageLocation'=>$params['packageLocation'],
 		 	'packageDuration'=>$params['packageDuration'],
+		 	'link'=>$params['packageLink'],
 		    'packageDis'=>$params['packageDis'],
 		    'packageDisType'=>$params['packageDisType']
 
@@ -58,7 +59,7 @@ class packagesModel{
 
 		if($upload1 && $upload2 && $upload3 && $upload4 && $upload5 && $upload6){
 
-			$sql="INSERT INTO `package`(`packageName`, `packageDesc`, `packagePrice`, `packageLocation`,`packageDuration`,`discount`, `disType`,`img1`,`img2`,`img3`,`img4`,`img5`,`img6`) VALUES (:packageName,:packageDesc,:packagePrice,:packageLocation,:packageDuration,:packageDis,:packageDisType,'$img1','$img2','$img3','$img4','$img5','$img6')";
+			$sql="INSERT INTO `package`(`packageName`, `packageDesc`, `packagePrice`, `packageLocation`,`packageDuration`,`link`,`discount`, `disType`,`img1`,`img2`,`img3`,`img4`,`img5`,`img6`) VALUES (:packageName,:packageDesc,:packagePrice,:packageLocation,:packageDuration,:link,:packageDis,:packageDisType,'$img1','$img2','$img3','$img4','$img5','$img6')";
 
 			return $this->db_handle->runInsertQuery($sql,$data);
 
@@ -93,6 +94,7 @@ class packagesModel{
 			'packageDesc'=>$params['packageDesc'],
 			'packagePrice'=>$params['packagePrice'],
 		 	'packageLocation'=>$params['packageLocation'],
+		 	'link'=>$params['packageLink'],
 		 	'packageDuration'=>$params['packageDuration'],
 		    'packageDis'=>$params['packageDis'],
 		    'packageDisType'=>$params['packageDisType'],
@@ -164,7 +166,7 @@ class packagesModel{
 	    }
 
 		
-		$sql="update package set packageName=:packageName,packageDesc=:packageDesc,packagePrice=:$packagePrice,discount=:packageDis,disType=:packageDisType,packageLocation=:packageLocation,packageDuration=:packageDuration $image_condition where id=:id  ";
+		$sql="update package set packageName=:packageName,packageDesc=:packageDesc,packagePrice=:packagePrice,discount=:packageDis,disType=:packageDisType,packageLocation=:packageLocation,packageDuration=:packageDuration,link=:link $image_condition where id=:id  ";
 
 		
 		return $this->db_handle->runUpdateQuery($sql,$data);
@@ -212,13 +214,19 @@ class packagesModel{
 	}
 
 	function activePackage($id){
-		$sql="update package set status=1 where id='$id'";
-		return $this->db_handle->runUpdateQuery($sql);
+		$data=[
+			'id'=>$id
+		];
+		$sql="update package set status=1 where id=:id";
+		return $this->db_handle->runUpdateQuery($sql,$data);
 	}
 
 	function deactivePackage($id){
-		$sql="update package set status=0 where id='$id'";
-		return $this->db_handle->runUpdateQuery($sql);
+		$data=[
+			'id'=>$id
+		];
+		$sql="update package set status=0 where id=:id";
+		return $this->db_handle->runUpdateQuery($sql,$data);
 	}
 
 

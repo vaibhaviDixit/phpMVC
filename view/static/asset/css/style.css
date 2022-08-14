@@ -217,7 +217,7 @@ body { background: var(--white); }
   top: 0;
   left: 0;
   width: 100%;
-  padding-top: 61px;
+  padding-top: 100px;
   z-index: 4;
 }
 
@@ -227,7 +227,7 @@ body { background: var(--white); }
   left: 0;
   width: 100%;
   transition: var(--transition);
-  padding-block: 15px;
+  padding-block: 25px;
   z-index: 1;
 }
 
@@ -236,11 +236,11 @@ body { background: var(--white); }
   background: var(--gunmetal);
 }
 
-.header-top .container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  justify-items: flex-start;
-  align-items: center;
+.header-top .headercontainer {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    padding: 0 !important;
+    margin: 0 1rem !important;
 }
 
 .helpline-box .wrapper { display: none; }
@@ -254,7 +254,7 @@ body { background: var(--white); }
 
 .helpline-box .icon-box ion-icon { --ionicon-stroke-width: 40px; }
 
-.header-top .logo { margin-inline: auto; }
+.header-top .logo { margin-inline: initial; }
 
 .header-top .logo img { max-width: 100px; }
 
@@ -464,6 +464,14 @@ body { background: var(--white); }
 
 .book,#bookingProcess{ padding-block: var(--section-padding); padding-top: 160px !important;}
 
+.td-margin tr td{
+  padding: 0 9px;
+}
+.td-margin tr td:first-child{
+  font-weight: bold;
+}
+
+
 .d-flex{
   display: flex;
   align-items: center;
@@ -472,7 +480,7 @@ body { background: var(--white); }
   justify-content: space-between;
 }
 .packagetitle{
-  font-size: 18px;
+  font-size: 1rem;
 }
 .fs-sm{
   font-size: 16px;
@@ -608,7 +616,28 @@ body { background: var(--white); }
 .checkout_title{
   margin-bottom: 10px;
   border-bottom: 1px solid #ccc;
+  font-size: 1rem;
 }
+
+/*user-rate-card*/
+
+.reviews{
+  padding-block: var(--section-padding);
+  margin: 3%;
+}
+.user-rate-card{
+  display: flex;
+  gap:15px;
+  align-items: center;
+}
+.user-rate-card img{
+  border-radius: 50%;
+    object-fit: cover;
+    width: 65px;
+    height: 65px;
+    border: 2px solid gray;
+}
+
 
 /*-----------------------------------*\
  * #POPULAR
@@ -699,6 +728,7 @@ body { background: var(--white); }
   width: 100%;
   height: 100%;
   object-fit: cover;
+  max-height: 250px;
 }
 
 .package-card .card-content { padding: 30px 20px; }
@@ -732,6 +762,7 @@ body { background: var(--white); }
   padding: 8px;
   box-shadow: 0 0 5px hsla(0, 0%, 0%, 0.15);
   border-radius: 50px;
+  margin-top: 12px;
 }
 
 .card-meta-item { position: relative; }
@@ -1040,6 +1071,7 @@ address {
   transform: translateY(10px);
   visibility: hidden;
   transition: var(--transition);
+
 }
 
 .go-top.active {
@@ -1074,7 +1106,21 @@ address {
     width: 100%;
   }
 
+
 }
+
+
+@media (max-width: 990px) {
+
+ .helpline-box{
+    display: none !important;
+  }
+  .header-top{
+    padding-block: 9px;
+  }
+
+}
+
 /**
  * responsive for larger than 580px screen
  */
@@ -1109,7 +1155,7 @@ address {
    * HEADER
    */
 
-  .header { padding-top: 83px; }
+  .header { padding-top: 110px; }
 
   .helpline-box .icon-box { padding: 14px; }
 

@@ -14,7 +14,7 @@
 
 
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-	<title>Imporous Tour  And Travels</title>
+	<title><?php echo SITE_NAME; ?></title>
 
 	<link href="view/static/asset/css/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
@@ -100,7 +100,9 @@
 	<script type="text/javascript">
 
 	const login_process_url="register_loginService.php";
-    const admin_panel="http://localhost/crud/?type=admin&page=dash";
+	const site_path="http://localhost/crud/";
+    const admin_panel=site_path+"?type=admin&page=dash";
+
 		
 		$("#adminloginform").on("submit",function(e){
       		e.preventDefault();

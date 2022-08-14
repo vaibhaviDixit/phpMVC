@@ -55,6 +55,12 @@ $packagesModel=new packagesModel();
             
             </div>
 
+             <iframe style="width: 100%; height: 400px;" src="<?php echo str_replace('watch?v=','embed/',$packagesRow['link']); ?>"
+                 title="YouTube video player" frameborder="0" 
+                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                 allowfullscreen >     
+             </iframe>
+
             <div class="image_slider owl-carousel">
                 
                 <div class="item owlitem">
@@ -165,26 +171,6 @@ $packagesModel=new packagesModel();
 
                   </form>
 
-                  <!-- <table class="w-100">
-
-                    <tr>
-                      <td class="bold fs-16">Apply Coupon</td>
-                      <td><span>
-                          <input type="text" name="coupon" id="coupon" placeholder="Coupon Code" class="inputstyle">
-
-                        </span>
-                      </td>
-
-                    </tr>
-                  
-                    <tr>
-                      <td colspan="2">
-                        <a href=""><button class="book-btn">Apply Coupon</button></a>
-                      </td>
-                    </tr>
-
-                  </table> -->
-
               </div>
                       
                   
@@ -194,6 +180,36 @@ $packagesModel=new packagesModel();
 
 
         </div>
+
+        <!-- user review -->
+        <div class="reviews">
+            
+            <div class="write-review mb-5">
+              <h3>Enter your review</h3>
+
+            </div>
+            <div class="display-review">
+                
+                <div class="user-rate-card">
+                  <div><img src="view/static/asset/images/blankimg.png"></div>
+                  <div>
+                    <dt>Vaibhavi Dixit</dt>
+                    <dt class="d-flex">
+                      <ion-icon name="star"></ion-icon>
+                      <ion-icon name="star"></ion-icon>
+                      <ion-icon name="star"></ion-icon>
+                      <ion-icon name="star"></ion-icon>
+                      <ion-icon name="star"></ion-icon>
+                    </dt>
+
+                  </div>
+                </div>
+
+            </div>
+
+
+        </div>
+        <!-- user review ends -->
   
   </section>
    <script src="<?php echo SITE_PATH; ?>view/static/asset/js/jquery.min.js"></script>

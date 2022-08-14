@@ -137,9 +137,19 @@
                                 </div>
                              </div>
 
+                             <div class="row">
+                                <div class="col mb-3">
+                                  <label for="adminAbout" class="form-label">About Us</label>
+                                  <textarea class="form-control" rows="5" id="adminAbout" name="adminAbout">
+                                    <?php   echo $row['about']; ?>
+                                  </textarea>
+                                </div>
+                              </div>
+
+
                             <div class="row">
                                 <div class="col mb-3">
-                                  <label for="adminLocation" class="form-label">Location</label>
+                                  <label for="adminLocation" class="form-label">Address</label>
                                   <textarea class="form-control" rows="3" id="adminLocation" name="adminLocation">
                                     <?php   echo $row['address']; ?>
                                   </textarea>
@@ -161,20 +171,20 @@
                             
                                   <label class="form-label">Social Links</label>
                                   <div class="col-sm-6 mb-3">
-                                  <i class="fab fa-facebook p-3"></i>
+                                  <span data-feather="facebook"></span>
                                       <input type="text" class="form-control" name="adminFb"  value="<?php   echo $row['fb']; ?>">
                                    </div>
                                    <div class="col-sm-6 mb-3">
-                                  <i class="fab fa-instagram p-3"></i>
+                                  <span data-feather="instagram"></span>
                                       <input type="text" class="form-control" name="adminInsta" value="<?php   echo $row['insta']; ?>">
                                    </div>
                                    <div class="col-sm-6 mb-3">
-                                  <i class="fab fa-whatsapp p-3"></i>
+                                  <span>whatsapp</span>
                                       <input type="text" class="form-control" name="adminWh" value="<?php   echo $row['whatsapp']; ?>">
                                    </div>
 
                                    <div class="col-sm-6 mb-3">
-                                  <i class="fab fa-youtube p-3"></i>
+                                  <span data-feather="youtube"></span>
                                       <input type="text" class="form-control" name="adminYt" value="<?php   echo $row['youtube']; ?>">
                                    </div>
                               

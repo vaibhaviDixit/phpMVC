@@ -2,6 +2,11 @@
 if(isset($_SESSION['LAST_ACTIVE_TIME'])){
       $_SESSION['LAST_ACTIVE_TIME']=time();
 }
+
+if(isset($_SESSION['LAST_ACTIVE_TIME'])){
+      $_SESSION['LAST_ACTIVE_TIME']=time();
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,42 +55,14 @@ if(isset($_SESSION['LAST_ACTIVE_TIME'])){
     <div class="overlay" data-overlay></div>
 
     <div class="header-top">
-      <div class="container">
-
-        <a href="tel:+91<?php echo $adminSocial['phone'];  ?>" class="helpline-box">
-
-          <div class="icon-box">
-            <ion-icon name="call-outline"></ion-icon>
-          </div>
-
-          <div class="wrapper">
-            <p class="helpline-title">For Further Inquires :</p>
-
-            <p class="helpline-number">+91 <?php echo $adminSocial['phone'];  ?></p>
-          </div>
-
-        </a>
+      <div class="headercontainer">
 
         <a href="<?php echo SITE_PATH; ?>" class="logo">
           <img src="view/static/asset/logo/apple-touch-icon.png" alt="Tourly logo">
         </a>
+        <!-- main navbar -->
 
-        <div class="header-btn-group">
-
-     <!--      <button class="search-btn" aria-label="Search">
-            <ion-icon name="search"></ion-icon>
-          </button> -->
-
-          <button class="nav-open-btn" aria-label="Open Menu" data-nav-open-btn>
-            <ion-icon name="menu-outline"></ion-icon>
-          </button>
-
-        </div>
-
-      </div>
-    </div>
-
-    <div class="header-bottom">
+          <div class="header-bottom">
       <div class="container">
 
         <nav class="navbar" data-navbar>
@@ -148,6 +125,41 @@ if(isset($_SESSION['LAST_ACTIVE_TIME'])){
 
       </div>
     </div>
+
+        <!-- main navbar ends -->
+
+         <a href="tel:+91<?php echo $adminSocial['phone'];  ?>" class="helpline-box">
+
+          <div class="icon-box">
+            <ion-icon name="call-outline"></ion-icon>
+          </div>
+
+          <div class="wrapper">
+            <p class="helpline-title">For Further Inquires :</p>
+
+            <p class="helpline-number">+91 <?php echo $adminSocial['phone'];  ?></p>
+          </div>
+
+        </a>
+
+        
+
+        <div class="header-btn-group">
+
+     <!--      <button class="search-btn" aria-label="Search">
+            <ion-icon name="search"></ion-icon>
+          </button> -->
+
+          <button class="nav-open-btn" aria-label="Open Menu" data-nav-open-btn>
+            <ion-icon name="menu-outline"></ion-icon>
+          </button>
+
+        </div>
+
+      </div>
+    </div>
+
+  
 
   </header>
 

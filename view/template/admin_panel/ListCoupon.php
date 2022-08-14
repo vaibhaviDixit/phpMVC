@@ -103,39 +103,4 @@
 				</div>
 			</main>
 
-      <?php
-
-        
-      ?>
-
-   
-<?php
-
-
-if( isset($_GET['type']) && $_GET['type']!==' '  &&  isset($_GET['id']) && $_GET['id'] > 0  )
-{
-
-	$type=$_GET['type'];
-	$id=$_GET['id'];
-
-	if( $type == 'delete')
-	{
-		 mysqli_query($con,"delete from coupon where id='$id' ");
-		 redirect(SITE_PATH.'templates/admin_panel/ListCoupon');
-
-	}
-
-	if( $type=='active' || $type=='deactive'){
-		$status=1;
-
-		if($type=='deactive'){
-			$status=0;
-		}
-
-		mysqli_query($con,"update coupon set status='$status' where id='$id' ");
-		redirect(SITE_PATH.'templates/admin_panel/ListCoupon');
-
-	}
-}
-
-?>
+  

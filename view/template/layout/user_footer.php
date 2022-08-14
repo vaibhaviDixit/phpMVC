@@ -16,7 +16,7 @@
           </a>
 
           <p class="footer-text">
-            Resort Park Avenue Building, Umta Vaddo,Opp McDoanld's Calangute Baga Road, Calangute Goa 4035165
+            Resort Park Avenue Building,<br>Umta Vaddo,<br>Opp McDoanld's Calangute Baga Road,<br> Calangute Goa 4035165
           </p>
 
         </div>
@@ -40,7 +40,7 @@
             <li class="contact-item">
               <ion-icon name="mail-outline"></ion-icon>
 
-              <a href="mailto:<?php echo $adminSocial['email'];  ?>" class="contact-link"><?php echo $adminSocial['phone'];  ?></a>
+              <a href="mailto:<?php echo $adminSocial['email'];  ?>" class="contact-link"><?php echo $adminSocial['email'];  ?></a>
             </li>
 
             <li class="contact-item">

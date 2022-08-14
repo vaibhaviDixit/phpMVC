@@ -9,12 +9,14 @@
     $payMode="";
     $adults=1;
     $children=0;
-    $packagePrice="";
+    $packagePrice=0;
+    $noOfDays=0;
     $subTotal=""; 
     $discount=""; 
     $total=""; 
-    $paid=""; 
-    $rem=""; 
+    $paid=0; 
+    $rem=0; 
+    $membername="";
 
 
 $couponCode="";
@@ -28,6 +30,7 @@ $expiredOn="";
   $packageDesc="";
   $packageDuration="";
   $packageLocation="";
+  $link="";
   $packageDis="";
   $packageDisType="";
   $image_status='required';

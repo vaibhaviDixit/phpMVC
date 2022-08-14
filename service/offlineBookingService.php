@@ -1,7 +1,10 @@
 <?php
 
 require_once("model/offlineBookingModel.php");
+require_once("model/packagesModel.php");
+
 $offlineBookingModel=new offlineBookingModel();
+$packagesModel=new packagesModel();
 
 $payDues=$offlineBookingModel->getPaymentDues();
 $offlineBookingArray=$offlineBookingModel->getAllOfflineBookings();
@@ -15,9 +18,10 @@ if(isset($_GET['id']) && $_GET['id']>0){
 
     
     if($offlineBookingModel->bookingExistsById($id)){
+    	
     	$packageRow=$offlineBookingModel->getBookingById($id);
-
-    		$name=$packageRow['name'];
+    	
+    		$membername=$packageRow['name'];
 		    $phone=$packageRow['phone'];
 		    $address=$packageRow['address'];
 		    $packageId=$packageRow['packageId'];
@@ -31,15 +35,14 @@ if(isset($_GET['id']) && $_GET['id']>0){
 		    $discount=$packageRow['discount']; 
 		    $total=$packageRow['total']; 
 		    $paid=$packageRow['paid']; 
-		    $rem=$packageRow['rem']; 
+		    $rem=$packageRow['rem'];
 
+		    $pck=$packagesModel->getpackageById($packageId);
+			$noOfDays=intval($pck['packageDuration']);
     }
-	
-
 }
 
 if(isset($_POST['addOfflineBooking'])){
-
 
 	if(!isset($_GET['id'])){
 		$result=$offlineBookingModel->addOfflineBooking($_POST);
@@ -47,7 +50,7 @@ if(isset($_POST['addOfflineBooking'])){
 			redirect(SITE_PATH."?type=admin&page=ListBooking");
 		}
 		else{
-			alertMsg("coupon already exists");
+			alertMsg("Failed");
 		}
 
 	}
@@ -57,7 +60,7 @@ if(isset($_POST['addOfflineBooking'])){
 			redirect(SITE_PATH."?type=admin&page=ListBooking");
 		}
 		else{
-			alertMsg("failed");
+			alertMsg("Failed");
 		}
 
 	}
@@ -65,7 +68,28 @@ if(isset($_POST['addOfflineBooking'])){
 	
 }
 
+// get package price
+if(isset($_POST['pc'])){
+	$packageId=$_POST['pc'];
+	$pck=$packagesModel->getpackageById($_POST['pc']);
+	$packagePrice=$pck['packagePrice'];
+	$noOfDays=intval($pck['packageDuration']);
+
+}
+
+
+
+
 
 
 
 ?>
+
+
+
+
+
+
+
+
+

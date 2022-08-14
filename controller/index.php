@@ -72,26 +72,26 @@ if(isset($_GET['page']) && !isset($_GET['type'])){
 		require('view/template/user_panel/logout.php');
 	}
 	elseif($page=='checkout'){
-		require('service/userService.php');
-		require('service/homeService.php');
-        require('view/template/layout/user_header.php');
-        require('view/template/checkout.php');
-        require('view/template/layout/user_footer.php');
-	}
-	elseif ($page=='book') {
-		  
+
             if(isset($_SESSION['CURRENT_USER_ID'])){
             	
-            	require('service/homeService.php');
-            	require('view/template/layout/user_header.php');
-                require('view/template/bookTour.php');
-                require('view/template/layout/user_footer.php');
+            	require('service/userService.php');
+			    require('service/homeService.php');
+		        require('view/template/layout/user_header.php');
+		        require('view/template/checkout.php');
+		        require('view/template/layout/user_footer.php');
             }
             else{      
-                 redirect(SITE_PATH."?page=login");
-                      
+                 redirect(SITE_PATH."?page=login");         
             }
-                  
+	}
+	elseif ($page=='book') {
+
+		require('service/homeService.php');
+        require('view/template/layout/user_header.php');
+        require('view/template/bookTour.php');
+        require('view/template/layout/user_footer.php');
+		          
 	}
 	elseif($page=='login'){
 		require('service/loginService.php');
@@ -173,6 +173,9 @@ elseif(isset($_GET['type']) && $_GET['type']=="admin" && isset($_GET['page']))
 	}
 	elseif($page=='ListCoupon'){
 		require('view/template/admin_panel/ListCoupon.php');
+	}
+	elseif($page=='listTestimonials'){
+		require('view/template/admin_panel/listTestimonials.php');
 	}
 	elseif($page=='adminHelp'){
 		require('view/template/admin_panel/adminHelp.php');

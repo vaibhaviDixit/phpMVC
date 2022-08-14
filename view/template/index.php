@@ -96,25 +96,14 @@
 
 <!-- #ABOUT -->
   <section class="about" id="about">
-        <div class="container">
-
           <p class="section-subtitle">We can never be less than the best.</p>
-
           <h2 class="h2 section-title">About Us</h2>
-
-
-          <div class="section-text">
-            <p class="about-us">
-      From 2012 to 2017, Our leadership team worked with many corporates, colleges, schools and institutions to organise adventure group trips and in these 6 years we understood HOTELS are old and unconventional and people are looking for more experimental places to spend their vacations but hard to discover.
-      <br/><br/>After intensive ground work for more than 2 years, we discovered a lot of Camping Sites, Igloos, Homestays, Cottages exist at most uncrowded and virgin destinations , which can't be discovered if you have never been there. We thought to make these stays available by making it more organised keeping in mind amenities, safety and cleanliness.</p>
-
+          <div class="">
+            <p class="about-us" style="width: 85%;text-align: justify;margin: 0 auto;">
+              <?php echo $adminSocial['about'];  ?>
+            </p>
           </div>
-
-        </div>
-      </section>
-
-
-
+  </section>
 
 
       <!-- 
@@ -126,7 +115,7 @@
 
           <p class="section-subtitle">Popular Packages</p>
 
-          <h2 class="h2 section-title">Checkout Our Packeges</h2>
+          <h2 class="h2 section-title">Checkout Our Packages</h2>
 
           <p class="section-text">
             Travel makes one modest, you see what a tiny place you occupy in the world.
@@ -145,7 +134,7 @@
               <div class="package-card">
 
                 <figure class="card-banner">
-                  <img src="<?php echo SITE_PACKAGE_IMAGE.$pckgRow['img1'];  ?>" alt="tour" loading="lazy">
+                 <a href="?page=book&id=<?php  echo $pckgRow['id']; ?>"> <img src="<?php echo SITE_PACKAGE_IMAGE.$pckgRow['img1'];  ?>" alt="tour" loading="lazy"> </a>
                 </figure>
 
                 <div class="card-content">
@@ -153,7 +142,7 @@
                   <h3 class="h3 card-title"><?php  echo $pckgRow['packageName']; ?></h3>
 
                   <p class="card-text">
-                   <?php  echo substr(html_entity_decode(strip_tags($pckgRow['packageDesc'])),0,175); ?>....
+                   <?php  echo substr(strip_tags(html_entity_decode($pckgRow['packageDesc'])),0,175); ?>....
                   </p>
 
                   <ul class="card-meta-list">
@@ -246,15 +235,15 @@
             <div class="shadow-effect">
                 <img class="img-circle" src="<?php echo SITE_PROFILE_IMAGE.$ratings['profile']; ?>" alt="">
                 <h4 class="testimonial-name"><?php echo $ratings['name']; ?></h4>
-                <div>
+                <div style="display: flex; margin:10px 0;">
                 <?php 
                   $st=intval($ratings['stars']);
                   for ($i=0; $i < $st; $i++) { 
-                    echo "<i class='fas fa-star' style='color:orange;'></i>";
+                    echo '<ion-icon name="star" style="color:orange;"></ion-icon>';
                   }
                   $gray=5-$st;
                   for($j=0;$j<$gray;$j++){
-                    echo "<i class='fas fa-star' style='color:gray;'></i>";
+                    echo '<ion-icon name="star" style="color:gray;"></ion-icon>';
                   }
                 ?>
               </div>

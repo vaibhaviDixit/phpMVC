@@ -49,7 +49,7 @@
 								echo "<span class='badge bg-success'>Confirmed</span>";
 							}
 							else{
-								echo "<button onclick='toConfirm(".$row['id'].",".$row['uid'].",`".$row['email']."`)' class='badge bg-danger'>Pending</button>";
+								echo "<button onclick='toConfirm(".$row['id'].",`".$row['email']."`)' class='badge bg-danger'>Pending</button>";
 							}
 
 

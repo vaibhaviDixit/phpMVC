@@ -68,9 +68,8 @@ class onlineBookingModel{
 			'disType'=>$params['disType'],
 			'coupon'=>$params['coupon'],
 			'TXN_AMOUNT'=> $params["TXN_AMOUNT"],
-			'CUST_ID'=>$params["CUST_ID"],
 			'ORDER_ID'=>$params["ORDER_ID"],
-			'uid'=>explode("_", $params["CUST_ID"][1])
+			'uid'=>explode("_", $params["CUST_ID"])[1]
 
 		];
 
@@ -86,7 +85,7 @@ class onlineBookingModel{
 
 			'oid'=>$params['ORDERID'],
 			'payId'=>$params['TXNID'],
-			'uid'=>explode("_", $oid)[1]
+			'uid'=>explode("_", $params['ORDERID'])[1]
 
 		];
 

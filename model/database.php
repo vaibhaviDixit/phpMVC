@@ -7,7 +7,7 @@ class Database
 	// private $db_user="u282558932_tours";
 	// private $db_pass="Transport@2022";
 	// private $db_name="u282558932_imporius";
-
+	
 	private $db_host="localhost:3309";
 	private $db_user="root";
 	private $db_pass="";
@@ -29,8 +29,8 @@ class Database
 				$conn=true;
 			}
 			catch (PDOException $e)
-			{
-				array_push($this->result,$e->getMessage());
+			{	
+				die("connection error");
 				return false;
 			}
 
@@ -78,6 +78,7 @@ class Database
         	$data[$key]=htmlentities($data[$key]);
         }
 
+ 
 		if($stmt->execute($data)){
 				return $stmt->rowCount();
 		}else{

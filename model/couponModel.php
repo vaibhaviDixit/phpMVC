@@ -88,7 +88,7 @@ class couponModel{
 
 
 
-		$sql="update coupon set couponCode=:couponCode,couponType=:couponType,couponValue=:couponValue,minValue=:minValue',expiredOn=:expiredOn where id=:id ";
+		$sql="update coupon set couponCode=:couponCode,couponType=:couponType,couponValue=:couponValue,minValue=:minValue,expiredOn=:expiredOn where id=:id ";
 		
 		return $this->db_handle->runUpdateQuery($sql,$data);
 
@@ -101,13 +101,19 @@ class couponModel{
 	}
 
 	function activeCoupon($id){
-		$sql="update coupon set status='1' where id='$id'";
-		return $this->db_handle->runUpdateQuery($sql);
+		$data=[
+			'id'=>$id
+		];
+		$sql="update coupon set status='1' where id=:id";
+		return $this->db_handle->runUpdateQuery($sql,$data);
 	}
 
 	function deactiveCoupon($id){
-		$sql="update coupon set status='0' where id='$id'";
-		return $this->db_handle->runUpdateQuery($sql);
+		$data=[
+			'id'=>$id
+		];
+		$sql="update coupon set status='0' where id=:id";
+		return $this->db_handle->runUpdateQuery($sql,$data);
 	}
 
 

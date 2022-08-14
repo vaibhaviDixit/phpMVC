@@ -14,6 +14,7 @@ if($cnf>0){
 	$arr=array("status"=>"success");
 	// send email acknowledgement to user about approval of booking...
 	$text="Your booking has been approved<br>Check your user panel";
+	
 	email($emailid,$text);
     echo json_encode($arr);
 }

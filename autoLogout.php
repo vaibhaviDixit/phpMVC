@@ -16,6 +16,14 @@ if(isset($_POST['type']) && $_POST['type']=="checktime"){
       }
 
     }
-}
+    else{
+        echo json_encode(array("type"=>"staylogin"));
+        die();
+    }
 
+}
+else{
+        echo json_encode(array("type"=>"staylogin"));
+        die();
+}
 ?> 
