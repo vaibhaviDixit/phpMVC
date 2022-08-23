@@ -20,6 +20,18 @@
             </a>
           </li>
 
+          <li>
+            <a href="<?php echo $adminSocial['insta'];  ?>" class="social-link" target="_blank">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a>
+          </li>
+
+          <li>
+            <a href="<?php echo $adminSocial['twitter'];  ?>" class="social-link" target="_blank">
+              <ion-icon name="logo-twitter"></ion-icon>
+            </a>
+          </li>
+
         </ul>
     </div>
 
@@ -100,7 +112,21 @@
           <h2 class="h2 section-title">About Us</h2>
           <div class="">
             <p class="about-us" style="width: 85%;text-align: justify;margin: 0 auto;">
-              <?php echo $adminSocial['about'];  ?>
+              <?php
+
+              $sentences=explode(".", $adminSocial['about']);
+
+              for ($i=0; $i<count($sentences); $i++) { 
+
+                  if(($i+1)%4==0){
+                    echo "<br><br>";
+                  }
+                  if($sentences[$i]!=""){
+                    echo $sentences[$i].".";
+                  }
+              }
+
+               ?>
             </p>
           </div>
   </section>
@@ -170,14 +196,22 @@
 
                   <div class="wrapper">
 
-                    <p class="reviews">(25 reviews)</p>
+                    <p class="starsreviews">(<?php if(isset($pckgRow['noOfReviews'])){echo $pckgRow['noOfReviews']; }else{echo "0";} ?> reviews)</p>
 
                     <div class="card-rating">
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
+                      <?php 
+                      if(isset($pckgRow['noOfReviews']))
+                      {
+                        $st=intval($pckgRow['numRating']);
+                        for ($i=0; $i < $st; $i++) { 
+                          echo '<ion-icon name="star" style="color:orange;"></ion-icon>';
+                        }
+                        $gray=5-$st;
+                        for($j=0;$j<$gray;$j++){
+                          echo '<ion-icon name="star" style="color:gray;"></ion-icon>';
+                        }
+                      }
+                    ?>
                     </div>
 
                   </div>
@@ -221,7 +255,7 @@
 
           <h2 class="h2 section-title">Testimonials</h2>
 
-          <div class="">
+          <div class="testimonialRow">
        <!-- card starts -->
       <div class="col-sm-12">
         <div  id="customers-testimonials" class="owl-carousel"> 
@@ -278,9 +312,7 @@
             <h2 class="h2 section-title">Ready For Unforgatable Travel. Remember Us!</h2>
 
             <p class="section-text">
-              Fusce hic augue velit wisi quibusdam pariatur, iusto primis, nec nemo, rutrum. Vestibulum cumque
-              laudantium. Sit ornare
-              mollitia tenetur, aptent.
+              Please let us know how we can help you efficiently.
             </p>
           </div>
 

@@ -1,17 +1,3 @@
-*
-{
-  box-sizing: border-box;
-}
-
-.container {
-  background-image: url("https://www.toptal.com/designers/subtlepatterns/patterns/concrete-texture.png");
-  display: flex;
-  flex-wrap: wrap;
-  height: 50vh;
-  align-items: center;
-  justify-content: center;
-  padding: 0 20px;
-}
 
 .rating {
   display: flex;
@@ -33,14 +19,15 @@
 
 .rating > label {
   cursor: pointer;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   margin-top: auto;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='126.729' height='126.73'%3e%3cpath fill='%23e3e3e3' d='M121.215 44.212l-34.899-3.3c-2.2-.2-4.101-1.6-5-3.7l-12.5-30.3c-2-5-9.101-5-11.101 0l-12.4 30.3c-.8 2.1-2.8 3.5-5 3.7l-34.9 3.3c-5.2.5-7.3 7-3.4 10.5l26.3 23.1c1.7 1.5 2.4 3.7 1.9 5.9l-7.9 32.399c-1.2 5.101 4.3 9.3 8.9 6.601l29.1-17.101c1.9-1.1 4.2-1.1 6.1 0l29.101 17.101c4.6 2.699 10.1-1.4 8.899-6.601l-7.8-32.399c-.5-2.2.2-4.4 1.9-5.9l26.3-23.1c3.8-3.5 1.6-10-3.6-10.5z'/%3e%3c/svg%3e");
+  /*background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='126.729' height='126.73'%3e%3cpath fill='%23e3e3e3' d='M121.215 44.212l-34.899-3.3c-2.2-.2-4.101-1.6-5-3.7l-12.5-30.3c-2-5-9.101-5-11.101 0l-12.4 30.3c-.8 2.1-2.8 3.5-5 3.7l-34.9 3.3c-5.2.5-7.3 7-3.4 10.5l26.3 23.1c1.7 1.5 2.4 3.7 1.9 5.9l-7.9 32.399c-1.2 5.101 4.3 9.3 8.9 6.601l29.1-17.101c1.9-1.1 4.2-1.1 6.1 0l29.101 17.101c4.6 2.699 10.1-1.4 8.899-6.601l-7.8-32.399c-.5-2.2.2-4.4 1.9-5.9l26.3-23.1c3.8-3.5 1.6-10-3.6-10.5z'/%3e%3c/svg%3e");*/
   background-repeat: no-repeat;
   background-position: center;
   background-size: 76%;
   transition: .3s;
+  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABmJLR0QA/wD/AP+gvaeTAAAC0ElEQVR4nO2ay2oUQRSGv0k0JNERicpEo+AqIIIu1FfwkoUoKoK4UBCFgCiSB1B8giziVuPOtQvdeHkAF14YhHgFhejCgGMyajImLqoLYkynqrtPVfVofXCYxfSc+v8z3XXrgkgkEolEIhG/bAJuA1+SGAc2BlXkkS7gBbCwJJ4n3/3zDPO3eR3DAXV5oQK8JL0AE0BHMHUeOES6eR0Hg6nzwH3MBbgXTJ1jBoFfmAswD+wIpNEpNzCb1zEWSKMz1gPfsC/ADNDnQ5ivHvccsDbD9b3AWUdavNMJvMH+39fxPvlt23OU7OZ1HAmgV5zH5C/AI9fiXNxiHUA/atjbD1wukGs7fz4KTVRhxKhkvH4DsBnYijK53GcNWCWocTEt4DPwEfiU8jmJWmGKcpp8HVmoeA2ckjJ/EjU7C20qa8wDJyQK8KwEZvLGU5M5mz6gCfRYXFdGmsCalS6wmQlOyGgJgoj247RvH3BMogCgtqpaJTBlGy0cbK8dABolMGeKaeCwtHnNLuBDCUymxSSw15V5zQBqeAltdmnUUVNnL1RRe3ehTet4iNp08UoX6u1OaPN3gG7HXlOpAFcJN0yOkn1B54QzwCz+jM8BF7w4y8AI/gowIiVaclN0QDCXiS1SiSQLsE8wV5nasqITNQPz9QjMILTrJHUH7MSw7BSmF6HXZ1IFCHFLirQZCyCRhDYugMQsqhv4iv/zPXPAOuBHkSQSd8BuwhxuWo1anhdCogB5198N4GISjZw5SjEfGCf7OH4X2LYoRz/5Vpa3nDqzpI694HfA0Aq5hoC3GfLVxd3kQL+wNK3eRrE7JNGDWmL/tMg7LegjN6Z3hk+APTnyDgIPDLlfFdQuwhWWFzcFnKdYR1tJckyltHGpQG4xKsB14DtK1Cyqc6oJtlEDbqIepQXUY3eNkuwGaaqocdnl6a4+1Lyj6rCNSCQSiUQikf+D35RjFua3dXEEAAAAAElFTkSuQmCC");
 }
 
 .rating > input:checked ~ label,

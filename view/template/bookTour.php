@@ -6,6 +6,8 @@ $packagesModel=new packagesModel();
    if(isset($_GET['id'])){
      $pckId=$_GET['id'];
       $packagesRow=$packagesModel->getpackageById($pckId);
+      $canGiveReview=$packagesModel->canGiveReview($pckId);
+
       if(count($packagesRow)>0){
         $packagePrice=$packagesRow['packagePrice'];
         $total=$packagesRow['packagePrice'];
@@ -184,26 +186,78 @@ $packagesModel=new packagesModel();
         <!-- user review -->
         <div class="reviews">
             
+            <?php
+
+            if($canGiveReview){
+
+            ?>
             <div class="write-review mb-5">
               <h3>Enter your review</h3>
+              <br>
 
+              <!-- star rating -->
+              <form method="post" id="reviewForm">
+                <div class="rating" style="height: auto !important; justify-content: flex-end;">
+
+                  <button class="btn btn-primary" type="submit" name="submit" id="submitPackageReview">Submit</button>
+
+                  <input type="radio" name="rating5" id="rating-5" >
+                  <label for="rating-5"></label>
+                  <input type="radio" name="rating4" id="rating-4" >
+                  <label for="rating-4"></label>
+                  <input type="radio" name="rating3" id="rating-3">
+                  <label for="rating-3"></label>
+                  <input type="radio" name="rating2" id="rating-2" >
+                  <label for="rating-2"></label>
+                  <input type="radio" name="rating1" id="rating-1" >
+                  <label for="rating-1"></label>
+
+                </div>
+
+              </form>
+              <!-- star rating -->
             </div>
+          <?php 
+            }
+            else{
+              echo "<b style='color:red;'>To give review you should login to account and tour should be booked by you!</b>";
+            } 
+          ?>
+
+
+
             <div class="display-review">
+
+              <?php 
+                $packageReviewArray=$packagesModel->getpackageReviewById($_GET['id']);
+
+                if(count($packageReviewArray)>0){
+                   foreach($packageReviewArray as $pckrate){
+                
+              ?>
                 
                 <div class="user-rate-card">
-                  <div><img src="view/static/asset/images/blankimg.png"></div>
+                  <div><img src="<?php echo SITE_PROFILE_IMAGE.$pckrate['profile']; ?>"></div>
                   <div>
-                    <dt>Vaibhavi Dixit</dt>
+                    <dt><?php echo $pckrate['name']; ?></dt>
                     <dt class="d-flex">
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
-                      <ion-icon name="star"></ion-icon>
+                      <?php 
+                      $st=intval($pckrate['stars']);
+                      for ($i=0; $i < $st; $i++) { 
+                        echo '<ion-icon name="star" style="color:orange;"></ion-icon>';
+                      }
+                      $gray=5-$st;
+                      for($j=0;$j<$gray;$j++){
+                        echo '<ion-icon name="star" style="color:gray;"></ion-icon>';
+                      }
+                    ?>
+
                     </dt>
 
                   </div>
                 </div>
+
+              <?php } } ?>
 
             </div>
 
@@ -302,12 +356,12 @@ function childcount(val){
 
     if(offtype=="per"){
 
-      let perOff=total-(total*(offval/100));
+      let perOff=Math.round(total-(total*(offval/100)));
       $("#finalPrice").text(perOff);
       $("#finalAmt").val(perOff);
     }
     else{
-      let cashOff=total-offval;
+      let cashOff=Math.round(total-offval);
       $("#finalPrice").text(cashOff);
       $("#finalAmt").val(cashOff);
     }  
@@ -316,3 +370,51 @@ function childcount(val){
 
 
 </script>
+
+
+          <script type="text/javascript">
+
+              $("#submitPackageReview").on("click",function(e){
+                var stars=0;
+                let type="packageReview";
+                
+                r1=$("#rating-1").is(":checked");
+                r2=$("#rating-2").is(":checked");
+                r3=$("#rating-3").is(":checked");
+                r4=$("#rating-4").is(":checked");
+                r5=$("#rating-5").is(":checked");
+
+                let pckid=$("#package").val();
+
+                if(r1){stars=1;}
+                if(r2){stars=2;}
+                if(r3){stars=3;}
+                if(r4){stars=4;}
+                if(r5){stars=5;}
+
+                if(stars!=0){
+
+                     jQuery.ajax({
+                        url:'submitRate.php',
+                        type:'post',
+                        data:{stars : stars,pckid:pckid,type:type},
+                        success:function(result){
+                            
+                          msg=jQuery.parseJSON(result);
+                          if(msg.status=="success"){
+                            swal("Thank you!", "Your reviews matters for us!", "success");
+                          }
+                          $("#reviewForm")[0].reset();
+
+                      }
+
+                    });
+                }
+
+            })
+          
+
+            
+
+
+  </script>

@@ -114,6 +114,8 @@ class onlineBookingModel{
 		return count($this->db_handle->runBasicQuery($sql));
 	}
 
+
+
 }
 
 ?>

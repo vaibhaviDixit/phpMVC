@@ -45,14 +45,14 @@ class offlineBookingModel{
 		    'children' => $params['children'],
 		    'subTotal' => $params['totalPrice'],
 		    'discount' => $params['dis'],
-		    'distype'=> $params['distype'],
+		    'disType'=> $params['distype'],
 		    'total' => $params['grtotal'],
 		    'paid' => $params['payamt'], 
 		    'rem' => $params['remAmt']
 		];
 
 
-	    $sql="INSERT INTO `booking`(`name`, `phone`,`address`,`packageId`, `packagePrice`, `checkIn`, `checkOut`, `payMode`, `adults`, `children`, `subTotal`, `discount`,`distype`, `total`, `paid`, `rem`) VALUES (:name,:phone,:address,:packageId,:packagePrice,:checkIn,:checkOut,:payMode,:adults,:children,:subTotal,:discount,:distype,:total,:paid,:rem)";
+	    $sql="INSERT INTO `booking`(`name`, `phone`,`address`,`packageId`, `packagePrice`, `checkIn`, `checkOut`, `payMode`, `adults`, `children`, `subTotal`, `discount`,`disType`, `total`, `paid`, `rem`) VALUES (:name,:phone,:address,:packageId,:packagePrice,:checkIn,:checkOut,:payMode,:adults,:children,:subTotal,:discount,:disType,:total,:paid,:rem)";
 
 		return $this->db_handle->runInsertQuery($sql,$data);
 
@@ -96,7 +96,7 @@ class offlineBookingModel{
 		    'children' => $params['children'],
 		    'subTotal' => $params['totalPrice'],
 		    'discount' => $params['dis'],
-		    'distype'=> $params['distype'],
+		    'disType'=> $params['distype'],
 		    'total' => $params['grtotal'],
 		    'paid' => $params['payamt'], 
 		    'rem' => $params['remAmt'],
@@ -105,7 +105,7 @@ class offlineBookingModel{
 
 
 
-		$sql="update `booking` set `name`=:name, `phone`=:phone,`address`=:address, `packageId`=:packageId, `packagePrice`=:packagePrice, `checkIn`=:checkIn, `checkOut`=:checkOut, `payMode`=:payMode, `adults`=:adults, `children`=:children, `subTotal`=:subTotal, `discount`=:discount,`distype`=:distype, `total`=:total, `paid`=:paid, `rem`=:rem where `id`=:id ";
+		$sql="update `booking` set `name`=:name, `phone`=:phone,`address`=:address, `packageId`=:packageId, `packagePrice`=:packagePrice, `checkIn`=:checkIn, `checkOut`=:checkOut, `payMode`=:payMode, `adults`=:adults, `children`=:children, `subTotal`=:subTotal, `discount`=:discount,`disType`=:disType, `total`=:total, `paid`=:paid, `rem`=:rem where `id`=:id ";
 		
 		return $this->db_handle->runUpdateQuery($sql,$data);
 
@@ -127,7 +127,7 @@ class offlineBookingModel{
 
 		$months=array();
 		$priceArray=array();
-		$getName=array("1"=>"Jan", "2"=>"Feb", "3"=>"March","4"=>"April","5"=>"May","6"=>"June","7"=>"July","8"=>"August","9"=>"Sept","10"=>"Oct","11"=>"Nov","12"=>"Dec");
+		$getName=array("1"=>"Jan", "2"=>"Feb", "3"=>"Mar","4"=>"April","5"=>"May","6"=>"June","7"=>"July","8"=>"Aug","9"=>"Sept","10"=>"Oct","11"=>"Nov","12"=>"Dec");
 
 		if(count($earn1)>0){
 			foreach ($earn1 as $row1){
@@ -137,17 +137,22 @@ class offlineBookingModel{
 			}
 		}
 
+
 		if(count($earn2)>0){
 
-			foreach($earn2 as $row2){
 
-				array_push($months, $getName[$row2['month']]);
-				array_push($priceArray, $row2['total']);	
+			$push=1;
+			foreach($earn2 as $row2){	
 
 				foreach ($months as $key => $value) {
 					if($getName[$row2['month']]==$value){
 							$priceArray[$key]=$row2['total']+$priceArray[$key];
 					}
+					else{
+						array_push($months, $getName[$row2['month']]);
+						array_push($priceArray, $row2['total']);
+					}
+
 				}	
 			}
 		}
@@ -176,6 +181,38 @@ class offlineBookingModel{
 	   $online=$this->db_handle->runBasicQuery($sql2);
 
 		return count($offline)+count($online);
+	}
+
+
+	function getReport($month,$year,$pck){
+
+		if($pck=="all"){
+
+			$sql1="SELECT booking.*,package.packageName from booking,package where YEAR(bookedOn)='$year' and MONTH(bookedOn)='$month' and booking.packageId=package.id ";
+
+			$sql2="SELECT `bookonline`.*,package.packageName from bookonline,package where YEAR(bookedOn)='$year' and MONTH(bookedOn)='$month' and bookonline.packageId=package.id";
+
+			$data=$this->db_handle->runBasicQuery($sql1);
+
+			$runq=$this->db_handle->runBasicQuery($sql2);
+
+			foreach ($runq as $key => $value) {
+				array_push($data,$value) ;
+			}
+		
+			return $data;
+
+		}
+
+		$sql1="SELECT booking.*,package.packageName from booking,package where YEAR(bookedOn)='$year' and MONTH(bookedOn)='$month' and packageId='$pck' and booking.packageId=package.id ";
+
+		$sql2="SELECT `bookonline`.*,package.packageName from bookonline,package where YEAR(bookedOn)='$year' and MONTH(bookedOn)='$month' and packageId='$pck' and bookonline.packageId=package.id";
+
+		$data=$this->db_handle->runBasicQuery($sql1);
+		array_push($data, $this->db_handle->runBasicQuery($sql2));
+
+		return $data;
+		
 	}
 
 }

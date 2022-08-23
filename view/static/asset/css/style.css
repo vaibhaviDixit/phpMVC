@@ -562,7 +562,8 @@ body { background: var(--white); }
 
 #left_container{
   width: 100%;
-  font-size: 16px !important
+  font-size: 16px !important;
+  overflow-x: scroll;
 }
 .booking{
   margin: 3%;
@@ -595,7 +596,7 @@ body { background: var(--white); }
 }
 .resp_img{
   width: 100%;
-  max-width: 400px;
+  max-width: 270px;
   height: auto;
 
 }
@@ -618,6 +619,13 @@ body { background: var(--white); }
   border-bottom: 1px solid #ccc;
   font-size: 1rem;
 }
+
+.display-review{
+    display: flex;
+    gap: 3rem;
+    margin-top: 2rem;  
+}
+
 
 /*user-rate-card*/
 
@@ -808,7 +816,7 @@ body { background: var(--white); }
   margin-bottom: 10px;
 }
 
-.package-card .card-price .reviews { font-size: var(--fs-5); }
+.package-card .card-price .starsreviews { font-size: var(--fs-5); }
 
 .package-card .card-rating {
   display: flex;
@@ -868,6 +876,9 @@ body { background: var(--white); }
 /*
 #TESTIMONIALS
 */
+.testimonialRow{
+  margin: 0 2rem;
+}
 .testimonials { padding-block: var(--section-padding); }
      .shadow-effect {
       display: flex;
@@ -906,6 +917,10 @@ body { background: var(--white); }
 .cta {
   background: var(--bright-navy-blue);
   padding-block: var(--section-padding);
+}
+
+.cta .section-title{
+  text-align: initial;
 }
 
 .cta :is(.section-subtitle, .section-title, .section-text) { color: var(--white); }

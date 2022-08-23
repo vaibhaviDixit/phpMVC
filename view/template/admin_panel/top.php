@@ -171,6 +171,17 @@
             </li>
                
 
+ <li class="sidebar-header shadow-sm text-black" >
+                  <b>Reports</b>
+            </li>
+
+            <li class="sidebar-item">
+                  <a class="sidebar-link" href="?type=admin&page=report">
+                  <i class="align-middle" data-feather="plus-circle"></i> <span class="align-middle">Get Report</span>
+                        </a>
+            </li>
+
+          
 
 
             <li class="sidebar-header shadow-sm text-black" >

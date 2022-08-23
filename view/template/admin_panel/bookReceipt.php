@@ -84,7 +84,7 @@ else{
 		 	$diff=date_diff(date_create($row['checkIn']),date_create($row['checkOut']));
 			$days=$diff->format("%a");
 
-			$disType=$row['distype']; 
+			$disType=$row['disType']; 
 			if($disType=='cash')
 			{
 				$sign="&#8377;";

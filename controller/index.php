@@ -115,6 +115,9 @@ if(isset($_GET['page']) && !isset($_GET['type'])){
         require('view/template/layout/user_footer.php');
 
 	}
+	elseif($page=='printreport'){
+		require('view/template/admin_panel/printreport.php');
+	}
 	elseif($page=='adminlogin'){
 		require('view/template/adminlogin.php');
 	}
@@ -173,6 +176,9 @@ elseif(isset($_GET['type']) && $_GET['type']=="admin" && isset($_GET['page']))
 	}
 	elseif($page=='ListCoupon'){
 		require('view/template/admin_panel/ListCoupon.php');
+	}
+	elseif($page=='report'){
+		require('view/template/admin_panel/report.php');
 	}
 	elseif($page=='listTestimonials'){
 		require('view/template/admin_panel/listTestimonials.php');

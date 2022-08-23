@@ -55,8 +55,10 @@
 
         <div class="footer-form">
 
+             <h4 class="contact-title">Join Our Newsletter</h4>
+
           <p class="form-text">
-            Subscribe our newsletter for more update & news !!
+            Join our subscribers list to get the latest updates and special offer delivered directly to your inbox.
           </p>
 
           <form method="post" class="form-wrapper">

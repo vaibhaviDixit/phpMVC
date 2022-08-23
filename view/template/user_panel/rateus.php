@@ -152,6 +152,8 @@
 
 							$("#submitReview").on("click",function(e){
 								var stars=0;
+								let type="testimonial";
+
 								r1=$("#rating-1").is(":checked");
 								r2=$("#rating-2").is(":checked");
 								r3=$("#rating-3").is(":checked");
@@ -166,10 +168,13 @@
 								if(r4){stars=4;}
 								if(r5){stars=5;}
 
-								     jQuery.ajax({
+								if(stars!=0){
+
+
+									jQuery.ajax({
 										    url:'submitRate.php',
 										    type:'post',
-										    data:{stars : stars,msg:msg},
+										    data:{stars : stars,msg:msg,type:type},
 										    success:function(result){
 										        
 										      msg=jQuery.parseJSON(result);
@@ -181,7 +186,11 @@
 										      
 										  }
 
-							});
+									});
+
+								}
+
+								     
 
 						})
 					

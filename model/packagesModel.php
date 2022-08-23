@@ -70,7 +70,7 @@ class packagesModel{
 
 
 	function getpackageById($id){
-		$sql="select * from package where id='$id' ";
+		$sql="select package.*,ROUND(AVG(stars),1) as numRating,sum(stars) as noOfReviews from package,tour_rating where package.id='$id' and tour_rating.pckid='$id' ";
 		$result=$this->db_handle->runBasicQuery($sql);
 		return $result[0];
 	}
@@ -227,6 +227,57 @@ class packagesModel{
 		];
 		$sql="update package set status=0 where id=:id";
 		return $this->db_handle->runUpdateQuery($sql,$data);
+	}
+
+
+	function addPackageReview($params=array()){
+        
+        $uid=0;
+		if(isset($_SESSION['CURRENT_USER_ID'])){
+			$uid=$_SESSION['CURRENT_USER_ID'];
+		}
+		else{
+			return 0;
+		}
+
+		$data = [
+		    'uid' => $uid,
+		    'pckid' => $params['pckid'],
+		    'stars' => $params['stars']
+		];
+
+		$sql="INSERT INTO `tour_rating`( `uid`, `pckid`, `stars`) VALUES (:uid, :pckid, :stars)";
+
+
+		return $this->db_handle->runInsertQuery($sql,$data);
+	}
+
+
+	function getpackageReviewById($id){
+		$sql="select tour_rating.*, user.name,user.profile from tour_rating,user where tour_rating.pckid='$id' and tour_rating.uid=user.id";
+		$result=$this->db_handle->runBasicQuery($sql);
+		return $result;
+	}
+
+	function canGiveReview($pckid){
+
+		$uid=0;
+		if(isset($_SESSION['CURRENT_USER_ID'])){
+			$uid=$_SESSION['CURRENT_USER_ID'];
+		}
+		else{
+			return false;
+		}
+
+		$sql="select * from bookonline where uid='$uid' and packageId='$pckid' ";
+		$result=$this->db_handle->runBasicQuery($sql);
+
+		if(count($result)>0){
+			return true;
+		}
+		return false;
+
+		
 	}
 
 

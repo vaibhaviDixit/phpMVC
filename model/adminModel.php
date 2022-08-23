@@ -59,11 +59,12 @@ class adminModel{
 		    'adminFb'=> $params['adminFb'],
 		    'adminInsta'=> $params['adminInsta'],
 		    'adminWh'=> $params['adminWh'],
-		    'adminYt'=> $params['adminYt']
+		    'adminYt'=> $params['adminYt'],
+		    'adminTwitter'=>$params['adminTwitter']
 		];
 		  
 
-		$sql="update `admin` set `name`=:adminName, `email`=:adminEmail, `phone`=:adminPhone, `address`=:adminLocation,`about`=:about,`website`=:adminWeb,`fb`=:adminFb,`insta`=:adminInsta,`whatsapp`=:adminWh,`youtube`=:adminYt ";
+		$sql="update `admin` set `name`=:adminName, `email`=:adminEmail, `phone`=:adminPhone, `address`=:adminLocation,`about`=:about,`website`=:adminWeb,`fb`=:adminFb,`insta`=:adminInsta,`whatsapp`=:adminWh,`youtube`=:adminYt, `twitter`=:adminTwitter ";
 		
 		return $this->db_handle->runUpdateQuery($sql,$data);
 

@@ -187,6 +187,11 @@
                                   <span data-feather="youtube"></span>
                                       <input type="text" class="form-control" name="adminYt" value="<?php   echo $row['youtube']; ?>">
                                    </div>
+
+                                    <div class="col-sm-6 mb-3">
+                                      <span data-feather="twitter"></span>
+                                      <input type="text" class="form-control" name="adminTwitter" value="<?php   echo $row['twitter']; ?>">
+                                   </div>
                               
                              </div>
 

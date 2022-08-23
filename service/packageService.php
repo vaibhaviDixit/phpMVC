@@ -11,7 +11,6 @@ $packagesArray=$packagesModel->getActivePackages();
 $allPackages=$packagesModel->getAllPackages();
 $noofPackages=count($packagesArray);
 
-
 $image_status='required';
 $id="";
 

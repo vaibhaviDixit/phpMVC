@@ -1,14 +1,50 @@
-<main class="content">
-				<div class="container-fluid p-0">
+<?php
+	require_once("model/offlineBookingModel.php");
 
-					<div class="mb-3">
-						<h1 class="h3 d-inline align-middle">Offline Bookings</h1>
-					</div>
-					<hr>
-				<div class="container table-responsive">
+	$offlineBookingModel=new offlineBookingModel();
 
-					<table id="dttable" class="table table-striped   table-hover  table-sm pt-3">
-					<thead class="table-primary">
+
+	if(isset($_GET['month']) and isset($_GET['year']) and isset($_GET['pck'])){
+
+		$month=$_GET['month'];
+		$year=$_GET['year'];
+		$pck=$_GET['pck'];
+        
+        $data=$offlineBookingModel->getReport($month,$year,$pck);
+
+        if(count($data[0])<=0){
+        	redirect(SITE_PATH."?type=admin&page=report");
+        }
+	}
+	else{
+		redirect(SITE_PATH."?type=admin&page=report");
+	}
+
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+
+	<link rel="stylesheet" href="<?php echo SITE_PATH; ?>view/static/asset/bootstrap.min.css">
+	<link rel="stylesheet" href="<?php echo SITE_PATH; ?>view/static/asset/css_user/style.css">
+
+	<style type="text/css">
+		
+		body{
+			font-size: 12px;
+		}
+	</style>
+
+</head>
+<body>
+
+
+	<main class="content">
+	<div class="container-fluid p-0">
+
+<table  class="table table-sm table-bordered">
+					<thead >
 						<tr>
 						<th scope="col">Sr. No</th>
 						<th scope="col">Name</th>
@@ -27,7 +63,6 @@
 						<th scope="col">Paid</th>
 						<th scope="col">Remain</th>
 						<th scope="col">Booked On</th>
-						<th scope="col">Actions</th>
 
 						</tr>
 					</thead>
@@ -36,10 +71,10 @@
 						<?php  
 
 
-							if(count($offlineBookingArray) > 0){
+							if(count($data) > 0){
 								$i=1;
-								foreach($offlineBookingArray as $row){
-
+								for($inx=0; $inx<count($data); $inx++){
+									$row=$data[$inx];
 						?>
 
 						<tr>
@@ -51,23 +86,16 @@
 						<td scope="col"> <?php  echo $row['packagePrice']; ?></td>
 						<td scope="col"><?php echo date("d/m/Y", strtotime($row['checkIn']));?></td>
 						<td scope="col"> <?php echo date("d/m/Y", strtotime($row['checkOut']));?></td>
-						<td scope="col"> <?php  echo $row['payMode']; ?></td>
+						<td scope="col"> <?php if(isset($row['payMode'])){ echo $row['payMode'];} ?></td>
 						<td scope="col"> <?php  echo $row['adults']; ?></td>
 						<td scope="col"> <?php  echo $row['children']; ?></td>
 						<td scope="col"> <?php  echo $row['subTotal']; ?></td>
-						<td scope="col"> <?php  echo $row['discount']; $disType=$row['distype']; if($disType=='cash'){echo "&#8377;";}if($disType=='per'){echo "%";}  ?></td>
+						<td scope="col"> <?php  echo $row['discount']; $disType=$row['disType']; if($disType=='cash'){echo "&#8377;";}if($disType=='per'){echo "%";}  ?></td>
 						<td scope="col"> <?php  echo $row['total']; ?></td>
-						<td scope="col"> <?php  echo $row['paid']; ?></td>
-						<td scope="col"> <?php  echo $row['rem']; ?></td>
+						<td scope="col"> <?php  if(isset($row['paid'])){echo $row['paid'];}else{echo $row['total'];} ?></td>
+						<td scope="col"> <?php  if(isset($row['rem'])){echo $row['rem'];}else{echo "0";}  ?></td>
 						<td scope="col"> <?php  echo date("d/m/Y", strtotime($row['bookedOn'])); ?></td>
-						<td scope="col">
-
-							<a href="?type=admin&page=AddBooking&id=<?php echo $row['id']; ?>"> <button class="btn btn-success btn-sm">Edit</button> </a>
-							
-							<a target="_blank" href="?page=bookReceipt&id=<?php echo $row['id']; ?>"> <button class="btn btn-danger btn-sm">View</button> </a>
-
-
-						</td>
+					
 
 						</tr>
 
@@ -93,13 +121,15 @@
 					</tbody>
 
 					</table>
-
-
-				</div>
-
-
-
-					
 				</div>
 			</main>
+		
 
+	<script type="text/javascript">
+		
+		window.print();
+	</script>
+
+
+</body>
+</html>

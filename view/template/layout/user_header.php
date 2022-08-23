@@ -26,6 +26,7 @@ if(isset($_SESSION['LAST_ACTIVE_TIME'])){
     - custom css link
   -->
   <link rel="stylesheet" href="view/static/asset/css/style.css">
+  <link href="view/static/asset/css/rateus.css" rel="stylesheet">
 
   <!-- 
     - google font link
